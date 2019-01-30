@@ -135,7 +135,7 @@ static CONST gattAttrType_t simpleProfileService = { ATT_BT_UUID_SIZE, simplePro
 static uint8 simpleProfileChar1Props = GATT_PROP_READ | GATT_PROP_WRITE;
 
 // Characteristic 1 Value
-static uint16 simpleProfileChar1 = 0;
+static uint8 simpleProfileChar1[2] = {0, 0};
 
 // Simple Profile Characteristic 1 User Description
 static uint8 simpleProfileChar1UserDesp[27] = "Temperature Characteristic";
@@ -212,7 +212,7 @@ static gattAttribute_t simpleProfileAttrTbl[SERVAPP_NUM_ATTR_SUPPORTED] =
         { ATT_BT_UUID_SIZE, simpleProfilechar1UUID },
         GATT_PERMIT_READ | GATT_PERMIT_WRITE,
         0,
-        &simpleProfileChar1
+        simpleProfileChar1
       },
 
       // Characteristic 1 User Description
@@ -450,15 +450,15 @@ bStatus_t SimpleProfile_SetParameter( uint8 param, uint8 len, void *value )
   switch ( param )
   {
     case SIMPLEPROFILE_CHAR1:
-      if ( len == sizeof ( uint8 ) )
-      {
-        simpleProfileChar1 = *((uint8*)value);
-      }
-      else
-      {
-        ret = bleInvalidRange;
-      }
-      break;
+        if ( len == 2 )
+        {
+          VOID memcpy( simpleProfileChar1, value, 2 );
+        }
+        else
+        {
+          ret = bleInvalidRange;
+        }
+        break;
 
     case SIMPLEPROFILE_CHAR2:
       if ( len == sizeof ( uint8 ) )
@@ -536,7 +536,7 @@ bStatus_t SimpleProfile_GetParameter( uint8 param, void *value )
   switch ( param )
   {
     case SIMPLEPROFILE_CHAR1:
-      *((uint8*)value) = simpleProfileChar1;
+      VOID memcpy( value, simpleProfileChar1, 2 );
       break;
 
     case SIMPLEPROFILE_CHAR2:
@@ -607,6 +607,10 @@ static bStatus_t simpleProfile_ReadAttrCB(uint16_t connHandle,
       // characteristic 4 does not have read permissions, but because it
       //   can be sent as a notification, it is included here
       case SIMPLEPROFILE_CHAR1_UUID:
+          *pLen = 2;
+          VOID memcpy( pValue, pAttr->pValue, 2 );
+          break;
+
       case SIMPLEPROFILE_CHAR2_UUID:
       case SIMPLEPROFILE_CHAR4_UUID:
         *pLen = 1;
@@ -668,32 +672,18 @@ static bStatus_t simpleProfile_WriteAttrCB(uint16_t connHandle,
 
         //Validate the value
         // Make sure it's not a blob oper
-        if ( offset == 0 )
+        if ( offset != 0 )
         {
-            if ( len != 1 )
-            {
-                 //status = ATT_ERR_INVALID_VALUE_SIZE;
-            }
+          status = ATT_ERR_ATTR_NOT_LONG;
         }
-//        else
-//        {
-//          status = ATT_ERR_ATTR_NOT_LONG;
-//        }
 
         //Write the value
         if ( status == SUCCESS )
         {
-//          for(int i=offset; i>0; i--) {
-//              uint8 *pCurValue = (uint8 *)pAttr->pValue[i];
-//              *pCurValue = pValue[i];
-//          }
-            uint8 *pCurValue = (uint8 *)pAttr->pValue;
-            *pCurValue = pValue[0];
-            pCurValue[1] = pValue[1];
-//          uint8 *pCurValue = (uint8 *)pAttr->pValue;
-//          *pCurValue = pValue[0];
+            pAttr->pValue[0] = pValue[0];
+            pAttr->pValue[1] = pValue[1];
 
-          if( pAttr->pValue == &simpleProfileChar1 )
+          if( pAttr->pValue[0] == simpleProfileChar1[0]  && pAttr->pValue[1] == simpleProfileChar1[1])
           {
             notifyApp = SIMPLEPROFILE_CHAR1;
           }
