@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.3                     
 ******************************************************************************
->> Linked Sun Dec  2 14:50:39 2018
+>> Linked Wed Jan 30 14:43:17 2019
 
 OUTPUT FILE NAME:   <ble5_simple_peripheral_cc2640r2lp_app.out>
 ENTRY POINT SYMBOL: "ResetISR"  address: 000153e5
@@ -13,7 +13,7 @@ MEMORY CONFIGURATION
 ----------------------  --------  ---------  --------  --------  ----  --------
   FLASH                 00000000   0001f000  0001cab8  00002548  R  X
   FLASH_LAST_PAGE       0001f000   00001000  00000058  00000fa8  R  X
-  SRAM                  20000000   00004400  000021a2  0000225e  RW X
+  SRAM                  20000000   00004400  000021aa  00002256  RW X
 
 
 SEGMENT ALLOCATION MAP
@@ -129,7 +129,7 @@ run origin  load origin   length   init length attrs members
   0001d000    0001d000    00001000   00001000    r-- .TI.bound:NV_FLASH
 0001ffa8    0001ffa8    00000058   00000058    r--
   0001ffa8    0001ffa8    00000058   00000058    r-- .ccfg
-20000100    20000100    00001cdc   00000000    rw-
+20000100    20000100    00001ce4   00000000    rw-
   20000100    20000100    00000044   00000000    rw- .data:ti_sysbios_knl_Task_Module__state__V
   20000144    20000144    00000034   00000000    rw- .data:ti_sysbios_family_arm_m3_Hwi_Module__state__V
   20000178    20000178    0000002c   00000000    rw- .data:ti_sysbios_knl_Clock_Module__state__V
@@ -141,8 +141,8 @@ run origin  load origin   length   init length attrs members
   200001f8    200001f8    00000008   00000000    rw- .data:xdc_runtime_System_Module__state__V
   20000200    20000200    00000004   00000000    rw- .data:xdc_runtime_Memory_Module__state__V
   20000204    20000204    00000002   00000000    rw- .data:xdc_runtime_Error_Module__state__V
-  20000208    20000208    0000113e   00000000    rw- .data
-  20001348    20001348    00000a94   00000000    rw- .bss
+  20000208    20000208    00001142   00000000    rw- .data
+  20001350    20001350    00000a94   00000000    rw- .bss
 20004000    20004000    00000400   00000000    rw-
   20004000    20004000    00000400   00000000    rw- .stack
 
@@ -610,15 +610,15 @@ xdc.noload
 *          0    00000000    00000000     COPY SECTION
 
 .cinit     0    0001a830    0000128c     
-                  0001a830    00001146     (.cinit..data.load) [load image]
-                  0001b976    00000028     (.cinit..data:ti_sysbios_family_arm_m3_Hwi_Module__state__V.load) [load image, compression = lzss]
-                  0001b99e    00000021     (.cinit..data:ti_sysbios_knl_Task_Module__state__V.load) [load image, compression = lzss]
-                  0001b9bf    0000001f     (.cinit..data:ti_sysbios_BIOS_Module__state__V.load) [load image, compression = lzss]
-                  0001b9de    0000001e     (.cinit..data:ti_sysbios_knl_Clock_Module__state__V.load) [load image, compression = lzss]
-                  0001b9fc    00000010     (.cinit..data:ti_sysbios_knl_Swi_Module__state__V.load) [load image, compression = lzss]
-                  0001ba0c    0000000c     (__TI_handler_table)
-                  0001ba18    0000000b     (.cinit..data:ti_sysbios_family_arm_cc26xx_Timer_Module__state__V.load) [load image, compression = lzss]
-                  0001ba23    00000005     --HOLE-- [fill = 0]
+                  0001a830    0000114a     (.cinit..data.load) [load image]
+                  0001b97a    00000028     (.cinit..data:ti_sysbios_family_arm_m3_Hwi_Module__state__V.load) [load image, compression = lzss]
+                  0001b9a2    00000021     (.cinit..data:ti_sysbios_knl_Task_Module__state__V.load) [load image, compression = lzss]
+                  0001b9c3    0000001f     (.cinit..data:ti_sysbios_BIOS_Module__state__V.load) [load image, compression = lzss]
+                  0001b9e2    0000001e     (.cinit..data:ti_sysbios_knl_Clock_Module__state__V.load) [load image, compression = lzss]
+                  0001ba00    00000010     (.cinit..data:ti_sysbios_knl_Swi_Module__state__V.load) [load image, compression = lzss]
+                  0001ba10    0000000c     (__TI_handler_table)
+                  0001ba1c    0000000b     (.cinit..data:ti_sysbios_family_arm_cc26xx_Timer_Module__state__V.load) [load image, compression = lzss]
+                  0001ba27    00000001     --HOLE-- [fill = 0]
                   0001ba28    00000008     (.cinit..bss.load) [load image, compression = zero_init]
                   0001ba30    00000008     (.cinit..data:xdc_runtime_Memory_Module__state__V.load) [load image, compression = lzss]
                   0001ba38    00000007     (.cinit..data:ti_sysbios_family_arm_cc26xx_TimestampProvider_Module__state__V.load) [load image, compression = lzss]
@@ -634,19 +634,18 @@ xdc.noload
 .ccfg      0    0001ffa8    00000058     
                   0001ffa8    00000058     ccfg_app_ble.obj (.ccfg:retain)
 
-.data      0    20000208    0000113e     UNINITIALIZED
+.data      0    20000208    00001142     UNINITIALIZED
                   20000208    000003c0     simple_peripheral.obj (.data:$O2$$)
                   200005c8    000001d4     devinfoservice.obj (.data:$O10$$)
-                  2000079c    00000124     simple_gatt_profile.obj (.data:$O12$$)
-                  200008c0    00000114     drivers_cc26x0r2.aem3 : PINCC26XX.oem3 (.data:$O1$$)
-                  200009d4    00000114                           : PowerCC26XX.oem3 (.data:PowerCC26XX_module)
-                  20000ae8    000000d8     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.data:$O19$$)
-                  20000bc0    000000a0     profiles_pxxx.a : gapgattserver.o (.data)
-                  20000c60    0000009c     icall.obj (.data:$O7$$)
-                  20000cfc    0000007c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_cbtimer.obj (.data:$O16$$)
-                  20000d78    0000004c     app_ble_pem3.oem3 (.data:ti_sysbios_knl_Task_Object__table__V)
-                  20000dc4    00000048     board_key.obj (.data:$O1$$)
-                  20000e0c    00000004     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_pwrmgr.obj (.data:$O17$$)
+                  2000079c    00000128     simple_gatt_profile.obj (.data:$O12$$)
+                  200008c4    00000114     drivers_cc26x0r2.aem3 : PINCC26XX.oem3 (.data:$O1$$)
+                  200009d8    00000114                           : PowerCC26XX.oem3 (.data:PowerCC26XX_module)
+                  20000aec    000000d8     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.data:$O19$$)
+                  20000bc4    000000a0     profiles_pxxx.a : gapgattserver.o (.data)
+                  20000c64    0000009c     icall.obj (.data:$O7$$)
+                  20000d00    0000007c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_cbtimer.obj (.data:$O16$$)
+                  20000d7c    0000004c     app_ble_pem3.oem3 (.data:ti_sysbios_knl_Task_Object__table__V)
+                  20000dc8    00000048     board_key.obj (.data:$O1$$)
                   20000e10    00000048     app_ble_pem3.oem3 (.data:ti_sysbios_family_arm_cc26xx_Timer_Object__table__V)
                   20000e58    00000040     profiles_pxxx.a : gattservapp.o (.data)
                   20000e98    0000003c     ll_pxxx.a : ll_config.o (.data)
@@ -711,98 +710,99 @@ xdc.noload
                   20001314    00000005     simple_gatt_profile.obj (.data)
                   20001319    00000001     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gap.obj (.data)
                   2000131a    00000002     app_ble_pem3.oem3 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A)
-                  2000131c    00000004     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_snv_wrapper.obj (.data:$O22$$)
-                  20001320    00000004                                                         : ble_user_config.obj (.data)
-                  20001324    00000004                                                         : osal_bufmgr.obj (.data)
-                  20001328    00000004     ble_user_config.obj (.data)
-                  2000132c    00000004     rtsv7M3_T_le_eabi.lib : stkdepth_vars.c.obj (.data)
-                  20001330    00000004     app_ble_pem3.oem3 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A)
-                  20001334    00000004     app_ble_pem3.oem3 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A)
-                  20001338    00000004     app_ble_pem3.oem3 (.data:ti_sysbios_knl_Task_Module_State_0_idleTask__A)
-                  2000133c    00000001     drivers_cc26x0r2.aem3 : UART.oem3 (.data)
-                  2000133d    00000001     gatt_pxxx.a : gatt_client.o (.data)
-                  2000133e    00000001     l2cap_pxxx.a : l2cap_task.o (.data)
-                  2000133f    00000001     ll_pxxx.a : ll_ae.o (.data)
-                  20001340    00000001     profiles_pxxx.a : gapgattserver.o (.data)
-                  20001341    00000001                     : gapgattserver.o (.data)
-                  20001342    00000001                     : gapgattserver.o (.data)
-                  20001343    00000001                     : gapgattserver.o (.data)
-                  20001344    00000001                     : gapgattserver.o (.data)
-                  20001345    00000001                     : gattservapp.o (.data)
+                  2000131c    00000004     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_pwrmgr.obj (.data:$O17$$)
+                  20001320    00000004                                                         : osal_snv_wrapper.obj (.data:$O22$$)
+                  20001324    00000004                                                         : ble_user_config.obj (.data)
+                  20001328    00000004                                                         : osal_bufmgr.obj (.data)
+                  2000132c    00000004     ble_user_config.obj (.data)
+                  20001330    00000004     rtsv7M3_T_le_eabi.lib : stkdepth_vars.c.obj (.data)
+                  20001334    00000004     app_ble_pem3.oem3 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A)
+                  20001338    00000004     app_ble_pem3.oem3 (.data:ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A)
+                  2000133c    00000004     app_ble_pem3.oem3 (.data:ti_sysbios_knl_Task_Module_State_0_idleTask__A)
+                  20001340    00000001     drivers_cc26x0r2.aem3 : UART.oem3 (.data)
+                  20001341    00000001     gatt_pxxx.a : gatt_client.o (.data)
+                  20001342    00000001     l2cap_pxxx.a : l2cap_task.o (.data)
+                  20001343    00000001     ll_pxxx.a : ll_ae.o (.data)
+                  20001344    00000001     profiles_pxxx.a : gapgattserver.o (.data)
+                  20001345    00000001                     : gapgattserver.o (.data)
+                  20001346    00000001                     : gapgattserver.o (.data)
+                  20001347    00000001                     : gapgattserver.o (.data)
+                  20001348    00000001                     : gapgattserver.o (.data)
+                  20001349    00000001                     : gattservapp.o (.data)
 
-.bss       0    20001348    00000a94     UNINITIALIZED
-                  20001348    00000300     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.bss:$O1$$)
-                  20001648    00000200     app_ble_pem3.oem3 (.bss:taskStackSection)
-                  20001848    00000128     (.common:uartCC26XXObjects)
-                  20001970    000000d4     ll_pxxx.a : ll_privacy.o (.bss)
-                  20001a44    000000c8     (.common:ti_sysbios_family_arm_m3_Hwi_dispatchTable)
-                  20001b0c    00000080     board.obj (.bss:uartStringBuf$16)
-                  20001b8c    00000080     (.common:cryptoCC26XXObjects)
-                  20001c0c    00000044     ll_pxxx.a : ll_ae.o (.bss)
-                  20001c50    00000038               : ble.o (.bss)
-                  20001c88    00000024               : ll.o (.bss)
-                  20001cac    00000020     (.common:uartCC26XXRingBuffer)
-                  20001ccc    0000001c               : ble.o (.bss)
-                  20001ce8    00000014     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.bss:RF_ratSyncCmd)
-                  20001cfc    00000014     ll_pxxx.a : ll.o (.bss)
-                  20001d10    00000014     driverlib.lib : osc.obj (.bss:oscHfGlobals$62)
-                  20001d24    00000010     gap_pxxx.a : gap_configmgr.o (.bss)
-                  20001d34    00000010     util.obj (.bss:str$1$4)
-                  20001d44    0000000c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_timers.obj (.bss:$O18$$)
-                  20001d50    0000000c     ll_pxxx.a : ll_scheduler.o (.bss)
-                  20001d5c    0000000c     (.common:displayUartObject)
-                  20001d68    00000008     dpl_cc26x0r2.aem3 : PowerCC26XX_tirtos.oem3 (.bss:$O1$$)
-                  20001d70    00000008     ll_pxxx.a : ll_common.o (.bss)
-                  20001d78    00000008     driverlib.lib : sys_ctrl.obj (.bss:powerQualGlobals$65)
-                  20001d80    00000008     profiles_pxxx.a : gattservapp.o (.bss)
-                  20001d88    00000004     att_pxxx.a : att_client.o (.bss)
-                  20001d8c    00000004     gap_pxxx.a : gap_linkmgr.o (.bss)
-                  20001d90    00000004                : gap_task.o (.bss)
-                  20001d94    00000004     gatt_pxxx.a : gatt_client.o (.bss)
-                  20001d98    00000004     ll_pxxx.a : ble.o (.bss)
-                  20001d9c    00000004               : ble.o (.bss)
-                  20001da0    00000004               : ll.o (.bss)
-                  20001da4    00000004               : ll.o (.bss)
+.bss       0    20001350    00000a94     UNINITIALIZED
+                  20001350    00000300     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.bss:$O1$$)
+                  20001650    00000200     app_ble_pem3.oem3 (.bss:taskStackSection)
+                  20001850    00000128     (.common:uartCC26XXObjects)
+                  20001978    000000d4     ll_pxxx.a : ll_privacy.o (.bss)
+                  20001a4c    000000c8     (.common:ti_sysbios_family_arm_m3_Hwi_dispatchTable)
+                  20001b14    00000080     board.obj (.bss:uartStringBuf$16)
+                  20001b94    00000080     (.common:cryptoCC26XXObjects)
+                  20001c14    00000044     ll_pxxx.a : ll_ae.o (.bss)
+                  20001c58    00000038               : ble.o (.bss)
+                  20001c90    00000024               : ll.o (.bss)
+                  20001cb4    00000020     (.common:uartCC26XXRingBuffer)
+                  20001cd4    0000001c               : ble.o (.bss)
+                  20001cf0    00000014     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.bss:RF_ratSyncCmd)
+                  20001d04    00000014     ll_pxxx.a : ll.o (.bss)
+                  20001d18    00000014     driverlib.lib : osc.obj (.bss:oscHfGlobals$62)
+                  20001d2c    00000010     gap_pxxx.a : gap_configmgr.o (.bss)
+                  20001d3c    00000010     util.obj (.bss:str$1$4)
+                  20001d4c    0000000c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_timers.obj (.bss:$O18$$)
+                  20001d58    0000000c     ll_pxxx.a : ll_scheduler.o (.bss)
+                  20001d64    0000000c     (.common:displayUartObject)
+                  20001d70    00000008     dpl_cc26x0r2.aem3 : PowerCC26XX_tirtos.oem3 (.bss:$O1$$)
+                  20001d78    00000008     ll_pxxx.a : ll_common.o (.bss)
+                  20001d80    00000008     driverlib.lib : sys_ctrl.obj (.bss:powerQualGlobals$65)
+                  20001d88    00000008     profiles_pxxx.a : gattservapp.o (.bss)
+                  20001d90    00000004     att_pxxx.a : att_client.o (.bss)
+                  20001d94    00000004     gap_pxxx.a : gap_linkmgr.o (.bss)
+                  20001d98    00000004                : gap_task.o (.bss)
+                  20001d9c    00000004     gatt_pxxx.a : gatt_client.o (.bss)
+                  20001da0    00000004     ll_pxxx.a : ble.o (.bss)
+                  20001da4    00000004               : ble.o (.bss)
                   20001da8    00000004               : ll.o (.bss)
-                  20001dac    00000004               : ll_ae.o (.bss)
-                  20001db0    00000004     profiles_pxxx.a : gapgattserver.o (.bss)
-                  20001db4    00000004                     : gattservapp.o (.bss)
-                  20001db8    00000004     (.common:ClockP_tickPeriod)
-                  20001dbc    00000004     (.common:tasksEvents)
-                  20001dc0    00000004     (.common:trngCC26XXObjects)
-                  20001dc4    00000002     drivers_cc26x0r2.aem3 : UARTCC26XX.oem3 (.bss)
-                  20001dc6    00000002     ll_pxxx.a : ll.o (.bss)
-                  20001dc8    00000002               : ll.o (.bss)
-                  20001dca    00000002               : ll_slave_end_causes.o (.bss)
-                  20001dcc    00000001     att_pxxx.a : att_util.o (.bss)
-                  20001dcd    00000001     drivers_cc26x0r2.aem3 : CryptoCC26XX.oem3 (.bss)
-                  20001dce    00000001     hci_tl_none.a : hci_tl.o (.bss)
-                  20001dcf    00000001                   : hci_tl.o (.bss)
-                  20001dd0    00000001                   : hci_tl.o (.bss)
-                  20001dd1    00000001                   : hci_tl.o (.bss)
-                  20001dd2    00000001                   : hci_tl.o (.bss)
-                  20001dd3    00000001     l2cap_pxxx.a : l2cap_task.o (.bss)
-                  20001dd4    00000001     ll_pxxx.a : ll.o (.bss)
-                  20001dd5    00000001               : ll.o (.bss)
-                  20001dd6    00000001               : ll_ae.o (.bss)
-                  20001dd7    00000001               : ll_ae.o (.bss)
-                  20001dd8    00000001               : ll_ae.o (.bss)
-                  20001dd9    00000001     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.bss)
-                  20001dda    00000001     (.common:driverlib_release_0_52354)
-                  20001ddb    00000001     (.common:icall_liteTaskId)
+                  20001dac    00000004               : ll.o (.bss)
+                  20001db0    00000004               : ll.o (.bss)
+                  20001db4    00000004               : ll_ae.o (.bss)
+                  20001db8    00000004     profiles_pxxx.a : gapgattserver.o (.bss)
+                  20001dbc    00000004                     : gattservapp.o (.bss)
+                  20001dc0    00000004     (.common:ClockP_tickPeriod)
+                  20001dc4    00000004     (.common:tasksEvents)
+                  20001dc8    00000004     (.common:trngCC26XXObjects)
+                  20001dcc    00000002     drivers_cc26x0r2.aem3 : UARTCC26XX.oem3 (.bss)
+                  20001dce    00000002     ll_pxxx.a : ll.o (.bss)
+                  20001dd0    00000002               : ll.o (.bss)
+                  20001dd2    00000002               : ll_slave_end_causes.o (.bss)
+                  20001dd4    00000001     att_pxxx.a : att_util.o (.bss)
+                  20001dd5    00000001     drivers_cc26x0r2.aem3 : CryptoCC26XX.oem3 (.bss)
+                  20001dd6    00000001     hci_tl_none.a : hci_tl.o (.bss)
+                  20001dd7    00000001                   : hci_tl.o (.bss)
+                  20001dd8    00000001                   : hci_tl.o (.bss)
+                  20001dd9    00000001                   : hci_tl.o (.bss)
+                  20001dda    00000001                   : hci_tl.o (.bss)
+                  20001ddb    00000001     l2cap_pxxx.a : l2cap_task.o (.bss)
+                  20001ddc    00000001     ll_pxxx.a : ll.o (.bss)
+                  20001ddd    00000001               : ll.o (.bss)
+                  20001dde    00000001               : ll_ae.o (.bss)
+                  20001ddf    00000001               : ll_ae.o (.bss)
+                  20001de0    00000001               : ll_ae.o (.bss)
+                  20001de1    00000001     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.bss)
+                  20001de2    00000001     (.common:driverlib_release_0_52354)
+                  20001de3    00000001     (.common:icall_liteTaskId)
 
-.vtable    0    20001ddc    00000000     UNINITIALIZED
+.vtable    0    20001de4    00000000     UNINITIALIZED
 
 .vtable_ram 
-*          0    20001ddc    00000000     UNINITIALIZED
+*          0    20001de4    00000000     UNINITIALIZED
 
 vtable_ram 
-*          0    20001ddc    00000000     UNINITIALIZED
+*          0    20001de4    00000000     UNINITIALIZED
 
-.sysmem    0    20001ddc    00000000     UNINITIALIZED
+.sysmem    0    20001de4    00000000     UNINITIALIZED
 
 .nonretenvar 
-*          0    20001ddc    00000000     UNINITIALIZED
+*          0    20001de4    00000000     UNINITIALIZED
 
 .stack     0    20004000    00000400     UNINITIALIZED
                   20004000    00000400     --HOLE--
@@ -922,97 +922,97 @@ vtable_ram
                   0000d1a0    000000cc     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_swiHw)
                   0000d26c    000000cc     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgr_LinkEst$31)
                   0000d338    000000cc     ll_pxxx.a : ll_ae.o (.text)
-                  0000d404    000000c8     sm_pxxx.a : sm_pairing.o (.text)
-                  0000d4cc    000000c4               : sm_pairing.o (.text)
-                  0000d590    000000c0     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_postCmd)
-                  0000d650    000000c0     simple_gatt_profile.obj (.text:SimpleProfile_SetParameter)
-                  0000d710    000000c0     ll_pxxx.a : ll_ae.o (.text)
-                  0000d7d0    000000c0     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal.obj (.text:osal_set_event)
-                  0000d890    000000be     gap_pxxx.a : gap_linkmgr.o (.text)
-                  0000d94e    00000002     driverlib.lib : rfc.obj (.text:NOROM_RFCAdi3VcoLdoVoltageMode)
-                  0000d950    000000bc     drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:Power_releaseDependency)
-                  0000da0c    000000bc     simple_peripheral.obj (.text:SimplePeripheral_menuSwitchCb$1)
-                  0000dac8    000000bc     gap_pxxx.a : gap_advertiser.o (.text)
-                  0000db84    000000bc     hci_pxxx.a : hci_event.o (.text)
-                  0000dc40    000000bc                : hci_event.o (.text)
-                  0000dcfc    000000bc     ll_pxxx.a : ll_common.o (.text)
-                  0000ddb8    000000b8     driverlib.lib : setup.obj (.text:NOROM_SetupTrimDevice)
-                  0000de70    000000b4     drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:Power_setDependency)
-                  0000df24    000000b4     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_control)
-                  0000dfd8    000000b4     devinfoservice.obj (.text:devInfo_ReadAttrCB$12)
-                  0000e08c    000000b0     simple_peripheral.obj (.text:SimplePeripheral_doSetConnPhy)
-                  0000e13c    000000b0     TRNGCC26XX.obj (.text:TRNGCC26XX_getNumber)
-                  0000e1ec    000000b0     gap_pxxx.a : gap_linkmgr.o (.text)
-                  0000e29c    000000b0     ll_pxxx.a : ble.o (.text)
-                  0000e34c    000000b0               : ll_scheduler.o (.text)
-                  0000e3fc    000000ac     display.aem3 : DisplayUart.oem3 (.text:DisplayUartAnsi_clearLines)
-                  0000e4a8    000000ac     att_pxxx.a : att_util.o (.text)
-                  0000e554    000000ac     gap_pxxx.a : gap_advertiser.o (.text)
-                  0000e600    000000aa     ll_pxxx.a : ll_common.o (.text)
-                  0000e6aa    000000aa     sm_pxxx.a : sm_mgr.o (.text)
-                  0000e754    000000a8     ll_pxxx.a : ll.o (.text)
-                  0000e7fc    000000a7     display.aem3 : DisplayUart.oem3 (.text:DisplayUartAnsi_open)
-                  0000e8a3    00000001     --HOLE-- [fill = 0]
-                  0000e8a4    000000a6     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putSite__E)
-                  0000e94a    00000002     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : onboard.obj (.text:Onboard_soft_reset)
-                  0000e94c    000000a4     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_abortCmd)
-                  0000e9f0    000000a4     gatt_pxxx.a : gatt_client.o (.text)
-                  0000ea94    000000a4     ll_pxxx.a : ll_common.o (.text)
-                  0000eb38    000000a4               : ll_common.o (.text)
-                  0000ebdc    000000a4               : ll_enc.o (.text)
-                  0000ec80    000000a4     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal.obj (.text:osal_msg_enqueue_push$23)
-                  0000ed24    000000a4     drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
-                  0000edc8    000000a0     auto_init.aem3 : auto_init.oem3 (.text)
-                  0000ee68    0000009f     display.aem3 : DisplayUart.oem3 (.text:DisplayUartAnsi_vprintf)
-                  0000ef07    00000001     --HOLE-- [fill = 0]
-                  0000ef08    0000009e     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgrUpdateCharCfg$31)
-                  0000efa6    00000002     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_defaultCallback)
-                  0000efa8    0000009c     drivers_cc26x0r2.aem3 : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
-                  0000f044    0000009c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_cbtimer.obj (.text:cbTimerSetup$25)
-                  0000f0e0    0000009c     ll_pxxx.a : ll.o (.text)
-                  0000f17c    0000009c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_cbtimer.obj (.text:osal_CbTimerProcessEvent)
-                  0000f218    0000009c     rtsv7M3_T_le_eabi.lib : memcpy_t2.asm.obj (.text)
-                  0000f2b4    00000098     drivers_cc26x0r2.aem3 : PINCC26XX.oem3 (.text:PIN_open)
-                  0000f34c    00000098     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_calculateDispatchTime)
-                  0000f3e4    00000098     drivers_cc26x0r2.aem3 : UARTCC26XX.oem3 (.text:UARTCC26XX_initHw)
-                  0000f47c    00000098                           : UARTCC26XX.oem3 (.text:UARTCC26XX_initIO)
-                  0000f514    00000098                           : UARTCC26XX.oem3 (.text:UARTCC26XX_swiIntFxn)
-                  0000f5ac    00000098     ll_pxxx.a : ll.o (.text)
-                  0000f644    00000098     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
-                  0000f6dc    00000098                      : rom_sysbios.obj (.text:xdc_runtime_Text_putMod__E)
-                  0000f774    00000096     rtsv7M3_T_le_eabi.lib : ull_div_t2.asm.obj (.text)
-                  0000f80a    00000002     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : sm_ecc.obj (.text:SM_dhKeyCB)
-                  0000f80c    00000094     icall.obj (.text:ICall_setTimer)
-                  0000f8a0    00000094     driverlib.lib : crypto.obj (.text:NOROM_CRYPTOAesLoadKey)
-                  0000f934    00000094     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
-                  0000f9c8    00000094     gatt_pxxx.a : gatt_client.o (.text)
-                  0000fa5c    00000094                 : gatt_server.o (.text)
-                  0000faf0    00000094     ll_pxxx.a : ll.o (.text)
-                  0000fb84    00000094               : ll_data.o (.text)
-                  0000fc18    00000094     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal.obj (.text:osal_msg_receive)
-                  0000fcac    00000094                                                         : osal_timers.obj (.text:osal_timer_refTimeUpdate)
-                  0000fd40    00000092     gap_pxxx.a : linkdb.o (.text)
-                  0000fdd2    00000092     ll_pxxx.a : ll_ae.o (.text)
-                  0000fe64    00000092               : ll_common.o (.text)
-                  0000fef6    00000092               : ll_enc.o (.text)
-                  0000ff88    00000090     board.obj (.text:CC2640R2_LAUNCHXL_shutDownExtFlash)
-                  00010018    00000090     driverlib.lib : setup.obj (.text:TrimAfterColdResetWakeupFromShutDown$19)
-                  000100a8    00000090     ll_pxxx.a : ll_scheduler.o (.text)
-                  00010138    00000090               : ll_wl.o (.text)
-                  000101c8    00000090     simple_gatt_profile.obj (.text:simpleProfile_WriteAttrCB$15)
-                  00010258    00000090     sm_pxxx.a : sm_pairing.o (.text)
-                  000102e8    00000090     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_start__E)
-                  00010378    0000008c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_FindAddr)
-                  00010404    0000008c     icall.obj (.text:ICall_heapMalloc)
-                  00010490    0000008c     gatt_pxxx.a : gatt_client.o (.text)
-                  0001051c    0000008c     ll_pxxx.a : ll_common.o (.text)
-                  000105a8    0000008a     drivers_cc26x0r2.aem3 : CryptoCC26XX.oem3 (.text:CryptoCC26XX_allocateKey)
-                  00010632    00000002     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : sm_ecc.obj (.text:SM_p256KeyCB)
-                  00010634    00000088     gap_pxxx.a : gap_linkmgr.o (.text)
-                  000106bc    00000088     gattservapp_util.obj (.text:gattServApp_SendNotiInd$14)
-                  00010744    00000088     hci_pxxx.a : hci_event.o (.text)
-                  000107cc    00000088     ll_pxxx.a : ll.o (.text)
-                  00010854    00000088     profiles_pxxx.a : gattservapp.o (.text)
+                  0000d404    000000c8     simple_gatt_profile.obj (.text:SimpleProfile_SetParameter)
+                  0000d4cc    000000c8     sm_pxxx.a : sm_pairing.o (.text)
+                  0000d594    000000c4               : sm_pairing.o (.text)
+                  0000d658    000000c0     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_postCmd)
+                  0000d718    000000c0     ll_pxxx.a : ll_ae.o (.text)
+                  0000d7d8    000000c0     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal.obj (.text:osal_set_event)
+                  0000d898    000000be     gap_pxxx.a : gap_linkmgr.o (.text)
+                  0000d956    00000002     driverlib.lib : rfc.obj (.text:NOROM_RFCAdi3VcoLdoVoltageMode)
+                  0000d958    000000bc     drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:Power_releaseDependency)
+                  0000da14    000000bc     simple_peripheral.obj (.text:SimplePeripheral_menuSwitchCb$1)
+                  0000dad0    000000bc     gap_pxxx.a : gap_advertiser.o (.text)
+                  0000db8c    000000bc     hci_pxxx.a : hci_event.o (.text)
+                  0000dc48    000000bc                : hci_event.o (.text)
+                  0000dd04    000000bc     ll_pxxx.a : ll_common.o (.text)
+                  0000ddc0    000000b8     driverlib.lib : setup.obj (.text:NOROM_SetupTrimDevice)
+                  0000de78    000000b4     drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:Power_setDependency)
+                  0000df2c    000000b4     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_control)
+                  0000dfe0    000000b4     devinfoservice.obj (.text:devInfo_ReadAttrCB$12)
+                  0000e094    000000b0     simple_peripheral.obj (.text:SimplePeripheral_doSetConnPhy)
+                  0000e144    000000b0     TRNGCC26XX.obj (.text:TRNGCC26XX_getNumber)
+                  0000e1f4    000000b0     gap_pxxx.a : gap_linkmgr.o (.text)
+                  0000e2a4    000000b0     ll_pxxx.a : ble.o (.text)
+                  0000e354    000000b0               : ll_scheduler.o (.text)
+                  0000e404    000000ac     display.aem3 : DisplayUart.oem3 (.text:DisplayUartAnsi_clearLines)
+                  0000e4b0    000000ac     att_pxxx.a : att_util.o (.text)
+                  0000e55c    000000ac     gap_pxxx.a : gap_advertiser.o (.text)
+                  0000e608    000000aa     ll_pxxx.a : ll_common.o (.text)
+                  0000e6b2    000000aa     sm_pxxx.a : sm_mgr.o (.text)
+                  0000e75c    000000a8     ll_pxxx.a : ll.o (.text)
+                  0000e804    000000a7     display.aem3 : DisplayUart.oem3 (.text:DisplayUartAnsi_open)
+                  0000e8ab    00000001     --HOLE-- [fill = 0]
+                  0000e8ac    000000a6     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putSite__E)
+                  0000e952    00000002     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : onboard.obj (.text:Onboard_soft_reset)
+                  0000e954    000000a4     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_abortCmd)
+                  0000e9f8    000000a4     gatt_pxxx.a : gatt_client.o (.text)
+                  0000ea9c    000000a4     ll_pxxx.a : ll_common.o (.text)
+                  0000eb40    000000a4               : ll_common.o (.text)
+                  0000ebe4    000000a4               : ll_enc.o (.text)
+                  0000ec88    000000a4     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal.obj (.text:osal_msg_enqueue_push$23)
+                  0000ed2c    000000a4     drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
+                  0000edd0    000000a0     auto_init.aem3 : auto_init.oem3 (.text)
+                  0000ee70    0000009f     display.aem3 : DisplayUart.oem3 (.text:DisplayUartAnsi_vprintf)
+                  0000ef0f    00000001     --HOLE-- [fill = 0]
+                  0000ef10    0000009e     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgrUpdateCharCfg$31)
+                  0000efae    00000002     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_defaultCallback)
+                  0000efb0    0000009c     drivers_cc26x0r2.aem3 : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
+                  0000f04c    0000009c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_cbtimer.obj (.text:cbTimerSetup$25)
+                  0000f0e8    0000009c     ll_pxxx.a : ll.o (.text)
+                  0000f184    0000009c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal_cbtimer.obj (.text:osal_CbTimerProcessEvent)
+                  0000f220    0000009c     rtsv7M3_T_le_eabi.lib : memcpy_t2.asm.obj (.text)
+                  0000f2bc    00000098     drivers_cc26x0r2.aem3 : PINCC26XX.oem3 (.text:PIN_open)
+                  0000f354    00000098     rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_calculateDispatchTime)
+                  0000f3ec    00000098     drivers_cc26x0r2.aem3 : UARTCC26XX.oem3 (.text:UARTCC26XX_initHw)
+                  0000f484    00000098                           : UARTCC26XX.oem3 (.text:UARTCC26XX_initIO)
+                  0000f51c    00000098                           : UARTCC26XX.oem3 (.text:UARTCC26XX_swiIntFxn)
+                  0000f5b4    00000098     ll_pxxx.a : ll.o (.text)
+                  0000f64c    00000098     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+                  0000f6e4    00000098                      : rom_sysbios.obj (.text:xdc_runtime_Text_putMod__E)
+                  0000f77c    00000096     rtsv7M3_T_le_eabi.lib : ull_div_t2.asm.obj (.text)
+                  0000f812    00000002     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : sm_ecc.obj (.text:SM_dhKeyCB)
+                  0000f814    00000094     icall.obj (.text:ICall_setTimer)
+                  0000f8a8    00000094     driverlib.lib : crypto.obj (.text:NOROM_CRYPTOAesLoadKey)
+                  0000f93c    00000094     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
+                  0000f9d0    00000094     gatt_pxxx.a : gatt_client.o (.text)
+                  0000fa64    00000094                 : gatt_server.o (.text)
+                  0000faf8    00000094     ll_pxxx.a : ll.o (.text)
+                  0000fb8c    00000094               : ll_data.o (.text)
+                  0000fc20    00000094     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : osal.obj (.text:osal_msg_receive)
+                  0000fcb4    00000094                                                         : osal_timers.obj (.text:osal_timer_refTimeUpdate)
+                  0000fd48    00000092     gap_pxxx.a : linkdb.o (.text)
+                  0000fdda    00000092     ll_pxxx.a : ll_ae.o (.text)
+                  0000fe6c    00000092               : ll_common.o (.text)
+                  0000fefe    00000092               : ll_enc.o (.text)
+                  0000ff90    00000090     board.obj (.text:CC2640R2_LAUNCHXL_shutDownExtFlash)
+                  00010020    00000090     driverlib.lib : setup.obj (.text:TrimAfterColdResetWakeupFromShutDown$19)
+                  000100b0    00000090     ll_pxxx.a : ll_scheduler.o (.text)
+                  00010140    00000090               : ll_wl.o (.text)
+                  000101d0    00000090     sm_pxxx.a : sm_pairing.o (.text)
+                  00010260    00000090     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_start__E)
+                  000102f0    0000008c     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_FindAddr)
+                  0001037c    0000008c     icall.obj (.text:ICall_heapMalloc)
+                  00010408    0000008c     gatt_pxxx.a : gatt_client.o (.text)
+                  00010494    0000008c     ll_pxxx.a : ll_common.o (.text)
+                  00010520    0000008a     drivers_cc26x0r2.aem3 : CryptoCC26XX.oem3 (.text:CryptoCC26XX_allocateKey)
+                  000105aa    00000002     ble5_simple_peripheral_cc2640r2lp_stack_library.lib : sm_ecc.obj (.text:SM_p256KeyCB)
+                  000105ac    00000088     gap_pxxx.a : gap_linkmgr.o (.text)
+                  00010634    00000088     gattservapp_util.obj (.text:gattServApp_SendNotiInd$14)
+                  000106bc    00000088     hci_pxxx.a : hci_event.o (.text)
+                  00010744    00000088     ll_pxxx.a : ll.o (.text)
+                  000107cc    00000088     profiles_pxxx.a : gattservapp.o (.text)
+                  00010854    00000088     simple_gatt_profile.obj (.text:simpleProfile_WriteAttrCB$15)
                   000108dc    00000086     ll_pxxx.a : ll_common.o (.text)
                   00010962    00000002     rtsv7M3_T_le_eabi.lib : _lock.c.obj (.text:_nop)
                   00010964    00000084     simple_peripheral.obj (.text:SimplePeripheral_processParamUpdate$1)
@@ -2113,12 +2113,12 @@ MODULE SUMMARY
        Total:                                   2464     124       180    
                                                                           
     .\PROFILES\
-       simple_gatt_profile.obj                  496      32        392    
+       simple_gatt_profile.obj                  496      32        396    
        devinfoservice.obj                       180      40        477    
        gattservapp_util.obj                     334      0         0      
        gatt_uuid.obj                            0        46        0      
     +--+----------------------------------------+--------+---------+---------+
-       Total:                                   1010     118       869    
+       Total:                                   1010     118       873    
                                                                           
     .\Startup\
        main.obj                                 664      0         16     
@@ -2128,7 +2128,7 @@ MODULE SUMMARY
        Total:                                   880      342       144    
                                                                           
     C:\Users\dayoung\AppData\Local\Temp\
-       {0B3187EC-6F6E-4411-86C1-89E325213978}   0        108       478    
+       {CD978514-6C4C-41D8-B30A-341514FB0189}   0        108       478    
     +--+----------------------------------------+--------+---------+---------+
        Total:                                   0        108       478    
                                                                           
@@ -2329,22 +2329,22 @@ MODULE SUMMARY
        Total:                                   212      0         0      
                                                                           
        Stack:                                   0        0         1024   
-       Linker Generated:                        504      4742      0      
+       Linker Generated:                        504      4746      0      
     +--+----------------------------------------+--------+---------+---------+
-       Grand Total:                             103226   14273     8608   
+       Grand Total:                             103226   14277     8612   
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 0001ba54 records: 13, size/record: 8, table size: 104
-	.data: load addr=0001a830, load size=00001146 bytes, run addr=20000208, run size=0000113e bytes, compression=copy
-	.data:ti_sysbios_family_arm_m3_Hwi_Module__state__V: load addr=0001b976, load size=00000028 bytes, run addr=20000144, run size=00000034 bytes, compression=lzss
-	.data:ti_sysbios_knl_Task_Module__state__V: load addr=0001b99e, load size=00000021 bytes, run addr=20000100, run size=00000044 bytes, compression=lzss
-	.data:ti_sysbios_BIOS_Module__state__V: load addr=0001b9bf, load size=0000001f bytes, run addr=200001a4, run size=00000024 bytes, compression=lzss
-	.data:ti_sysbios_knl_Clock_Module__state__V: load addr=0001b9de, load size=0000001e bytes, run addr=20000178, run size=0000002c bytes, compression=lzss
-	.data:ti_sysbios_knl_Swi_Module__state__V: load addr=0001b9fc, load size=00000010 bytes, run addr=200001c8, run size=0000001c bytes, compression=lzss
-	.data:ti_sysbios_family_arm_cc26xx_Timer_Module__state__V: load addr=0001ba18, load size=0000000b bytes, run addr=200001e4, run size=00000008 bytes, compression=lzss
-	.bss: load addr=0001ba28, load size=00000008 bytes, run addr=20001348, run size=00000a94 bytes, compression=zero_init
+	.data: load addr=0001a830, load size=0000114a bytes, run addr=20000208, run size=00001142 bytes, compression=copy
+	.data:ti_sysbios_family_arm_m3_Hwi_Module__state__V: load addr=0001b97a, load size=00000028 bytes, run addr=20000144, run size=00000034 bytes, compression=lzss
+	.data:ti_sysbios_knl_Task_Module__state__V: load addr=0001b9a2, load size=00000021 bytes, run addr=20000100, run size=00000044 bytes, compression=lzss
+	.data:ti_sysbios_BIOS_Module__state__V: load addr=0001b9c3, load size=0000001f bytes, run addr=200001a4, run size=00000024 bytes, compression=lzss
+	.data:ti_sysbios_knl_Clock_Module__state__V: load addr=0001b9e2, load size=0000001e bytes, run addr=20000178, run size=0000002c bytes, compression=lzss
+	.data:ti_sysbios_knl_Swi_Module__state__V: load addr=0001ba00, load size=00000010 bytes, run addr=200001c8, run size=0000001c bytes, compression=lzss
+	.data:ti_sysbios_family_arm_cc26xx_Timer_Module__state__V: load addr=0001ba1c, load size=0000000b bytes, run addr=200001e4, run size=00000008 bytes, compression=lzss
+	.bss: load addr=0001ba28, load size=00000008 bytes, run addr=20001350, run size=00000a94 bytes, compression=zero_init
 	.data:xdc_runtime_Memory_Module__state__V: load addr=0001ba30, load size=00000008 bytes, run addr=20000200, run size=00000004 bytes, compression=lzss
 	.data:ti_sysbios_family_arm_cc26xx_TimestampProvider_Module__state__V: load addr=0001ba38, load size=00000007 bytes, run addr=200001ec, run size=00000004 bytes, compression=lzss
 	.data:xdc_runtime_Startup_Module__state__V: load addr=0001ba3f, load size=00000007 bytes, run addr=200001f0, run size=00000008 bytes, compression=lzss
@@ -2354,7 +2354,7 @@ __TI_cinit_table @ 0001ba54 records: 13, size/record: 8, table size: 104
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 0001ba0c records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 0001ba10 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -2564,62 +2564,62 @@ ATT_ReadBlobRsp           $Tramp$TT$L$PI$$ATT_ReadBlobRsp
 gattStopTimer             $Tramp$TT$L$PI$$gattStopTimer
    10018321     0001919c     00010a74   gatt_pxxx.a : gatt_client.o (.text)
 GATT_RegisterForReq       $Tramp$TT$L$PI$$GATT_RegisterForReq
-   1000fc09     000191a4     000108b0   profiles_pxxx.a : gattservapp.o (.text)
+   1000fc09     000191a4     00010828   profiles_pxxx.a : gattservapp.o (.text)
 gattServApp_SetNumPrepareWrites  $Tramp$TT$L$PI$$gattServApp_SetNumPrepareWrites
-   100107d1     000191ac     000108aa   profiles_pxxx.a : gattservapp.o (.text)
+   100107d1     000191ac     00010822   profiles_pxxx.a : gattservapp.o (.text)
 LL_PRIV_ResolveRPA        $Tramp$TT$L$PI$$LL_PRIV_ResolveRPA
-   10016e59     000191b4     000103d2   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_FindAddr)
+   10016e59     000191b4     0001034a   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_FindAddr)
                              00016f00   ll_pxxx.a : ll_privacy.o (.text)
 smFreePairingParams       $Tramp$TT$L$PI$$smFreePairingParams
-   1000f911     000191bc     000102d8   sm_pxxx.a : sm_pairing.o (.text)
+   1000f911     000191bc     00010250   sm_pxxx.a : sm_pairing.o (.text)
 smGeneratePairingReqRsp   $Tramp$TT$L$PI$$smGeneratePairingReqRsp
-   1000f0d9     000191c4     000102c8   sm_pxxx.a : sm_pairing.o (.text)
+   1000f0d9     000191c4     00010240   sm_pxxx.a : sm_pairing.o (.text)
 LL_ENC_GenerateNonce      $Tramp$TT$L$PI$$LL_ENC_GenerateNonce
-   10017235     000191cc     0000ff34   ll_pxxx.a : ll_enc.o (.text)
+   10017235     000191cc     0000ff3c   ll_pxxx.a : ll_enc.o (.text)
                              00013e2e             : ll_enc.o (.text)
 LL_ENC_LoadKey            $Tramp$TT$L$PI$$LL_ENC_LoadKey
-   10017259     000191d4     0000ff12   ll_pxxx.a : ll_enc.o (.text)
+   10017259     000191d4     0000ff1a   ll_pxxx.a : ll_enc.o (.text)
                              00013e0c             : ll_enc.o (.text)
 linkDB_reportStatusChange  $Tramp$TT$L$PI$$linkDB_reportStatusChange
-   100180e5     000191dc     0000fdc4   gap_pxxx.a : linkdb.o (.text)
+   100180e5     000191dc     0000fdcc   gap_pxxx.a : linkdb.o (.text)
                              00016c5a              : linkdb.o (.text)
 GATT_ServiceEncKeySize    $Tramp$TT$L$PI$$GATT_ServiceEncKeySize
-   1000febd     000191e4     0000fa6e   gatt_pxxx.a : gatt_server.o (.text)
-                             0000faae               : gatt_server.o (.text)
-                             0000fac6               : gatt_server.o (.text)
+   1000febd     000191e4     0000fa76   gatt_pxxx.a : gatt_server.o (.text)
+                             0000fab6               : gatt_server.o (.text)
+                             0000face               : gatt_server.o (.text)
                              00011c18               : gatt_server.o (.text)
                              00011c26               : gatt_server.o (.text)
                              00011c3e               : gatt_server.o (.text)
 linkDB_Register           $Tramp$TT$L$PI$$linkDB_Register
-   10017de5     000191ec     0000fa3e   gatt_pxxx.a : gatt_client.o (.text)
-                             000108b6   profiles_pxxx.a : gattservapp.o (.text)
+   10017de5     000191ec     0000fa46   gatt_pxxx.a : gatt_client.o (.text)
+                             0001082e   profiles_pxxx.a : gattservapp.o (.text)
 gattRegisterClient        $Tramp$TT$L$PI$$gattRegisterClient
-   10018129     000191f4     0000fa32   gatt_pxxx.a : gatt_client.o (.text)
+   10018129     000191f4     0000fa3a   gatt_pxxx.a : gatt_client.o (.text)
 HCI_LE_ClearResolvingListCmd  $Tramp$TT$L$PI$$HCI_LE_ClearResolvingListCmd
-   1000b1b1     000191fc     0000f942   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
+   1000b1b1     000191fc     0000f94a   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
 ti_sysbios_knl_Clock_create  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_create
-   1001b1fd     00019204     0000f84e   icall.obj (.text:ICall_setTimer)
+   1001b1fd     00019204     0000f856   icall.obj (.text:ICall_setTimer)
 ti_sysbios_knl_Clock_Params__init__S  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_Params__init__S
-   1001bfc1     0001920c     0000f83a   icall.obj (.text:ICall_setTimer)
+   1001bfc1     0001920c     0000f842   icall.obj (.text:ICall_setTimer)
                              000145bc   dpl_cc26x0r2.aem3 : ClockP_tirtos.oem3 (.text:ClockP_construct)
                              000149be   util.obj (.text:Util_constructClock)
 ti_sysbios_knl_Clock_scheduleNextTick__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_scheduleNextTick__E
-   1001bca9     00019214     0000f6c2   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+   1001bca9     00019214     0000f6ca   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
 ti_sysbios_knl_Clock_walkQueueDynamic__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_walkQueueDynamic__E
-   1001a2f1     0001921c     0000f68a   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
-                             0000f6a6                    : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+   1001a2f1     0001921c     0000f692   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+                             0000f6ae                    : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
 ti_sysbios_knl_Clock_TimerProxy_getCurrentTick__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_TimerProxy_getCurrentTick__E
-   1001bee1     00019224     0000f658   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+   1001bee1     00019224     0000f660   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
                              0001737e                    : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_getTicksUntilInterrupt__E)
 HCI_DataBufferOverflowEvent  $Tramp$TT$L$PI$$HCI_DataBufferOverflowEvent
-   1000ba8d     0001922c     0000e79a   ll_pxxx.a : ll.o (.text)
+   1000ba8d     0001922c     0000e7a2   ll_pxxx.a : ll.o (.text)
 sm_CMAC                   $Tramp$TT$L$PI$$sm_CMAC
-   10012625     00019234     0000e71a   sm_pxxx.a : sm_mgr.o (.text)
+   10012625     00019234     0000e722   sm_pxxx.a : sm_mgr.o (.text)
 LL_TX_bm_alloc            $Tramp$TT$L$PI$$LL_TX_bm_alloc
-   10004945     0001923c     0000e61e   ll_pxxx.a : ll_common.o (.text)
-                             0000ea9a             : ll_common.o (.text)
-                             0000eb3e             : ll_common.o (.text)
-                             0000fe78             : ll_common.o (.text)
+   10004945     0001923c     0000e626   ll_pxxx.a : ll_common.o (.text)
+                             0000eaa2             : ll_common.o (.text)
+                             0000eb46             : ll_common.o (.text)
+                             0000fe80             : ll_common.o (.text)
                              000108e4             : ll_common.o (.text)
                              000118f2             : ll_common.o (.text)
                              0001242e             : ll_common.o (.text)
@@ -2634,38 +2634,38 @@ LL_TX_bm_alloc            $Tramp$TT$L$PI$$LL_TX_bm_alloc
                              0001598e             : ll_common.o (.text)
                              00015ffc             : ll_common.o (.text)
 L2CAP_SendData            $Tramp$TT$L$PI$$L2CAP_SendData
-   10019105     00019244     0000e534   att_pxxx.a : att_util.o (.text)
+   10019105     00019244     0000e53c   att_pxxx.a : att_util.o (.text)
 L2CAP_bm_alloc            $Tramp$TT$L$PI$$L2CAP_bm_alloc
-   1001542d     0001924c     0000e4d6   att_pxxx.a : att_util.o (.text)
+   1001542d     0001924c     0000e4de   att_pxxx.a : att_util.o (.text)
                              00017172   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : ble_dispatch_lite.obj (.text:bleDispatch_BMAlloc)
 smProcessPairingReq       $Tramp$TT$L$PI$$smProcessPairingReq
-   1000f05d     00019254     0000e27e   gap_pxxx.a : gap_linkmgr.o (.text)
+   1000f05d     00019254     0000e286   gap_pxxx.a : gap_linkmgr.o (.text)
 ti_sysbios_family_arm_m3_Hwi_disableFxn__E  $Tramp$TT$L$PI$$ti_sysbios_family_arm_m3_Hwi_disableFxn__E
-   1001bf85     0001925c     0000e144   TRNGCC26XX.obj (.text:TRNGCC26XX_getNumber)
+   1001bf85     0001925c     0000e14c   TRNGCC26XX.obj (.text:TRNGCC26XX_getNumber)
                              0001568e   ECCROMCC26XX.obj (.text:ECCROMCC26XX_init)
                              000175b2   TRNGCC26XX.obj (.text:TRNGCC26XX_init)
                              0001817e   TRNGCC26XX.obj (.text:TRNGCC26XX_open)
                              0001832c   icall.obj (.text:ICall_enterCSImpl)
                              00018ecc   dpl_cc26x0r2.aem3 : HwiP_tirtos.oem3 (.text:HwiP_disable)
 HCI_LE_ConnUpdateCmd      $Tramp$TT$L$PI$$HCI_LE_ConnUpdateCmd
-   1000ae21     00019264     0000d936   gap_pxxx.a : gap_linkmgr.o (.text)
-                             00010684              : gap_linkmgr.o (.text)
+   1000ae21     00019264     0000d93e   gap_pxxx.a : gap_linkmgr.o (.text)
+                             000105fc              : gap_linkmgr.o (.text)
 L2CAP_ConnParamUpdateRsp  $Tramp$TT$L$PI$$L2CAP_ConnParamUpdateRsp
-   10019209     0001926c     0000d91a   gap_pxxx.a : gap_linkmgr.o (.text)
+   10019209     0001926c     0000d922   gap_pxxx.a : gap_linkmgr.o (.text)
 gapProcessRemoteConnParamReqEvt  $Tramp$TT$L$PI$$gapProcessRemoteConnParamReqEvt
-   10011ac1     00019274     0000d906   gap_pxxx.a : gap_linkmgr.o (.text)
+   10011ac1     00019274     0000d90e   gap_pxxx.a : gap_linkmgr.o (.text)
 HCI_ValidConnTimeParams   $Tramp$TT$L$PI$$HCI_ValidConnTimeParams
-   1000a7fd     0001927c     0000d8aa   gap_pxxx.a : gap_linkmgr.o (.text)
-                             00010640              : gap_linkmgr.o (.text)
+   1000a7fd     0001927c     0000d8b2   gap_pxxx.a : gap_linkmgr.o (.text)
+                             000105b8              : gap_linkmgr.o (.text)
                              0001140a   l2cap_pxxx.a : l2cap_if.o (.text)
 linkDB_State              $Tramp$TT$L$PI$$linkDB_State
-   10017fb1     00019284     0000d89a   gap_pxxx.a : gap_linkmgr.o (.text)
-                             0000e50a   att_pxxx.a : att_util.o (.text)
-                             0001064e   gap_pxxx.a : gap_linkmgr.o (.text)
+   10017fb1     00019284     0000d8a2   gap_pxxx.a : gap_linkmgr.o (.text)
+                             0000e512   att_pxxx.a : att_util.o (.text)
+                             000105c6   gap_pxxx.a : gap_linkmgr.o (.text)
                              00011036   gatt_pxxx.a : gatt_client.o (.text)
                              0001360a   profiles_pxxx.a : gattservapp.o (.text)
 smStopRspTimer            $Tramp$TT$L$PI$$smStopRspTimer
-   100121a5     0001928c     0000d4b6   sm_pxxx.a : sm_pairing.o (.text)
+   100121a5     0001928c     0000d57e   sm_pxxx.a : sm_pairing.o (.text)
 GAP_Signable              $Tramp$TT$L$PI$$GAP_Signable
    100116ad     00019294     0000d2e2   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgr_LinkEst$31)
 smpProcessIncoming        $Tramp$TT$L$PI$$smpProcessIncoming
@@ -2699,10 +2699,10 @@ ti_sysbios_BIOS_start__E  $Tramp$TT$L$PI$$ti_sysbios_BIOS_start__E
 linkDB_Update             $Tramp$TT$L$PI$$linkDB_Update
    10017ed5     0001930c     0000c898   gap_pxxx.a : gap_task.o (.text)
                              0000c8e6              : gap_task.o (.text)
-                             0000d940              : gap_linkmgr.o (.text)
+                             0000d948              : gap_linkmgr.o (.text)
 gapFreeAuthLink           $Tramp$TT$L$PI$$gapFreeAuthLink
    10011dc1     00019314     0000c848   gap_pxxx.a : gap_linkmgr.o (.text)
-                             0000e286              : gap_linkmgr.o (.text)
+                             0000e28e              : gap_linkmgr.o (.text)
                              00012c36              : gap_linkmgr.o (.text)
 sm_c1new                  $Tramp$TT$L$PI$$sm_c1new
    1001225d     0001931c     0000c5b2   sm_pxxx.a : sm_pairing.o (.text)
@@ -2714,18 +2714,18 @@ smSetPairingReqRsp        $Tramp$TT$L$PI$$smSetPairingReqRsp
    1000f9f1     00019334     0000c502   sm_pxxx.a : sm_pairing.o (.text)
 ti_sysbios_knl_Clock_stop__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_stop__E
    1001bab9     0001933c     0000c28c   dpl_cc26x0r2.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
-                             0000f876   icall.obj (.text:ICall_setTimer)
+                             0000f87e   icall.obj (.text:ICall_setTimer)
                              00018dc0   icall.obj (.text:ICall_stopTimer)
                              00018eb8   dpl_cc26x0r2.aem3 : ClockP_tirtos.oem3 (.text:ClockP_stop)
                              00018f2c   util.obj (.text:Util_stopClock)
 ti_sysbios_knl_Clock_start__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_start__E
    1001be1f     00019344     0000c280   dpl_cc26x0r2.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
-                             0000f88c   icall.obj (.text:ICall_setTimer)
+                             0000f894   icall.obj (.text:ICall_setTimer)
                              00018eb4   dpl_cc26x0r2.aem3 : ClockP_tirtos.oem3 (.text:ClockP_start)
                              00018f28   util.obj (.text:Util_startClock)
 ti_sysbios_knl_Clock_setTimeout__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_setTimeout__E
    1001c0e5     0001934c     0000c27a   dpl_cc26x0r2.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
-                             0000f886   icall.obj (.text:ICall_setTimer)
+                             0000f88e   icall.obj (.text:ICall_setTimer)
                              00018eb0   dpl_cc26x0r2.aem3 : ClockP_tirtos.oem3 (.text:ClockP_setTimeout)
 HCI_NumOfCompletedPacketsEvent  $Tramp$TT$L$PI$$HCI_NumOfCompletedPacketsEvent
    1000bab1     00019354     0000c1f4   ll_pxxx.a : ll_common.o (.text)
@@ -2748,7 +2748,7 @@ HCI_LE_LtkReqReplyCmd     $Tramp$TT$L$PI$$HCI_LE_LtkReqReplyCmd
    1000af8d     0001938c     0000b362   sm_pxxx.a : sm_rsppairing.o (.text)
 smEndPairing              $Tramp$TT$L$PI$$smEndPairing
    1000f985     00019394     0000b32a   sm_pxxx.a : sm_rsppairing.o (.text)
-                             0000d4a0             : sm_pairing.o (.text)
+                             0000d568             : sm_pairing.o (.text)
                              00013fa2             : sm_rsppairing.o (.text)
                              00017364             : sm_pairing.o (.text)
 sm_s1                     $Tramp$TT$L$PI$$sm_s1
@@ -2768,7 +2768,7 @@ smSendFailAndEnd          $Tramp$TT$L$PI$$smSendFailAndEnd
                              0000cc7a             : sm_pairing.o (.text)
 LL_RX_bm_alloc            $Tramp$TT$L$PI$$LL_RX_bm_alloc
    10004969     000193d4     0000a658   ll_pxxx.a : ll_common.o (.text)
-                             0000e30c             : ble.o (.text)
+                             0000e314             : ble.o (.text)
                              0001620c             : ble.o (.text)
 LL_RxDataCompleteCback    $Tramp$TT$L$PI$$LL_RxDataCompleteCback
    10019465     000193dc     0000a61a   ll_pxxx.a : ll_common.o (.text)
@@ -2820,7 +2820,7 @@ ATT_ReadByGrpTypeRsp      $Tramp$TT$L$PI$$ATT_ReadByGrpTypeRsp
 GATT_bm_alloc             $Tramp$TT$L$PI$$GATT_bm_alloc
    10018405     0001944c     00009ca8   profiles_pxxx.a : gattservapp.o (.text)
                              0000b42e   gatt_pxxx.a : gatt_server.o (.text)
-                             000106d2   gattservapp_util.obj (.text:gattServApp_SendNotiInd$14)
+                             0001064a   gattservapp_util.obj (.text:gattServApp_SendNotiInd$14)
                              00010b10   profiles_pxxx.a : gattservapp.o (.text)
                              00010b94                   : gattservapp.o (.text)
                              0001326c   gatt_pxxx.a : gatt_client.o (.text)
@@ -2829,7 +2829,7 @@ GATT_bm_alloc             $Tramp$TT$L$PI$$GATT_bm_alloc
 ATT_GetMTU                $Tramp$TT$L$PI$$ATT_GetMTU
    1001621d     00019454     00009c2c   profiles_pxxx.a : gattservapp.o (.text)
                              0000b9b6                   : gattservapp.o (.text)
-                             000104a0   gatt_pxxx.a : gatt_client.o (.text)
+                             00010418   gatt_pxxx.a : gatt_client.o (.text)
                              0001436e               : gatt_client.o (.text)
 ti_sysbios_knl_Event_post__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Event_post__E
    1001a455     0001945c     00009ba6   icall.obj (.text:icall_directAPI)
@@ -2874,8 +2874,8 @@ GATT_FindHandleUUID       $Tramp$TT$L$PI$$GATT_FindHandleUUID
                              00015ee0                   : gattservapp.o (.text)
 HCI_LE_AddDeviceToResolvingListCmd  $Tramp$TT$L$PI$$HCI_LE_AddDeviceToResolvingListCmd
    1000b16d     000194ac     00008416   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgrAddBond$31)
-                             0000f952                                                       : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
-                             0000f990                                                       : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
+                             0000f95a                                                       : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
+                             0000f998                                                       : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
 HCI_LE_RemoveDeviceFromResolvingListCmd  $Tramp$TT$L$PI$$HCI_LE_RemoveDeviceFromResolvingListCmd
    1000b191     000194b4     0000836a   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:gapBondMgrAddBond$31)
                              0000c0be                                                       : gapbondmgr.obj (.text:gapBondMgrEraseBonding$31)
@@ -2926,7 +2926,7 @@ GATT_FindHandle           $Tramp$TT$L$PI$$GATT_FindHandle
                              00017bee               : gatt_server.o (.text)
 gattServApp_FindAuthorizeAttrCB  $Tramp$TT$L$PI$$gattServApp_FindAuthorizeAttrCB
    100114d5     0001952c     000075ac   profiles_pxxx.a : gattservapp.o (.text)
-                             0000fa8e   gatt_pxxx.a : gatt_server.o (.text)
+                             0000fa96   gatt_pxxx.a : gatt_server.o (.text)
                              00010c98   profiles_pxxx.a : gattservapp.o (.text)
                              00011c50   gatt_pxxx.a : gatt_server.o (.text)
 LL_ENC_GeneratePseudoRandNum  $Tramp$TT$L$PI$$LL_ENC_GeneratePseudoRandNum
@@ -2952,7 +2952,7 @@ llTimeCompare             $Tramp$TT$L$PI$$llTimeCompare
                              00007250             : ll_scheduler.o (.text)
                              0000afa2             : ll_scheduler.o (.text)
                              0000b01e             : ll_scheduler.o (.text)
-                             0000dd42             : ll_common.o (.text)
+                             0000dd4a             : ll_common.o (.text)
                              00012516             : ll_scheduler.o (.text)
                              00012522             : ll_scheduler.o (.text)
                              00012548             : ll_scheduler.o (.text)
@@ -2961,7 +2961,7 @@ llTimeCompare             $Tramp$TT$L$PI$$llTimeCompare
 llTimeDelta               $Tramp$TT$L$PI$$llTimeDelta
    100197dd     00019554     00005f9a   ll_pxxx.a : ll_slave_end_causes.o (.text)
                              000064ba             : ll_common.o (.text)
-                             0000dd5c             : ll_common.o (.text)
+                             0000dd64             : ll_common.o (.text)
                              00012534             : ll_scheduler.o (.text)
 ti_sysbios_family_arm_m3_Hwi_restoreFxn__E  $Tramp$TT$L$PI$$ti_sysbios_family_arm_m3_Hwi_restoreFxn__E
    1001c061     0001955c     00005cca   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_fsmActiveState)
@@ -2990,18 +2990,18 @@ ti_sysbios_family_arm_m3_Hwi_restoreFxn__E  $Tramp$TT$L$PI$$ti_sysbios_family_ar
                              0000cea4                         : CryptoCC26XX.oem3 (.text:CryptoCC26XX_open)
                              0000ceb2                         : CryptoCC26XX.oem3 (.text:CryptoCC26XX_open)
                              0000d1e8   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_swiHw)
-                             0000d63e                               : RFCC26XX_singleMode.oem3 (.text:RF_postCmd)
-                             0000d9f2   drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:Power_releaseDependency)
-                             0000df0c                         : PowerCC26XX.oem3 (.text:Power_setDependency)
-                             0000dfc8   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_control)
-                             0000e1d6   TRNGCC26XX.obj (.text:TRNGCC26XX_getNumber)
-                             0000e9d8   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_abortCmd)
-                             0000edac   drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
-                             0000efcc                         : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
-                             0000efe2                         : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
-                             0000f028                         : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
-                             0000f546                         : UARTCC26XX.oem3 (.text:UARTCC26XX_swiIntFxn)
-                             0000f576                         : UARTCC26XX.oem3 (.text:UARTCC26XX_swiIntFxn)
+                             0000d706                               : RFCC26XX_singleMode.oem3 (.text:RF_postCmd)
+                             0000d9fa   drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:Power_releaseDependency)
+                             0000df14                         : PowerCC26XX.oem3 (.text:Power_setDependency)
+                             0000dfd0   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_control)
+                             0000e1de   TRNGCC26XX.obj (.text:TRNGCC26XX_getNumber)
+                             0000e9e0   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_abortCmd)
+                             0000edb4   drivers_cc26x0r2.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
+                             0000efd4                         : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
+                             0000efea                         : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
+                             0000f030                         : UARTCC26XX.oem3 (.text:UARTCC26XX_writeCancel)
+                             0000f54e                         : UARTCC26XX.oem3 (.text:UARTCC26XX_swiIntFxn)
+                             0000f57e                         : UARTCC26XX.oem3 (.text:UARTCC26XX_swiIntFxn)
                              00010f6a   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_ratFreeChannel)
                              000120ee   drivers_cc26x0r2.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_initiateCalibration)
                              0001218e   rf_singleMode_cc26x0r2.aem3 : RFCC26XX_singleMode.oem3 (.text:RF_ratDisableChannel)
@@ -3046,15 +3046,15 @@ L2CAP_SetUserConfig       $Tramp$TT$L$PI$$L2CAP_SetUserConfig
    100192b9     00019584     000057ec   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : icall_startup.obj (.text:startup_entry)
 LL_DirectTestEndDoneCback  $Tramp$TT$L$PI$$LL_DirectTestEndDoneCback
    1000cb35     0001958c     00004a50   ll_pxxx.a : ll_isr.o (.text)
-                             0000f116             : ll.o (.text)
-                             0000f150             : ll.o (.text)
+                             0000f11e             : ll.o (.text)
+                             0000f158             : ll.o (.text)
 LL_PRIV_GenerateRPA       $Tramp$TT$L$PI$$LL_PRIV_GenerateRPA
    10016d71     00019594     000046f6   ll_pxxx.a : ll.o (.text)
                              0000473e             : ll.o (.text)
                              00005762             : ll_ae.o (.text)
                              0000ca60             : ll.o (.text)
                              0000caca             : ll.o (.text)
-                             0001080e             : ll.o (.text)
+                             00010786             : ll.o (.text)
                              00016f36             : ll_privacy.o (.text)
 LL_PRIV_IsRPA             $Tramp$TT$L$PI$$LL_PRIV_IsRPA
    10016e89     0001959c     000045ce   ll_pxxx.a : ll.o (.text)
@@ -3073,8 +3073,8 @@ LL_PRIV_IsZeroIRK         $Tramp$TT$L$PI$$LL_PRIV_IsZeroIRK
                              00006f32             : ll_ae.o (.text)
                              00007cd2             : ll_isr.o (.text)
                              0000cab4             : ll.o (.text)
-                             000107f0             : ll.o (.text)
-                             00010824             : ll.o (.text)
+                             00010768             : ll.o (.text)
+                             0001079c             : ll.o (.text)
                              00014556             : ll_privacy.o (.text)
                              000147a4             : ll.o (.text)
                              00016f2a             : ll_privacy.o (.text)
@@ -3087,8 +3087,8 @@ llHaltRadio               $Tramp$TT$L$PI$$llHaltRadio
                              000061ce             : ll_ae.o (.text)
                              00007c88             : ll_isr.o (.text)
                              00007cda             : ll_isr.o (.text)
-                             0000dd52             : ll_common.o (.text)
-                             0000f0f6             : ll.o (.text)
+                             0000dd5a             : ll_common.o (.text)
+                             0000f0fe             : ll.o (.text)
                              00016250             : ll.o (.text)
 llGetCurrentTime          $Tramp$TT$L$PI$$llGetCurrentTime
    100197b1     000195bc     000040f8   ll_pxxx.a : ll_ae.o (.text)
@@ -3103,8 +3103,8 @@ llGetCurrentTime          $Tramp$TT$L$PI$$llGetCurrentTime
                              00007248             : ll_scheduler.o (.text)
                              00007256             : ll_scheduler.o (.text)
                              00007432             : ll_ae.o (.text)
-                             0000dd20             : ll_common.o (.text)
-                             000100d2             : ll_scheduler.o (.text)
+                             0000dd28             : ll_common.o (.text)
+                             000100da             : ll_scheduler.o (.text)
                              00012508             : ll_scheduler.o (.text)
 llEventDelta              $Tramp$TT$L$PI$$llEventDelta
    10008691     000195c4     00003d56   ll_pxxx.a : ll_slave_end_causes.o (.text)
@@ -3146,20 +3146,20 @@ gapGetDevAddressMode      $Tramp$TT$L$PI$$gapGetDevAddressMode
                              00007e74   sm_pxxx.a : sm_rsppairing.o (.text)
                              0000c514             : sm_pairing.o (.text)
                              0000c554             : sm_pairing.o (.text)
-                             0000d4fa             : sm_pairing.o (.text)
-                             0000d57e             : sm_pairing.o (.text)
+                             0000d5c2             : sm_pairing.o (.text)
+                             0000d646             : sm_pairing.o (.text)
 gapGetSRK                 $Tramp$TT$L$PI$$gapGetSRK
    10018775     0001961c     000030d4   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_ProcessEvent)
                              00007de6   sm_pxxx.a : sm_rsppairing.o (.text)
                              00008808   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gap.obj (.text:GAP_DeviceInit)
                              00008838                                                       : gap.obj (.text:GAP_DeviceInit)
-                             0000e6fe   sm_pxxx.a : sm_mgr.o (.text)
+                             0000e706   sm_pxxx.a : sm_mgr.o (.text)
 GAP_GetIRK                $Tramp$TT$L$PI$$GAP_GetIRK
    100185a5     00019624     000030ce   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_ProcessEvent)
                              00007dc2   sm_pxxx.a : sm_rsppairing.o (.text)
                              000087e4   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gap.obj (.text:GAP_DeviceInit)
                              00008842                                                       : gap.obj (.text:GAP_DeviceInit)
-                             0000f946                                                       : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
+                             0000f94e                                                       : gapbondmgr.obj (.text:gapBondMgr_syncResolvingList)
 GAP_NumActiveConnections  $Tramp$TT$L$PI$$GAP_NumActiveConnections
    100188fd     0001962c     0000305e   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_ProcessEvent)
                              00007a06                                                       : gapbondmgr.obj (.text:GAPBondMgr_SetParameter)
@@ -3182,7 +3182,7 @@ llHardwareError           $Tramp$TT$L$PI$$llHardwareError
                              00007132             : ll_common.o (.text)
                              00007d54             : ll_isr.o (.text)
                              000098d4             : ll_isr.o (.text)
-                             0001055c             : ll_common.o (.text)
+                             000104d4             : ll_common.o (.text)
                              00014598             : ll_privacy.o (.text)
                              0001519a             : ll_scheduler.o (.text)
                              00018728             : ll_isr.o (.text)
@@ -3204,9 +3204,9 @@ LL_ENC_ReverseBytes       $Tramp$TT$L$PI$$LL_ENC_ReverseBytes
                              00001f90             : ble.o (.text)
                              0000ca56             : ll.o (.text)
                              0000cac0             : ll.o (.text)
-                             0000fec6             : ll_common.o (.text)
                              0000fece             : ll_common.o (.text)
-                             000103ca   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_FindAddr)
+                             0000fed6             : ll_common.o (.text)
+                             00010342   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_FindAddr)
 llMemCopySrc              $Tramp$TT$L$PI$$llMemCopySrc
    100092d1     0001967c     00001e56   ll_pxxx.a : ble.o (.text)
                              00001e62             : ble.o (.text)
@@ -3229,7 +3229,7 @@ GATT_bm_free              $Tramp$TT$L$PI$$GATT_bm_free
    10018489     00019694     0000169c   simple_peripheral.obj (.text:SimplePeripheral_taskFxn$1)
                              00003254   ble5_simple_peripheral_cc2640r2lp_stack_library.lib : gapbondmgr.obj (.text:GAPBondMgr_ProcessEvent)
                              0000b268   profiles_pxxx.a : gattservapp.o (.text)
-                             0001072c   gattservapp_util.obj (.text:gattServApp_SendNotiInd$14)
+                             000106a4   gattservapp_util.obj (.text:gattServApp_SendNotiInd$14)
                              00012da2   profiles_pxxx.a : gattservapp.o (.text)
                              0001363e                   : gattservapp.o (.text)
                              000136ee                   : gattservapp.o (.text)
@@ -3342,7 +3342,7 @@ address   name
 00000e45  AssertHandler                                                             
 0001a1e4  BoardGpioInitTable                                                        
 00018f31  C$$EXIT                                                                   
-0000ff89  CC2640R2_LAUNCHXL_shutDownExtFlash                                        
+0000ff91  CC2640R2_LAUNCHXL_shutDownExtFlash                                        
 00014d35  CC2640R2_LAUNCHXL_wakeUpExtFlash                                          
 1000dbf1  COPY                                                                      
 00018da9  ClockP_Params_init                                                        
@@ -3355,9 +3355,9 @@ address   name
 00018eb1  ClockP_setTimeout                                                         
 00018eb5  ClockP_start                                                              
 00018eb9  ClockP_stop                                                               
-20001db8  ClockP_tickPeriod                                                         
+20001dc0  ClockP_tickPeriod                                                         
 00018def  CryptoCC26XX_Params_init                                                  
-000105a9  CryptoCC26XX_allocateKey                                                  
+00010521  CryptoCC26XX_allocateKey                                                  
 0001a6e0  CryptoCC26XX_config                                                       
 000177dd  CryptoCC26XX_hwiIntFxn                                                    
 00017c6d  CryptoCC26XX_init                                                         
@@ -3367,14 +3367,14 @@ address   name
 00018e2d  CryptoCC26XX_transactPolling                                              
 0000b9a7  DefaultAssertCback                                                        
 000173c5  DisplayUartAnsi_clear                                                     
-0000e3fd  DisplayUartAnsi_clearLines                                                
+0000e405  DisplayUartAnsi_clearLines                                                
 0001862d  DisplayUartAnsi_close                                                     
 00018e33  DisplayUartAnsi_control                                                   
 0001a540  DisplayUartAnsi_fxnTable                                                  
 00018e39  DisplayUartAnsi_getType                                                   
 0000cd7f  DisplayUartAnsi_init                                                      
-0000e7fd  DisplayUartAnsi_open                                                      
-0000ee69  DisplayUartAnsi_vprintf                                                   
+0000e805  DisplayUartAnsi_open                                                      
+0000ee71  DisplayUartAnsi_vprintf                                                   
 0001a680  Display_config                                                            
 0001a6d6  Display_count                                                             
 0001a4f7  Display_defaultParams                                                     
@@ -3396,13 +3396,13 @@ address   name
 20004fc8  EXPX                                                                      
 20004fcc  EXPY                                                                      
 20004fd0  EXPZ                                                                      
-00010379  GAPBondMgr_FindAddr                                                       
+000102f1  GAPBondMgr_FindAddr                                                       
 000152d5  GAPBondMgr_Pair                                                           
 000169e1  GAPBondMgr_PasscodeRsp                                                    
 00002cc9  GAPBondMgr_ProcessEvent                                                   
 00018081  GAPBondMgr_Register                                                       
 0000799d  GAPBondMgr_SetParameter                                                   
-0000e1ed  GAP_Authenticate                                                          
+0000e1f5  GAP_Authenticate                                                          
 1001187d  GAP_Bond                                                                  
 000086ad  GAP_DeviceInit                                                            
 10014599  GAP_EndDiscoverable                                                       
@@ -3431,12 +3431,12 @@ address   name
 100117c1  GAP_TerminateAuth                                                         
 10014695  GAP_UpdateAdvTokens                                                       
 10014509  GAP_UpdateAdvertisingData                                                 
-00010635  GAP_UpdateLinkParamReq                                                    
-0000d891  GAP_UpdateLinkParamReqReply                                               
+000105ad  GAP_UpdateLinkParamReq                                                    
+0000d899  GAP_UpdateLinkParamReqReply                                               
 00018ebd  GAP_UpdateResolvingList                                                   
 00018a4d  GAP_isPairing                                                             
 00017a65  GATTServApp_AddService                                                    
-00010855  GATTServApp_Init                                                          
+000107cd  GATTServApp_Init                                                          
 00016505  GATTServApp_InitCharCfg                                                   
 00012ddd  GATTServApp_ProcessCCCWriteReq                                            
 00012d79  GATTServApp_ProcessEvent                                                  
@@ -3456,7 +3456,7 @@ address   name
 100107b9  GATT_GetNextHandle                                                        
 1000ffcd  GATT_Indication                                                           
 1001817d  GATT_Init                                                                 
-0000f9c9  GATT_InitClient                                                           
+0000f9d1  GATT_InitClient                                                           
 1000fa89  GATT_InitServer                                                           
 10010045  GATT_Notification                                                         
 10018341  GATT_NotifyEvent                                                          
@@ -3473,7 +3473,7 @@ address   name
 10018139  GATT_SetHostToAppFlowCtrl                                                 
 000171e1  GATT_UpdateMTU                                                            
 00011c09  GATT_VerifyReadPermissions                                                
-0000fa5d  GATT_VerifyWritePermissions                                               
+0000fa65  GATT_VerifyWritePermissions                                               
 10018405  GATT_bm_alloc                                                             
 10018489  GATT_bm_free                                                              
 1000d1f1  GETBIT                                                                    
@@ -3483,7 +3483,7 @@ address   name
 00011961  GGS_SetParameter                                                          
 000095d5  GapAdv_create                                                             
 00015d29  GapAdv_disable                                                            
-0000e555  GapAdv_enable                                                             
+0000e55d  GapAdv_enable                                                             
 0000bc8d  GapAdv_loadByHandle                                                       
 00014a41  GapAdv_setEventMask                                                       
 00015809  GapConfig_SetParameter                                                    
@@ -3595,7 +3595,7 @@ address   name
 1000bc2d  HCI_VendorSpecifcCommandCompleteEvent                                     
 1000b041  HCI_WriteAuthPayloadTimeoutCmd                                            
 1000a7f1  HCI_bm_alloc                                                              
-20000c88  HEAPMGR_SIZE                                                              
+20000c8c  HEAPMGR_SIZE                                                              
 00017c8d  HalFlashGetAddress                                                        
 00016a11  HalFlashRead                                                              
 00018db3  HalFlashWrite                                                             
@@ -3612,10 +3612,10 @@ address   name
 0001a6d7  I2C_count                                                                 
 00018643  ICall_abort                                                               
 00012e41  ICall_createRemoteTasksAtRuntime                                          
-20000c8c  ICall_dispatcher                                                          
+20000c90  ICall_dispatcher                                                          
 00012ea1  ICall_enrollService                                                       
 00018321  ICall_enterCSImpl                                                         
-20000c68  ICall_enterCriticalSection                                                
+20000c6c  ICall_enterCriticalSection                                                
 00013201  ICall_fetchMsg                                                            
 00016539  ICall_free                                                                
 00018e3f  ICall_freeMsg                                                             
@@ -3625,9 +3625,9 @@ address   name
 00016539  ICall_heapFree                                                            
 00011a49  ICall_heapGetStats                                                        
 00011ab9  ICall_heapInit                                                            
-00010405  ICall_heapMalloc                                                          
+0001037d  ICall_heapMalloc                                                          
 00018659  ICall_leaveCSImpl                                                         
-20000c6c  ICall_leaveCriticalSection                                                
+20000c70  ICall_leaveCriticalSection                                                
 00018ef1  ICall_malloc                                                              
 0001809d  ICall_mallocLimited                                                       
 0001866f  ICall_pwrDispense                                                         
@@ -3636,7 +3636,7 @@ address   name
 0001656d  ICall_searchServiceEntity                                                 
 00011f85  ICall_send                                                                
 00011ff1  ICall_sendServiceComplete                                                 
-0000f80d  ICall_setTimer                                                            
+0000f815  ICall_setTimer                                                            
 00017b19  ICall_setTimerMSecs                                                       
 00018ba5  ICall_signal                                                              
 00018dbd  ICall_stopTimer                                                           
@@ -3687,7 +3687,7 @@ address   name
 1000c415  LL_AdvReportCback                                                         
 1000be71  LL_AuthPayloadTimeoutExpiredCback                                         
 10005f95  LL_ChanMapUpdate                                                          
-00010745  LL_ChannelSelectionAlgorithmCback                                         
+000106bd  LL_ChannelSelectionAlgorithmCback                                         
 000146e1  LL_ClearResolvingList                                                     
 100049d9  LL_ClearWhiteList                                                         
 00016811  LL_ConnActive                                                             
@@ -3699,7 +3699,7 @@ address   name
 10005e85  LL_CreateConnCancel                                                       
 10004bbd  LL_CtrlToHostFlowControl                                                  
 1000bf65  LL_DataLengthChangeEventCback                                             
-0000f0e1  LL_DirectTestEnd                                                          
+0000f0e9  LL_DirectTestEnd                                                          
 1000cb35  LL_DirectTestEndDoneCback                                                 
 0000a7fd  LL_DirectTestRxTest                                                       
 00009435  LL_DirectTestTxTest                                                       
@@ -3709,10 +3709,10 @@ address   name
 0001871f  LL_DoorbellErrorCback                                                     
 100172f9  LL_ENC_AES128_Decrypt                                                     
 1001729d  LL_ENC_AES128_Encrypt                                                     
-0000fef7  LL_ENC_Decrypt                                                            
+0000feff  LL_ENC_Decrypt                                                            
 000115b1  LL_ENC_DecryptMsg                                                         
 00013dfd  LL_ENC_Encrypt                                                            
-0000ebdd  LL_ENC_EncryptMsg                                                         
+0000ebe5  LL_ENC_EncryptMsg                                                         
 10017221  LL_ENC_GenDeviceIV                                                        
 1001720d  LL_ENC_GenDeviceSKD                                                       
 10017235  LL_ENC_GenerateNonce                                                      
@@ -3730,7 +3730,7 @@ address   name
 10006b59  LL_EXT_EndModemTest                                                       
 10006d75  LL_EXT_ExtendRfRange                                                      
 1000ba31  LL_EXT_ExtendRfRangeCback                                                 
-0000faf1  LL_EXT_GetConnInfo                                                        
+0000faf9  LL_EXT_GetConnInfo                                                        
 10006d79  LL_EXT_HaltDuringRf                                                       
 10006cb9  LL_EXT_MapPmIoPort                                                        
 10006ab5  LL_EXT_ModemTestRx                                                        
@@ -3764,7 +3764,7 @@ address   name
 10004a95  LL_Encrypt                                                                
 1000c1c9  LL_EnhancedConnectionCompleteCback                                        
 10006819  LL_GenerateDHKeyCmd                                                       
-0000db85  LL_GenerateDHKeyCompleteEventCback                                        
+0000db8d  LL_GenerateDHKeyCompleteEventCback                                        
 0000d0d1  LL_GetAdvSet                                                              
 00018a75  LL_GetNumActiveConns                                                      
 00000c11  LL_Init                                                                   
@@ -3792,7 +3792,7 @@ address   name
 00018389  LL_PRIV_TeardownPrivacy                                                   
 00012cb1  LL_PRIV_UpdateExtWLEntry                                                  
 00016f15  LL_PRIV_UpdateRL                                                          
-0000dc41  LL_PhyUpdateCompleteEventCback                                            
+0000dc49  LL_PhyUpdateCompleteEventCback                                            
 000044d5  LL_ProcessEvent                                                           
 10004ac1  LL_PseudoRand                                                             
 10004969  LL_RX_bm_alloc                                                            
@@ -3823,14 +3823,14 @@ address   name
 1000bee5  LL_RemoteConnParamReqCback                                                
 0001546d  LL_RemoteConnParamReqNegReply                                             
 00010bf9  LL_RemoteConnParamReqReply                                                
-0000f5ad  LL_RemoveDeviceFromResolvingList                                          
+0000f5b5  LL_RemoveDeviceFromResolvingList                                          
 10004a25  LL_RemoveWhiteListDevice                                                  
 00008d95  LL_Reset                                                                  
 10019465  LL_RxDataCompleteCback                                                    
 0000a935  LL_RxEmptyCback                                                           
 00009769  LL_RxEntryDoneCback                                                       
 00007b9d  LL_RxIgnoredCback                                                         
-000107cd  LL_SetAddressResolutionEnable                                             
+00010745  LL_SetAddressResolutionEnable                                             
 1000559d  LL_SetAdvData                                                             
 00010dfd  LL_SetDataLen                                                             
 0000b7b1  LL_SetPhy                                                                 
@@ -3843,7 +3843,7 @@ address   name
 1000604d  LL_StartEncrypt                                                           
 10004945  LL_TX_bm_alloc                                                            
 20004f6e  LL_TaskID                                                                 
-0000e755  LL_TxData                                                                 
+0000e75d  LL_TxData                                                                 
 00004e85  LL_TxDoneCback                                                            
 00017e4d  LL_TxEntryDoneCback                                                       
 00012849  LL_WriteAuthPayloadTimeout                                                
@@ -3870,7 +3870,7 @@ address   name
 00018c1f  NOROM_CPUcpsid                                                            
 00018c2b  NOROM_CPUcpsie                                                            
 00018e45  NOROM_CPUdelay                                                            
-0000f8a1  NOROM_CRYPTOAesLoadKey                                                    
+0000f8a9  NOROM_CRYPTOAesLoadKey                                                    
 00017055  NOROM_ChipInfo_GetChipFamily                                              
 00017825  NOROM_ChipInfo_GetChipType                                                
 000183bd  NOROM_ChipInfo_GetPackageType                                             
@@ -3881,7 +3881,7 @@ address   name
 00017849  NOROM_OSCHF_TurnOnXosc                                                    
 00015bc1  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                                 
 00018c37  NOROM_OSC_HPOSCRelativeFrequencyOffsetToRFCoreFormatConvert               
-0000d94f  NOROM_RFCAdi3VcoLdoVoltageMode                                            
+0000d957  NOROM_RFCAdi3VcoLdoVoltageMode                                            
 000183d5  NOROM_RFCCpeIntGetAndClear                                                
 000174c1  NOROM_RFCDoorbellSendTo                                                   
 000189b5  NOROM_RFCHwIntGetAndClear                                                 
@@ -3889,7 +3889,7 @@ address   name
 00017cad  NOROM_RFCRfTrimRead                                                       
 000189c5  NOROM_RFCRfTrimSet                                                        
 00015bfd  NOROM_RFCSynthPowerDown                                                   
-0000ddb9  NOROM_SetupTrimDevice                                                     
+0000ddc1  NOROM_SetupTrimDevice                                                     
 00011b29  NOROM_SysCtrlAdjustRechargeAfterPowerDown                                 
 00006b49  NOROM_SysCtrlSetRechargeBeforePowerDown                                   
 000125d9  NOROM_SysCtrl_DCDC_VoltageConditionalControl                              
@@ -3901,14 +3901,14 @@ address   name
 0001d000  NV_FLASH                                                                  
 20001280  OSAL_timeSeconds                                                          
 000189d5  Onboard_rand                                                              
-0000e94b  Onboard_soft_reset                                                        
+0000e953  Onboard_soft_reset                                                        
 000189ed  PINCC26XX_getPinCount                                                     
 0001a6e8  PINCC26XX_hwAttrs                                                         
 00017081  PINCC26XX_setMux                                                          
 00017fcb  PIN_close                                                                 
 000187cd  PIN_getInputValue                                                         
 00008a29  PIN_init                                                                  
-0000f2b5  PIN_open                                                                  
+0000f2bd  PIN_open                                                                  
 00018c43  PIN_registerIntCb                                                         
 000138d5  PIN_remove                                                                
 000165a1  PIN_setConfig                                                             
@@ -3922,13 +3922,13 @@ address   name
 000098fd  PowerCC26XX_doCalibrate                                                   
 000120c9  PowerCC26XX_initiateCalibration                                           
 00015709  PowerCC26XX_isStableXOSC_HF                                               
-200009d4  PowerCC26XX_module                                                        
+200009d8  PowerCC26XX_module                                                        
 00017ced  PowerCC26XX_schedulerDisable                                              
 00017d0d  PowerCC26XX_schedulerRestore                                              
 0000c229  PowerCC26XX_standbyPolicy                                                 
-20001d6c  PowerCC26XX_swiKey                                                        
+20001d74  PowerCC26XX_swiKey                                                        
 00018ef5  PowerCC26XX_switchXOSC_HF                                                 
-20001d68  PowerCC26XX_taskKey                                                       
+20001d70  PowerCC26XX_taskKey                                                       
 00018c51  Power_getConstraintMask                                                   
 00018c5d  Power_getDependencyCount                                                  
 00017fe9  Power_getTransitionLatency                                                
@@ -3936,9 +3936,9 @@ address   name
 0000aba1  Power_init                                                                
 000174e9  Power_registerNotify                                                      
 000165d5  Power_releaseConstraint                                                   
-0000d951  Power_releaseDependency                                                   
+0000d959  Power_releaseDependency                                                   
 00016b01  Power_setConstraint                                                       
-0000de71  Power_setDependency                                                       
+0000de79  Power_setDependency                                                       
 0000691d  Power_sleep                                                               
 00017d2d  Power_unregisterNotify                                                    
 200044f8  RAM_BASE_ADDR                                                             
@@ -3957,7 +3957,7 @@ address   name
 1000a5b1  RFHAL_NextDataEntryDone                                                   
 000187e1  RF_Params_init                                                            
 00018bcf  RF_cancelCmd                                                              
-0000df25  RF_control                                                                
+0000df2d  RF_control                                                                
 00018dc7  RF_flushCmd                                                               
 00018809  RF_getCmdOp                                                               
 00012641  RF_getCurrentTime                                                         
@@ -3965,7 +3965,7 @@ address   name
 00018145  RF_getRssi                                                                
 00008f41  RF_open                                                                   
 0000bf65  RF_pendCmd                                                                
-0000d591  RF_postCmd                                                                
+0000d659  RF_postCmd                                                                
 00018c69  RF_powerConstraintGet                                                     
 0001663d  RF_powerConstraintRelease                                                 
 00018161  RF_powerConstraintSet                                                     
@@ -3995,7 +3995,7 @@ address   name
 UNDEFED   SHT$$INIT_ARRAY$$Base                                                     
 UNDEFED   SHT$$INIT_ARRAY$$Limit                                                    
 10012139  SM_Encrypt                                                                
-0000e6ab  SM_GenerateAuthenSig                                                      
+0000e6b3  SM_GenerateAuthenSig                                                      
 1001790d  SM_GetDHKey                                                               
 100178c5  SM_GetEccKeys                                                             
 10017989  SM_GetScConfirmOob                                                        
@@ -4005,12 +4005,12 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 100178bd  SM_RegisterTask                                                           
 00017f2d  SM_ResponderInit                                                          
 1000f551  SM_SetECCRegenerationCount                                                
-00010259  SM_StartPairing                                                           
+000101d1  SM_StartPairing                                                           
 10012521  SM_VerifyAuthenSig                                                        
 20004f7d  SM_appExpectingKey                                                        
 200045a9  SM_appTaskID                                                              
-0000f80b  SM_dhKeyCB                                                                
-00010633  SM_p256KeyCB                                                              
+0000f813  SM_dhKeyCB                                                                
+000105ab  SM_p256KeyCB                                                              
 0001a6db  SPI_count                                                                 
 1000da81  SQUAREMULTIPLYWORD                                                        
 00017589  SafeHapiVoid                                                              
@@ -4023,9 +4023,9 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 00018f05  SemaphoreP_post                                                           
 00015c39  SimplePeripheral_createTask                                               
 00014e55  SimplePeripheral_doSelectConn                                             
-0000e08d  SimplePeripheral_doSetConnPhy                                             
+0000e095  SimplePeripheral_doSetConnPhy                                             
 000153a1  SimpleProfile_GetParameter                                                
-0000d651  SimpleProfile_SetParameter                                                
+0000d405  SimpleProfile_SetParameter                                                
 00018a0d  SwiP_Params_init                                                          
 00015cb1  SwiP_construct                                                            
 00018f09  SwiP_destruct                                                             
@@ -4046,7 +4046,7 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 20004ff8  TMP6                                                                      
 0001a718  TRNGCC26XXHWAttrs                                                         
 0001a1c0  TRNGCC26XX_config                                                         
-0000e13d  TRNGCC26XX_getNumber                                                      
+0000e145  TRNGCC26XX_getNumber                                                      
 000175b1  TRNGCC26XX_init                                                           
 0001817d  TRNGCC26XX_open                                                           
 0001a4d0  TxPowerTable                                                              
@@ -4059,9 +4059,9 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 0000aa6d  UARTCC26XX_read                                                           
 000126a9  UARTCC26XX_readCancel                                                     
 00018e5d  UARTCC26XX_readPolling                                                    
-0000f515  UARTCC26XX_swiIntFxn                                                      
+0000f51d  UARTCC26XX_swiIntFxn                                                      
 0000b4a5  UARTCC26XX_write                                                          
-0000efa9  UARTCC26XX_writeCancel                                                    
+0000efb1  UARTCC26XX_writeCancel                                                    
 00018e63  UARTCC26XX_writePolling                                                   
 0001844d  UART_Params_init                                                          
 00018dd1  UART_close                                                                
@@ -4076,7 +4076,7 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 000141b5  Util_convertBdAddr2Str                                                    
 00018f29  Util_startClock                                                           
 00018f2d  Util_stopClock                                                            
-00010139  WL_AddEntry                                                               
+00010141  WL_AddEntry                                                               
 10018bb1  WL_Clear                                                                  
 00018279  WL_ClearEntry                                                             
 10018df9  WL_ClearIgnoreList                                                        
@@ -4096,9 +4096,9 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 000000d2  __TARG__                                                                  
 0001ba54  __TI_CINIT_Base                                                           
 0001babc  __TI_CINIT_Limit                                                          
-0001ba0c  __TI_Handler_Table_Base                                                   
-0001ba18  __TI_Handler_Table_Limit                                                  
-0000edc9  __TI_auto_init                                                            
+0001ba10  __TI_Handler_Table_Base                                                   
+0001ba1c  __TI_Handler_Table_Limit                                                  
+0000edd1  __TI_auto_init                                                            
 00012711  __TI_decompress_lzss                                                      
 00018bdd  __TI_decompress_none                                                      
 ffffffff  __TI_pprof_out_hndl                                                       
@@ -4113,15 +4113,15 @@ ffffffff  __TI_prof_data_start
 000112dd  __aeabi_memclr                                                            
 000112dd  __aeabi_memclr4                                                           
 000112dd  __aeabi_memclr8                                                           
-0000f219  __aeabi_memcpy                                                            
-0000f219  __aeabi_memcpy4                                                           
-0000f219  __aeabi_memcpy8                                                           
+0000f221  __aeabi_memcpy                                                            
+0000f221  __aeabi_memcpy4                                                           
+0000f221  __aeabi_memcpy8                                                           
 000112df  __aeabi_memset                                                            
 000112df  __aeabi_memset4                                                           
 000112df  __aeabi_memset8                                                           
 00015a49  __aeabi_uidiv                                                             
 00015a49  __aeabi_uidivmod                                                          
-0000f775  __aeabi_uldivmod                                                          
+0000f77d  __aeabi_uldivmod                                                          
 ffffffff  __binit__                                                                 
 ffffffff  __c_args__                                                                
 0001ffa8  __ccfg                                                                    
@@ -4143,7 +4143,7 @@ ffffffff  __c_args__
 20004f00  activeConns                                                               
 10019a40  advChan                                                                   
 20004a20  advCmd                                                                    
-20001c50  advDataEntry                                                              
+20001c58  advDataEntry                                                              
 20004da4  advDataQueue                                                              
 10019a10  advEvt2Cmd                                                                
 10019a28  advEvt2State                                                              
@@ -4151,27 +4151,27 @@ ffffffff  __c_args__
 20004db4  advOutput                                                                 
 20004bf4  advParam                                                                  
 0001a826  advPktSuffix                                                              
-20001dac  advSetList                                                                
-20001c0c  aeCBackTbl                                                                
-20001dd7  aeCurAdvEnableHandle                                                      
-20001dd8  aeCurConnHandle                                                           
-20001dd6  aeCurHandle                                                               
-2000133f  aeSlaveSCA                                                                
-20001328  appAssertCback                                                            
-20000dc8  appKeyChangeHandler                                                       
+20001db4  advSetList                                                                
+20001c14  aeCBackTbl                                                                
+20001ddf  aeCurAdvEnableHandle                                                      
+20001de0  aeCurConnHandle                                                           
+20001dde  aeCurHandle                                                               
+20001343  aeSlaveSCA                                                                
+2000132c  appAssertCback                                                            
+20000dcc  appKeyChangeHandler                                                       
 200045a7  appTaskID                                                                 
 0001a70f  appTxPwrTbl                                                               
 0001a3ca  appearanceUUID                                                            
 20001271  argPeriodic                                                               
 20001274  assertSubcause                                                            
-0000e4a9  attSendMsg                                                                
+0000e4b1  attSendMsg                                                                
 10019099  attSendRspMsg                                                             
 20004e4c  attServerNotifyTxCB                                                       
-20001dcc  att_sendRspOnly                                                           
+20001dd4  att_sendRspOnly                                                           
 20004f3e  attrLen                                                                   
 20004fa0  aux64                                                                     
 0001a390  b_mont                                                                    
-20000cfc  baseTaskID                                                                
+20000d00  baseTaskID                                                                
 ffffffff  binit                                                                     
 200011dc  bleAppServiceInfoTable                                                    
 0001715d  bleDispatch_BMAlloc                                                       
@@ -4182,26 +4182,26 @@ ffffffff  binit
 100199d0  btBaseUUID                                                                
 20004f0c  buildInfo                                                                 
 20004df8  cachedTRNGdata                                                            
-20000d00  cbTimers                                                                  
+20000d04  cbTimers                                                                  
 0001a3c6  charAggFormatUUID                                                         
 0001a3bc  charExtPropsUUID                                                          
 0001a3c4  charFormatUUID                                                            
 0001a3be  charUserDescUUID                                                          
 0001a3b2  characterUUID                                                             
 0001a3c0  clientCharCfgUUID                                                         
-20001d94  clientInfoTbl                                                             
-20001d8c  connEvtCB                                                                 
+20001d9c  clientInfoTbl                                                             
+20001d94  connEvtCB                                                                 
 0001a81c  connEvtCutoff                                                             
 20004f44  connInitialMaxTxOctets                                                    
 20004f46  connInitialMaxTxTime                                                      
-20001dc8  connInitialMaxTxTimeCoded                                                 
-20001dc6  connInitialMaxTxTimeUncoded                                               
+20001dd0  connInitialMaxTxTimeCoded                                                 
+20001dce  connInitialMaxTxTimeUncoded                                               
 20004d5c  connOutput                                                                
 20004c84  connReqData                                                               
 10019a00  const_Rb                                                                  
 000149f5  copy_in                                                                   
 0001a654  cryptoCC26XXHWAttrs                                                       
-20001b8c  cryptoCC26XXObjects                                                       
+20001b94  cryptoCC26XXObjects                                                       
 0001a3dc  cryptoDriverTableBLE                                                      
 20004ef8  cryptoDrvTblPtr                                                           
 0001a82f  cryptoMode                                                                
@@ -4209,7 +4209,7 @@ ffffffff  binit
 0001a7bc  ctrlPktLenTable                                                           
 20004f63  ctrlToHostEnable                                                          
 20004f71  curTxPowerVal                                                             
-20001dd4  defaultPhy                                                                
+20001ddc  defaultPhy                                                                
 0001a651  devInfo11073CertUUID                                                      
 0001a6a4  devInfoCBs                                                                
 0001a6de  devInfoFirmwareRevUUID                                                    
@@ -4221,16 +4221,16 @@ ffffffff  binit
 0001a76c  devInfoServUUID                                                           
 0001a76e  devInfoSoftwareRevUUID                                                    
 0001a770  devInfoSystemIdUUID                                                       
-20001cfc  deviceFeatureSet                                                          
+20001d04  deviceFeatureSet                                                          
 0001a3c8  deviceNameUUID                                                            
 00018025  disconnectNext                                                            
 20000210  dispHandle                                                                
 0001a618  displayUartHWAttrs                                                        
-20001d5c  displayUartObject                                                         
+20001d64  displayUartObject                                                         
 0001a600  driverTable                                                               
 000186dd  driverTable_fnSpinlock                                                    
-20001dda  driverlib_release_0_52354                                                 
-20001da4  dtmInfo                                                                   
+20001de2  driverlib_release_0_52354                                                 
+20001dac  dtmInfo                                                                   
 0001a664  eccDriverTable                                                            
 20004ef4  eccDrvTblPtr                                                              
 20004b7c  eccParams                                                                 
@@ -4251,7 +4251,7 @@ ffffffff  binit
 20004f24  encParams                                                                 
 0001a3d6  extReportRefUUID                                                          
 20004f77  fastTxRespTime                                                            
-2000133e  flowCtrlFwdTaskId                                                         
+20001342  flowCtrlFwdTaskId                                                         
 200045a8  flowCtrlTaskId                                                            
 20004e44  fwImmedCmd                                                                
 20004e58  fwParCmd                                                                  
@@ -4262,20 +4262,20 @@ ffffffff  binit
 100149fd  gapAddAdvToken                                                            
 200045a3  gapAdvAppTaskID                                                           
 0000a049  gapAdv_controllerCb                                                       
-0000dac9  gapAdv_init                                                               
+0000dad1  gapAdv_init                                                               
 0001850d  gapAdv_processRemoveSetEvt                                                
 1001476d  gapAllocAdvRecs                                                           
 200045a2  gapAppTaskID                                                              
-0000f935  gapBondMgr_syncResolvingList                                              
-20000b00  gapBondStateNodeHead                                                      
-20000b0e  gapBond_lruBondList                                                       
-20000af5  gapBond_removeLRUBond                                                     
-20000af6  gapBond_syncRL                                                            
+0000f93d  gapBondMgr_syncResolvingList                                              
+20000b04  gapBondStateNodeHead                                                      
+20000b12  gapBond_lruBondList                                                       
+20000af9  gapBond_removeLRUBond                                                     
+20000afa  gapBond_syncRL                                                            
 10014abd  gapBuildADTokens                                                          
 10014a89  gapCalcAdvTokenDataLen                                                    
 100195ad  gapClrState                                                               
 200011ec  gapConfig_IRK                                                             
-20001d24  gapConfig_SRK                                                             
+20001d2c  gapConfig_SRK                                                             
 00018859  gapConnEvtNoticeCB                                                        
 100149c9  gapConnectedCleanUpAdvertising                                            
 20004e04  gapCurrentRandomAddr                                                      
@@ -4386,12 +4386,12 @@ ffffffff  binit
 00014359  gattProcessReadLong                                                       
 00011ea5  gattProcessReadMultiReq                                                   
 00017be5  gattProcessReadReq                                                        
-0000e9f1  gattProcessReliableWrites                                                 
+0000e9f9  gattProcessReliableWrites                                                 
 1001059d  gattProcessReq                                                            
 100181f5  gattProcessRxData                                                         
-00010491  gattProcessWriteLong                                                      
+00010409  gattProcessWriteLong                                                      
 00017921  gattProcessWriteReq                                                       
-20001d80  gattReTxList                                                              
+20001d88  gattReTxList                                                              
 00011071  gattReadByType                                                            
 10018129  gattRegisterClient                                                        
 10018121  gattRegisterServer                                                        
@@ -4444,32 +4444,32 @@ ffffffff  binit
 100100c9  gattStoreServerInfo                                                       
 20004f5f  gattTaskID                                                                
 10012789  generate_subkey                                                           
-20000dcc  hKeyPins                                                                  
+20000dd0  hKeyPins                                                                  
 20001278  halAssertCback                                                            
 0001178f  halAssertHandler                                                          
 000181ed  halAssertHandlerExt                                                       
 00011f13  halAssertSpinlock                                                         
-20001dcf  hciGapTaskID                                                              
+20001dd7  hciGapTaskID                                                              
 000143ad  hciInitEventMasks                                                         
-20001dd1  hciL2capTaskID                                                            
+20001dd9  hciL2capTaskID                                                            
 20004f62  hciPTMenabled                                                             
-20001dd2  hciSmpTaskID                                                              
-20001dce  hciTaskID                                                                 
-20001dd0  hciTestTaskID                                                             
+20001dda  hciSmpTaskID                                                              
+20001dd6  hciTaskID                                                                 
+20001dd8  hciTestTaskID                                                             
 20004000  heapEnd                                                                   
-20001ddc  heapStart                                                                 
-20000c7c  heapmgrMemFreeTotal                                                       
+20001de4  heapStart                                                                 
+20000c80  heapmgrMemFreeTotal                                                       
 0001a2a4  icallServiceTable                                                         
-20001320  icallServiceTblPtr                                                        
+20001324  icallServiceTblPtr                                                        
 00009a8d  icall_directAPI                                                           
 0001853d  icall_liteMsgParser                                                       
-20001ddb  icall_liteTaskId                                                          
+20001de3  icall_liteTaskId                                                          
 20004fb4  inPointX                                                                  
 20004fb8  inPointY                                                                  
 20004fb0  inScalar                                                                  
 0001a3ba  includeUUID                                                               
-20001db4  indCharCfg                                                                
-2000133d  indTaskId                                                                 
+20001dbc  indCharCfg                                                                
+20001341  indTaskId                                                                 
 20004c6c  initCmd                                                                   
 20004aac  initDataEntry                                                             
 20004d84  initDataQueue                                                             
@@ -4478,8 +4478,8 @@ ffffffff  binit
 20004bac  initParam                                                                 
 0001a82a  initPktSuffix                                                             
 10014c75  isLimitedDiscoverableMode                                                 
-20000ddc  keyPins                                                                   
-20000dd0  keyPinsCfg                                                                
+20000de0  keyPins                                                                   
+20000dd4  keyPinsCfg                                                                
 10015239  l2capAllocChannel                                                         
 10015269  l2capAllocConnChannel                                                     
 100150a5  l2capBuildInfoReq                                                         
@@ -4522,15 +4522,15 @@ ffffffff  binit
 10015309  l2capStopTimer                                                            
 10014e05  l2capStoreFCPkt                                                           
 20004f65  l2capTaskID                                                               
-20001dd3  l2cap_gattServAppTaskID                                                   
+20001ddb  l2cap_gattServAppTaskID                                                   
 20001208  lastAppOpcodeIdxSent                                                      
 1001287d  leftshift_onebit                                                          
 20001275  legacyMode                                                                
 20004b4c  linkCBs                                                                   
-20001d98  linkCmd                                                                   
+20001da0  linkCmd                                                                   
 20004ee8  linkDB                                                                    
 20004f69  linkDBNumConns                                                            
-0000fd41  linkDB_Add                                                                
+0000fd49  linkDB_Add                                                                
 00014305  linkDB_Authen                                                             
 00015889  linkDB_Find                                                               
 10017f7d  linkDB_FindFirst                                                          
@@ -4549,15 +4549,15 @@ ffffffff  binit
 100180e5  linkDB_reportStatusChange                                                 
 20004f6a  linkDB_secureConnectionOnlyMode                                           
 000181d1  linkDB_updateConnParam                                                    
-20001d9c  linkParam                                                                 
+20001da4  linkParam                                                                 
 0001637d  llActiveTask                                                              
 00012351  llAddTxDataEntry                                                          
 10015b75  llAdv_TaskAbort                                                           
 000025f9  llAdv_TaskConnect                                                         
-0000dcfd  llAlignToNextEvent                                                        
+0000dd05  llAlignToNextEvent                                                        
 00008145  llAllocConnId                                                             
-0000fdd3  llAllocRfMem                                                              
-0000e34d  llAllocTask                                                               
+0000fddb  llAllocRfMem                                                              
+0000e355  llAllocTask                                                               
 100080b9  llAtLeastTwoChans                                                         
 00011879  llCBTimer_AptoExpiredCback                                                
 000179b1  llCalcScaFactor                                                           
@@ -4568,7 +4568,7 @@ ffffffff  binit
 0000a581  llCombinePDU                                                              
 0001a784  llConfigTable                                                             
 0000c13d  llConnCleanup                                                             
-20001d70  llConnEvtNotice                                                           
+20001d78  llConnEvtNotice                                                           
 0000b5a9  llConnExists                                                              
 00017c07  llConnTerminate                                                           
 20004e68  llConns                                                                   
@@ -4578,7 +4578,7 @@ ffffffff  binit
 0001886d  llDataGetConnPtr                                                          
 00013cf5  llDequeueCtrlPkt                                                          
 0000c5c1  llDynamicAlloc                                                            
-0000fb85  llDynamicFree                                                             
+0000fb8d  llDynamicFree                                                             
 00017265  llEndExtAdvTask                                                           
 000123bd  llEnqueueCtrlPkt                                                          
 10008691  llEventDelta                                                              
@@ -4636,10 +4636,10 @@ ffffffff  binit
 000167dd  llReplaceRxBuffers                                                        
 10007071  llResetRadio                                                              
 000176a1  llReverseBits                                                             
-0001051d  llRfInit                                                                  
+00010495  llRfInit                                                                  
 00011ce9  llRfSetup                                                                 
 100070b1  llRfStartFS                                                               
-000100a9  llScheduleTask                                                            
+000100b1  llScheduleTask                                                            
 000066e5  llScheduler                                                               
 00014b71  llSchedulerInit                                                           
 00018709  llSendAdvSetEndEvent                                                      
@@ -4650,14 +4650,14 @@ ffffffff  binit
 00013d4d  llSetTxPower                                                              
 0001720d  llSetupAdvDataEntryQueue                                                  
 10007829  llSetupConn                                                               
-0000ea95  llSetupConnParamReq                                                       
-0000eb39  llSetupConnParamRsp                                                       
-0000e29d  llSetupConnRxDataEntryQueue                                               
+0000ea9d  llSetupConnParamReq                                                       
+0000eb41  llSetupConnParamRsp                                                       
+0000e2a5  llSetupConnRxDataEntryQueue                                               
 1000798d  llSetupEncReq                                                             
-0000fe65  llSetupEncRsp                                                             
+0000fe6d  llSetupEncRsp                                                             
 000040d9  llSetupExtAdv                                                             
 00007391  llSetupExtAdvLegacy                                                       
-0000d711  llSetupExtData                                                            
+0000d719  llSetupExtData                                                            
 0000d339  llSetupExtHdr                                                             
 00012429  llSetupFeatureSetReq                                                      
 00012495  llSetupFeatureSetRsp                                                      
@@ -4667,7 +4667,7 @@ ffffffff  binit
 00003c65  llSetupNextSlaveEvent                                                     
 10007b61  llSetupPauseEncReq                                                        
 00012919  llSetupPauseEncRsp                                                        
-0000e601  llSetupPhyCtrlPkt                                                         
+0000e609  llSetupPhyCtrlPkt                                                         
 000147d1  llSetupPingReq                                                            
 00014821  llSetupPingRsp                                                            
 10009431  llSetupRATChanCompare                                                     
@@ -4688,7 +4688,7 @@ ffffffff  binit
 0001798d  llStartDurationTimer                                                      
 20004f6f  llState                                                                   
 00018e81  llTaskError                                                               
-20001d50  llTaskList                                                                
+20001d58  llTaskList                                                                
 000150dd  llTime2Octets                                                             
 100197b9  llTimeCompare                                                             
 100197dd  llTimeDelta                                                               
@@ -4707,7 +4707,7 @@ ffffffff  binit
 1000dc21  mSET                                                                      
 1000e7c5  mSUB                                                                      
 0000caed  main                                                                      
-2000132c  main_func_sp                                                              
+20001330  main_func_sp                                                              
 20004f7b  maxNumConns                                                               
 20004f61  maxNumPrepareWrites                                                       
 20004f6d  maxNumTxDataBufs                                                          
@@ -4715,7 +4715,7 @@ ffffffff  binit
 0001a82c  maxPktsPerEvt                                                             
 20004f72  maxTxPwrForDTM                                                            
 000179d5  memcmp                                                                    
-0000f219  memcpy                                                                    
+0000f221  memcpy                                                                    
 000112e5  memset                                                                    
 2000459e  nextHandle                                                                
 20004f74  numComplPkts                                                              
@@ -4733,7 +4733,7 @@ ffffffff  binit
 00018d49  osalHeapInitFxn                                                           
 00018f3d  osalHeapIsBlockingFxn                                                     
 0000c311  osalTimerUpdate                                                           
-0000f17d  osal_CbTimerProcessEvent                                                  
+0000f185  osal_CbTimerProcessEvent                                                  
 00018d55  osal_CbTimerStart                                                         
 00013ead  osal_CbTimerStop                                                          
 000129e9  osal_CbTimerUpdate                                                        
@@ -4749,7 +4749,7 @@ ffffffff  binit
 00016d11  osal_get_timeoutEx                                                        
 2000101c  osal_icallMsg_hook                                                        
 000183a3  osal_isbufset                                                             
-20001d48  osal_last_timestamp                                                       
+20001d50  osal_last_timestamp                                                       
 00018d61  osal_list_empty                                                           
 00018f41  osal_list_head                                                            
 00018f45  osal_list_next                                                            
@@ -4765,7 +4765,7 @@ ffffffff  binit
 00018f49  osal_memset                                                               
 000179f9  osal_msg_allocate                                                         
 00017ead  osal_msg_deallocate                                                       
-0000fc19  osal_msg_receive                                                          
+0000fc21  osal_msg_receive                                                          
 00017ecd  osal_msg_send                                                             
 00017719  osal_next_timeout                                                         
 20001014  osal_qHead                                                                
@@ -4773,7 +4773,7 @@ ffffffff  binit
 000182e9  osal_revmemcpy                                                            
 00018d6d  osal_self                                                                 
 00017a1d  osal_service_entry                                                        
-0000d7d1  osal_set_event                                                            
+0000d7d9  osal_set_event                                                            
 00017741  osal_snv_compact                                                          
 00018061  osal_snv_read                                                             
 0000be75  osal_snv_write                                                            
@@ -4784,7 +4784,7 @@ ffffffff  binit
 00018f4d  osal_strlen                                                               
 20001020  osal_syncHandle                                                           
 20001024  osal_tickperiod                                                           
-0000fcad  osal_timer_refTimeUpdate                                                  
+0000fcb5  osal_timer_refTimeUpdate                                                  
 20004fbc  outPointX                                                                 
 20004fc0  outPointY                                                                 
 20004e2c  ownPublicAddr                                                             
@@ -4803,15 +4803,15 @@ ffffffff  binit
 20004e24  pHciEvtMask2                                                              
 20004f30  pPairingParams                                                            
 20001204  pRfErrCb                                                                  
-20001da8  pRfPathComp                                                               
+20001db0  pRfPathComp                                                               
 20004ecc  pServiceList                                                              
 10012861  padding                                                                   
 0001a3d0  periConnParamUUID                                                         
-20001340  periPrivacyFlag                                                           
+20001344  periPrivacyFlag                                                           
 0001a3cc  periPrivacyFlagUUID                                                       
 200011fc  pfnBMAlloc                                                                
 20001200  pfnBMFree                                                                 
-20001d90  pfnBondMgrCBs                                                             
+20001d98  pfnBondMgrCBs                                                             
 20004ec0  pfnCentralCBs                                                             
 20004ea8  pfnCentralConnCBs                                                         
 20004ed4  pfnClientProcessMsgCB                                                     
@@ -4820,20 +4820,20 @@ ffffffff  binit
 20004eac  pfnPeripheralConnCBs                                                      
 20004f34  pfnResponderCBs                                                           
 20004ed0  pfnServerProcessMsgCB                                                     
-20000958  pinHandleTable                                                            
-200008c4  pinLowerBound                                                             
-200008c0  pinUpperBound                                                             
+2000095c  pinHandleTable                                                            
+200008c8  pinLowerBound                                                             
+200008c4  pinUpperBound                                                             
 20004f52  postRfOperations                                                          
 20004ed8  prepareWritesTbl                                                          
 0001a3b0  primaryServiceUUID                                                        
 20004e78  privInfo                                                                  
-20000e0e  pwrmgr_attribute                                                          
-20000e0c  pwrmgr_initialized                                                        
+2000131e  pwrmgr_attribute                                                          
+2000131c  pwrmgr_initialized                                                        
 0001a3ce  reconnectAddrUUID                                                         
 0001a3d8  reportRefUUID                                                             
 200045a5  reqTaskId                                                                 
 0001a772  resPrivAddrOnlyUUID                                                       
-20001970  resolvingList                                                             
+20001978  resolvingList                                                             
 0001a210  resourceDB                                                                
 00015125  rfCallback                                                                
 20004f54  rfCfgAdiVal                                                               
@@ -4855,12 +4855,12 @@ ffffffff  binit
 20001244  rfRegTbl1M                                                                
 2000129c  rfRegTbl2M                                                                
 20001250  rfRegTblCoded                                                             
-20001c88  rfSetup                                                                   
+20001c90  rfSetup                                                                   
 10019afc  romRev                                                                    
 20004cfc  rsp                                                                       
 20004f70  rssiCorrection                                                            
 0001a6f8  rtosApiTable                                                              
-20001da0  rtosApiTblPtr                                                             
+20001da8  rtosApiTblPtr                                                             
 20004e88  rxDataQ                                                                   
 20004f79  rxFifoFlowCtrl                                                            
 20004ce4  rxModemTestCmd                                                            
@@ -4874,7 +4874,7 @@ ffffffff  binit
 20004cb4  scanOutput                                                                
 20004bd0  scanParam                                                                 
 0001a828  scanPktSuffix                                                             
-20001dd5  scanReqRpt                                                                
+20001ddd  scanReqRpt                                                                
 20004f08  sclkSrc                                                                   
 0001a3b8  secondaryServiceUUID                                                      
 0000c77d  sendAuthEvent                                                             
@@ -4883,7 +4883,7 @@ ffffffff  binit
 0001a3c2  servCharCfgUUID                                                           
 20004ec8  serverInfoTbl                                                             
 20004edc  serviceCBsList                                                            
-20001345  serviceChangedCharProps                                                   
+20001349  serviceChangedCharProps                                                   
 0001a3d2  serviceChangedUUID                                                        
 0001a6b0  simpleProfileCBs                                                          
 0001a774  simpleProfileServUUID                                                     
@@ -4905,7 +4905,7 @@ ffffffff  binit
 1000f215  smF5Wrapper                                                               
 10013365  smFinishPublicKeyExchange                                                 
 1000f911  smFreePairingParams                                                       
-0000d4cd  smGenerateAddrInput                                                       
+0000d595  smGenerateAddrInput                                                       
 1000f129  smGenerateConfirm                                                         
 1000f2b9  smGenerateDHKeyCheck                                                      
 1000f0d9  smGeneratePairingReqRsp                                                   
@@ -4922,7 +4922,7 @@ ffffffff  binit
 1000f869  smPairingSendMasterID                                                     
 1000f8fd  smPairingSendSigningInfo                                                  
 0000cbc9  smProcessDataMsg                                                          
-0000d405  smProcessEncryptChange                                                    
+0000d4cd  smProcessEncryptChange                                                    
 10017715  smProcessHCIBLEEventCode                                                  
 0000accd  smProcessHCIBLEMetaEventCode                                              
 100176c1  smProcessOSALMsg                                                          
@@ -5019,7 +5019,7 @@ ffffffff  binit
 20004f20  taskEndAction                                                             
 20004f50  taskEndStatus                                                             
 0001a430  tasksArr                                                                  
-20001dbc  tasksEvents                                                               
+20001dc4  tasksEvents                                                               
 200011cc  tbmRowItemLast                                                            
 0000b6ad  tbm_displayItemPage                                                       
 00015f45  tbm_findActiveItem                                                        
@@ -5052,7 +5052,7 @@ ffffffff  binit
 1001bea1  ti_sysbios_BIOS_setThreadType__E                                          
 00016da1  ti_sysbios_BIOS_startFunc__I                                              
 1001beb1  ti_sysbios_BIOS_start__E                                                  
-0000ddb9  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
+0000ddc1  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
 00001280  ti_sysbios_family_arm_cc26xx_Timer_Module__id__C                          
 1001b8f9  ti_sysbios_family_arm_cc26xx_Timer_Module__startupDone__S                 
 200001e4  ti_sysbios_family_arm_cc26xx_Timer_Module__state__V                       
@@ -5072,7 +5072,7 @@ ffffffff  binit
 000169af  ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E                         
 1001c0a1  ti_sysbios_family_arm_cc26xx_Timer_setPeriod__E                           
 000151fd  ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I                        
-000102e9  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
+00010261  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
 000011f8  ti_sysbios_family_arm_cc26xx_Timer_startupNeeded__C                       
 1001b4e9  ti_sysbios_family_arm_cc26xx_Timer_startup__E                             
 200001ec  ti_sysbios_family_arm_cc26xx_TimestampProvider_Module__state__V           
@@ -5086,8 +5086,8 @@ ffffffff  binit
 1001a755  ti_sysbios_family_arm_m3_Hwi_Instance_finalize__E                         
 10019fc1  ti_sysbios_family_arm_m3_Hwi_Instance_init__E                             
 2000131a  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A                  
-20001330  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A                 
-20001334  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A                   
+20001334  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A                 
+20001338  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A                   
 00001284  ti_sysbios_family_arm_m3_Hwi_Module__id__C                                
 200012a4  ti_sysbios_family_arm_m3_Hwi_Module__root__V                              
 1001b939  ti_sysbios_family_arm_m3_Hwi_Module__startupDone__S                       
@@ -5113,7 +5113,7 @@ ffffffff  binit
 1001bf85  ti_sysbios_family_arm_m3_Hwi_disableFxn__E                                
 1001af45  ti_sysbios_family_arm_m3_Hwi_disableInterrupt__E                          
 1001a81d  ti_sysbios_family_arm_m3_Hwi_dispatchC__I                                 
-20001a44  ti_sysbios_family_arm_m3_Hwi_dispatchTable                                
+20001a4c  ti_sysbios_family_arm_m3_Hwi_dispatchTable                                
 1001c7a5  ti_sysbios_family_arm_m3_Hwi_dispatch__I                                  
 1001c043  ti_sysbios_family_arm_m3_Hwi_doSwiRestore__I                              
 1001c05b  ti_sysbios_family_arm_m3_Hwi_doTaskRestore__I                             
@@ -5326,7 +5326,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 0000123c  ti_sysbios_knl_Clock_triggerClock__C                                      
 1001bdbf  ti_sysbios_knl_Clock_triggerFunc__I                                       
 1001a2f1  ti_sysbios_knl_Clock_walkQueueDynamic__E                                  
-0000f645  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
+0000f64d  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
 1001a369  ti_sysbios_knl_Clock_workFunc__E                                          
 1001cb70  ti_sysbios_knl_Event_Instance_State_pendQ__O                              
 1001be49  ti_sysbios_knl_Event_Instance_init__E                                     
@@ -5447,10 +5447,10 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001ad25  ti_sysbios_knl_Swi_schedule__I                                            
 00016949  ti_sysbios_knl_Swi_setPri__E                                              
 1001c085  ti_sysbios_knl_Swi_startup__E                                             
-20001648  ti_sysbios_knl_Task_Instance_State_0_stack__A                             
+20001650  ti_sysbios_knl_Task_Instance_State_0_stack__A                             
 1001a059  ti_sysbios_knl_Task_Instance_finalize__E                                  
 10019ce1  ti_sysbios_knl_Task_Instance_init__E                                      
-20001338  ti_sysbios_knl_Task_Module_State_0_idleTask__A                            
+2000133c  ti_sysbios_knl_Task_Module_State_0_idleTask__A                            
 20000fdc  ti_sysbios_knl_Task_Module_State_0_readyQ__A                              
 1001cb88  ti_sysbios_knl_Task_Module_State_inactiveQ__O                             
 20001304  ti_sysbios_knl_Task_Module__root__V                                       
@@ -5463,7 +5463,7 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001bd6d  ti_sysbios_knl_Task_Object__destruct__S                                   
 1001bbf9  ti_sysbios_knl_Task_Object__get__S                                        
 0000126c  ti_sysbios_knl_Task_Object__table__C                                      
-20000d78  ti_sysbios_knl_Task_Object__table__V                                      
+20000d7c  ti_sysbios_knl_Task_Object__table__V                                      
 1001c021  ti_sysbios_knl_Task_Params__init__S                                       
 1001c0ad  ti_sysbios_knl_Task_SupportProxy_Module__startupDone__S                   
 1001c0ad  ti_sysbios_knl_Task_SupportProxy_Module__startupDone__S__mangled__        
@@ -5516,11 +5516,11 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 10019b00  ti_sysbios_rom_cortexm_cc26xx_r2_CC26xx_REVISION__C                       
 0001331b  ti_sysbios_rom_cortexm_cc26xx_r2_CC26xx_badRomRevision__E                 
 00018615  ti_sysbios_rom_cortexm_cc26xx_r2_CC26xx_checkRevision__E                  
-20001d44  timerHead                                                                 
-20001dc0  trngCC26XXObjects                                                         
+20001d4c  timerHead                                                                 
+20001dc8  trngCC26XXObjects                                                         
 0001a6bc  trngDriverTable                                                           
 20004efc  trngDrvTblPtr                                                             
-20001ccc  trxTestCmd                                                                
+20001cd4  trxTestCmd                                                                
 20004e8c  txDataQ                                                                   
 20004c34  txModemTestCmd                                                            
 0001a820  txPowerTable                                                              
@@ -5528,8 +5528,8 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 20004e94  txTestOut                                                                 
 20004dc4  txTestParam                                                               
 0001a480  uartCC26XXHWAttrs                                                         
-20001848  uartCC26XXObjects                                                         
-20001cac  uartCC26XXRingBuffer                                                      
+20001850  uartCC26XXObjects                                                         
+20001cb4  uartCC26XXRingBuffer                                                      
 2000121c  user0Cfg                                                                  
 0001a3d4  validRangeUUID                                                            
 20004e60  verInfo                                                                   
@@ -5646,8 +5646,8 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 000012f4  xdc_runtime_Text_nameUnknown__C                                           
 00017399  xdc_runtime_Text_printVisFxn__I                                           
 000131a1  xdc_runtime_Text_putLab__E                                                
-0000f6dd  xdc_runtime_Text_putMod__E                                                
-0000e8a5  xdc_runtime_Text_putSite__E                                               
+0000f6e5  xdc_runtime_Text_putMod__E                                                
+0000e8ad  xdc_runtime_Text_putSite__E                                               
 0001a780  xdc_runtime_Text_registryModsLastId__C                                    
 1001c6ed  xdc_runtime_Text_ropeText__E                                              
 0001a782  xdc_runtime_Text_unnamedModsLastId__C                                     
@@ -5880,85 +5880,85 @@ address   name
 0000cf2d  smpParsePairingReq                                                        
 0000d0d1  LL_GetAdvSet                                                              
 0000d339  llSetupExtHdr                                                             
-0000d405  smProcessEncryptChange                                                    
-0000d4cd  smGenerateAddrInput                                                       
-0000d591  RF_postCmd                                                                
-0000d651  SimpleProfile_SetParameter                                                
-0000d711  llSetupExtData                                                            
-0000d7d1  osal_set_event                                                            
-0000d891  GAP_UpdateLinkParamReqReply                                               
-0000d94f  NOROM_RFCAdi3VcoLdoVoltageMode                                            
-0000d951  Power_releaseDependency                                                   
-0000dac9  gapAdv_init                                                               
-0000db85  LL_GenerateDHKeyCompleteEventCback                                        
-0000dc41  LL_PhyUpdateCompleteEventCback                                            
-0000dcfd  llAlignToNextEvent                                                        
-0000ddb9  NOROM_SetupTrimDevice                                                     
-0000ddb9  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
-0000de71  Power_setDependency                                                       
-0000df25  RF_control                                                                
-0000e08d  SimplePeripheral_doSetConnPhy                                             
-0000e13d  TRNGCC26XX_getNumber                                                      
-0000e1ed  GAP_Authenticate                                                          
-0000e29d  llSetupConnRxDataEntryQueue                                               
-0000e34d  llAllocTask                                                               
-0000e3fd  DisplayUartAnsi_clearLines                                                
-0000e4a9  attSendMsg                                                                
-0000e555  GapAdv_enable                                                             
-0000e601  llSetupPhyCtrlPkt                                                         
-0000e6ab  SM_GenerateAuthenSig                                                      
-0000e755  LL_TxData                                                                 
-0000e7fd  DisplayUartAnsi_open                                                      
-0000e8a5  xdc_runtime_Text_putSite__E                                               
-0000e94b  Onboard_soft_reset                                                        
-0000e9f1  gattProcessReliableWrites                                                 
-0000ea95  llSetupConnParamReq                                                       
-0000eb39  llSetupConnParamRsp                                                       
-0000ebdd  LL_ENC_EncryptMsg                                                         
-0000edc9  __TI_auto_init                                                            
-0000ee69  DisplayUartAnsi_vprintf                                                   
-0000efa9  UARTCC26XX_writeCancel                                                    
-0000f0e1  LL_DirectTestEnd                                                          
-0000f17d  osal_CbTimerProcessEvent                                                  
-0000f219  __aeabi_memcpy                                                            
-0000f219  __aeabi_memcpy4                                                           
-0000f219  __aeabi_memcpy8                                                           
-0000f219  memcpy                                                                    
-0000f2b5  PIN_open                                                                  
-0000f515  UARTCC26XX_swiIntFxn                                                      
-0000f5ad  LL_RemoveDeviceFromResolvingList                                          
-0000f645  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
-0000f6dd  xdc_runtime_Text_putMod__E                                                
-0000f775  __aeabi_uldivmod                                                          
-0000f80b  SM_dhKeyCB                                                                
-0000f80d  ICall_setTimer                                                            
-0000f8a1  NOROM_CRYPTOAesLoadKey                                                    
-0000f935  gapBondMgr_syncResolvingList                                              
-0000f9c9  GATT_InitClient                                                           
-0000fa5d  GATT_VerifyWritePermissions                                               
-0000faf1  LL_EXT_GetConnInfo                                                        
-0000fb85  llDynamicFree                                                             
-0000fc19  osal_msg_receive                                                          
-0000fcad  osal_timer_refTimeUpdate                                                  
-0000fd41  linkDB_Add                                                                
-0000fdd3  llAllocRfMem                                                              
-0000fe65  llSetupEncRsp                                                             
-0000fef7  LL_ENC_Decrypt                                                            
-0000ff89  CC2640R2_LAUNCHXL_shutDownExtFlash                                        
-000100a9  llScheduleTask                                                            
-00010139  WL_AddEntry                                                               
-00010259  SM_StartPairing                                                           
-000102e9  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
-00010379  GAPBondMgr_FindAddr                                                       
-00010405  ICall_heapMalloc                                                          
-00010491  gattProcessWriteLong                                                      
-0001051d  llRfInit                                                                  
-000105a9  CryptoCC26XX_allocateKey                                                  
-00010633  SM_p256KeyCB                                                              
-00010635  GAP_UpdateLinkParamReq                                                    
-00010745  LL_ChannelSelectionAlgorithmCback                                         
-000107cd  LL_SetAddressResolutionEnable                                             
-00010855  GATTServApp_Init                                                          
+0000d405  SimpleProfile_SetParameter                                                
+0000d4cd  smProcessEncryptChange                                                    
+0000d595  smGenerateAddrInput                                                       
+0000d659  RF_postCmd                                                                
+0000d719  llSetupExtData                                                            
+0000d7d9  osal_set_event                                                            
+0000d899  GAP_UpdateLinkParamReqReply                                               
+0000d957  NOROM_RFCAdi3VcoLdoVoltageMode                                            
+0000d959  Power_releaseDependency                                                   
+0000dad1  gapAdv_init                                                               
+0000db8d  LL_GenerateDHKeyCompleteEventCback                                        
+0000dc49  LL_PhyUpdateCompleteEventCback                                            
+0000dd05  llAlignToNextEvent                                                        
+0000ddc1  NOROM_SetupTrimDevice                                                     
+0000ddc1  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
+0000de79  Power_setDependency                                                       
+0000df2d  RF_control                                                                
+0000e095  SimplePeripheral_doSetConnPhy                                             
+0000e145  TRNGCC26XX_getNumber                                                      
+0000e1f5  GAP_Authenticate                                                          
+0000e2a5  llSetupConnRxDataEntryQueue                                               
+0000e355  llAllocTask                                                               
+0000e405  DisplayUartAnsi_clearLines                                                
+0000e4b1  attSendMsg                                                                
+0000e55d  GapAdv_enable                                                             
+0000e609  llSetupPhyCtrlPkt                                                         
+0000e6b3  SM_GenerateAuthenSig                                                      
+0000e75d  LL_TxData                                                                 
+0000e805  DisplayUartAnsi_open                                                      
+0000e8ad  xdc_runtime_Text_putSite__E                                               
+0000e953  Onboard_soft_reset                                                        
+0000e9f9  gattProcessReliableWrites                                                 
+0000ea9d  llSetupConnParamReq                                                       
+0000eb41  llSetupConnParamRsp                                                       
+0000ebe5  LL_ENC_EncryptMsg                                                         
+0000edd1  __TI_auto_init                                                            
+0000ee71  DisplayUartAnsi_vprintf                                                   
+0000efb1  UARTCC26XX_writeCancel                                                    
+0000f0e9  LL_DirectTestEnd                                                          
+0000f185  osal_CbTimerProcessEvent                                                  
+0000f221  __aeabi_memcpy                                                            
+0000f221  __aeabi_memcpy4                                                           
+0000f221  __aeabi_memcpy8                                                           
+0000f221  memcpy                                                                    
+0000f2bd  PIN_open                                                                  
+0000f51d  UARTCC26XX_swiIntFxn                                                      
+0000f5b5  LL_RemoveDeviceFromResolvingList                                          
+0000f64d  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
+0000f6e5  xdc_runtime_Text_putMod__E                                                
+0000f77d  __aeabi_uldivmod                                                          
+0000f813  SM_dhKeyCB                                                                
+0000f815  ICall_setTimer                                                            
+0000f8a9  NOROM_CRYPTOAesLoadKey                                                    
+0000f93d  gapBondMgr_syncResolvingList                                              
+0000f9d1  GATT_InitClient                                                           
+0000fa65  GATT_VerifyWritePermissions                                               
+0000faf9  LL_EXT_GetConnInfo                                                        
+0000fb8d  llDynamicFree                                                             
+0000fc21  osal_msg_receive                                                          
+0000fcb5  osal_timer_refTimeUpdate                                                  
+0000fd49  linkDB_Add                                                                
+0000fddb  llAllocRfMem                                                              
+0000fe6d  llSetupEncRsp                                                             
+0000feff  LL_ENC_Decrypt                                                            
+0000ff91  CC2640R2_LAUNCHXL_shutDownExtFlash                                        
+000100b1  llScheduleTask                                                            
+00010141  WL_AddEntry                                                               
+000101d1  SM_StartPairing                                                           
+00010261  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
+000102f1  GAPBondMgr_FindAddr                                                       
+0001037d  ICall_heapMalloc                                                          
+00010409  gattProcessWriteLong                                                      
+00010495  llRfInit                                                                  
+00010521  CryptoCC26XX_allocateKey                                                  
+000105ab  SM_p256KeyCB                                                              
+000105ad  GAP_UpdateLinkParamReq                                                    
+000106bd  LL_ChannelSelectionAlgorithmCback                                         
+00010745  LL_SetAddressResolutionEnable                                             
+000107cd  GATTServApp_Init                                                          
 000108dd  llSetupLenCtrlPkt                                                         
 00010963  _nop                                                                      
 000109e9  UARTCC26XX_close                                                          
@@ -6688,8 +6688,8 @@ address   name
 0001a82c  maxPktsPerEvt                                                             
 0001a82e  wlSize                                                                    
 0001a82f  cryptoMode                                                                
-0001ba0c  __TI_Handler_Table_Base                                                   
-0001ba18  __TI_Handler_Table_Limit                                                  
+0001ba10  __TI_Handler_Table_Base                                                   
+0001ba1c  __TI_Handler_Table_Limit                                                  
 0001ba54  __TI_CINIT_Base                                                           
 0001babc  __TI_CINIT_Limit                                                          
 0001d000  NV_FLASH                                                                  
@@ -7747,28 +7747,26 @@ address   name
 20000210  dispHandle                                                                
 200002f0  spTask                                                                    
 20000340  spTaskStack                                                               
-200008c0  pinUpperBound                                                             
-200008c4  pinLowerBound                                                             
-20000958  pinHandleTable                                                            
-200009d4  PowerCC26XX_module                                                        
-20000af5  gapBond_removeLRUBond                                                     
-20000af6  gapBond_syncRL                                                            
-20000b00  gapBondStateNodeHead                                                      
-20000b0e  gapBond_lruBondList                                                       
-20000c68  ICall_enterCriticalSection                                                
-20000c6c  ICall_leaveCriticalSection                                                
-20000c7c  heapmgrMemFreeTotal                                                       
-20000c88  HEAPMGR_SIZE                                                              
-20000c8c  ICall_dispatcher                                                          
-20000cfc  baseTaskID                                                                
-20000d00  cbTimers                                                                  
-20000d78  ti_sysbios_knl_Task_Object__table__V                                      
-20000dc8  appKeyChangeHandler                                                       
-20000dcc  hKeyPins                                                                  
-20000dd0  keyPinsCfg                                                                
-20000ddc  keyPins                                                                   
-20000e0c  pwrmgr_initialized                                                        
-20000e0e  pwrmgr_attribute                                                          
+200008c4  pinUpperBound                                                             
+200008c8  pinLowerBound                                                             
+2000095c  pinHandleTable                                                            
+200009d8  PowerCC26XX_module                                                        
+20000af9  gapBond_removeLRUBond                                                     
+20000afa  gapBond_syncRL                                                            
+20000b04  gapBondStateNodeHead                                                      
+20000b12  gapBond_lruBondList                                                       
+20000c6c  ICall_enterCriticalSection                                                
+20000c70  ICall_leaveCriticalSection                                                
+20000c80  heapmgrMemFreeTotal                                                       
+20000c8c  HEAPMGR_SIZE                                                              
+20000c90  ICall_dispatcher                                                          
+20000d00  baseTaskID                                                                
+20000d04  cbTimers                                                                  
+20000d7c  ti_sysbios_knl_Task_Object__table__V                                      
+20000dcc  appKeyChangeHandler                                                       
+20000dd0  hKeyPins                                                                  
+20000dd4  keyPinsCfg                                                                
+20000de0  keyPins                                                                   
 20000e10  ti_sysbios_family_arm_cc26xx_Timer_Object__table__V                       
 20000e58  gattAttrTbl                                                               
 20000e98  llUserConfig                                                              
@@ -7832,67 +7830,69 @@ address   name
 2000130c  xdc_runtime_Registry_Module__state__V                                     
 20001319  gapEndAppTaskID                                                           
 2000131a  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excActive__A                  
-20001320  icallServiceTblPtr                                                        
-20001328  appAssertCback                                                            
-2000132c  main_func_sp                                                              
-20001330  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A                 
-20001334  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A                   
-20001338  ti_sysbios_knl_Task_Module_State_0_idleTask__A                            
-2000133d  indTaskId                                                                 
-2000133e  flowCtrlFwdTaskId                                                         
-2000133f  aeSlaveSCA                                                                
-20001340  periPrivacyFlag                                                           
-20001345  serviceChangedCharProps                                                   
-20001648  ti_sysbios_knl_Task_Instance_State_0_stack__A                             
-20001848  uartCC26XXObjects                                                         
-20001970  resolvingList                                                             
-20001a44  ti_sysbios_family_arm_m3_Hwi_dispatchTable                                
-20001b8c  cryptoCC26XXObjects                                                       
-20001c0c  aeCBackTbl                                                                
-20001c50  advDataEntry                                                              
-20001c88  rfSetup                                                                   
-20001cac  uartCC26XXRingBuffer                                                      
-20001ccc  trxTestCmd                                                                
-20001cfc  deviceFeatureSet                                                          
-20001d24  gapConfig_SRK                                                             
-20001d44  timerHead                                                                 
-20001d48  osal_last_timestamp                                                       
-20001d50  llTaskList                                                                
-20001d5c  displayUartObject                                                         
-20001d68  PowerCC26XX_taskKey                                                       
-20001d6c  PowerCC26XX_swiKey                                                        
-20001d70  llConnEvtNotice                                                           
-20001d80  gattReTxList                                                              
-20001d8c  connEvtCB                                                                 
-20001d90  pfnBondMgrCBs                                                             
-20001d94  clientInfoTbl                                                             
-20001d98  linkCmd                                                                   
-20001d9c  linkParam                                                                 
-20001da0  rtosApiTblPtr                                                             
-20001da4  dtmInfo                                                                   
-20001da8  pRfPathComp                                                               
-20001dac  advSetList                                                                
-20001db4  indCharCfg                                                                
-20001db8  ClockP_tickPeriod                                                         
-20001dbc  tasksEvents                                                               
-20001dc0  trngCC26XXObjects                                                         
-20001dc6  connInitialMaxTxTimeUncoded                                               
-20001dc8  connInitialMaxTxTimeCoded                                                 
-20001dcc  att_sendRspOnly                                                           
-20001dce  hciTaskID                                                                 
-20001dcf  hciGapTaskID                                                              
-20001dd0  hciTestTaskID                                                             
-20001dd1  hciL2capTaskID                                                            
-20001dd2  hciSmpTaskID                                                              
-20001dd3  l2cap_gattServAppTaskID                                                   
-20001dd4  defaultPhy                                                                
-20001dd5  scanReqRpt                                                                
-20001dd6  aeCurHandle                                                               
-20001dd7  aeCurAdvEnableHandle                                                      
-20001dd8  aeCurConnHandle                                                           
-20001dda  driverlib_release_0_52354                                                 
-20001ddb  icall_liteTaskId                                                          
-20001ddc  heapStart                                                                 
+2000131c  pwrmgr_initialized                                                        
+2000131e  pwrmgr_attribute                                                          
+20001324  icallServiceTblPtr                                                        
+2000132c  appAssertCback                                                            
+20001330  main_func_sp                                                              
+20001334  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excContext__A                 
+20001338  ti_sysbios_family_arm_m3_Hwi_Module_State_0_excStack__A                   
+2000133c  ti_sysbios_knl_Task_Module_State_0_idleTask__A                            
+20001341  indTaskId                                                                 
+20001342  flowCtrlFwdTaskId                                                         
+20001343  aeSlaveSCA                                                                
+20001344  periPrivacyFlag                                                           
+20001349  serviceChangedCharProps                                                   
+20001650  ti_sysbios_knl_Task_Instance_State_0_stack__A                             
+20001850  uartCC26XXObjects                                                         
+20001978  resolvingList                                                             
+20001a4c  ti_sysbios_family_arm_m3_Hwi_dispatchTable                                
+20001b94  cryptoCC26XXObjects                                                       
+20001c14  aeCBackTbl                                                                
+20001c58  advDataEntry                                                              
+20001c90  rfSetup                                                                   
+20001cb4  uartCC26XXRingBuffer                                                      
+20001cd4  trxTestCmd                                                                
+20001d04  deviceFeatureSet                                                          
+20001d2c  gapConfig_SRK                                                             
+20001d4c  timerHead                                                                 
+20001d50  osal_last_timestamp                                                       
+20001d58  llTaskList                                                                
+20001d64  displayUartObject                                                         
+20001d70  PowerCC26XX_taskKey                                                       
+20001d74  PowerCC26XX_swiKey                                                        
+20001d78  llConnEvtNotice                                                           
+20001d88  gattReTxList                                                              
+20001d94  connEvtCB                                                                 
+20001d98  pfnBondMgrCBs                                                             
+20001d9c  clientInfoTbl                                                             
+20001da0  linkCmd                                                                   
+20001da4  linkParam                                                                 
+20001da8  rtosApiTblPtr                                                             
+20001dac  dtmInfo                                                                   
+20001db0  pRfPathComp                                                               
+20001db4  advSetList                                                                
+20001dbc  indCharCfg                                                                
+20001dc0  ClockP_tickPeriod                                                         
+20001dc4  tasksEvents                                                               
+20001dc8  trngCC26XXObjects                                                         
+20001dce  connInitialMaxTxTimeUncoded                                               
+20001dd0  connInitialMaxTxTimeCoded                                                 
+20001dd4  att_sendRspOnly                                                           
+20001dd6  hciTaskID                                                                 
+20001dd7  hciGapTaskID                                                              
+20001dd8  hciTestTaskID                                                             
+20001dd9  hciL2capTaskID                                                            
+20001dda  hciSmpTaskID                                                              
+20001ddb  l2cap_gattServAppTaskID                                                   
+20001ddc  defaultPhy                                                                
+20001ddd  scanReqRpt                                                                
+20001dde  aeCurHandle                                                               
+20001ddf  aeCurAdvEnableHandle                                                      
+20001de0  aeCurConnHandle                                                           
+20001de2  driverlib_release_0_52354                                                 
+20001de3  icall_liteTaskId                                                          
+20001de4  heapStart                                                                 
 20004000  __stack                                                                   
 20004000  heapEnd                                                                   
 20004400  __STACK_END                                                               

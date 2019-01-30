@@ -1331,7 +1331,7 @@ static void SimplePeripheral_processGapMessage(gapEventHdr_t *pMsg)
  */
 static void SimplePeripheral_charValueChangeCB(uint8_t paramId)
 {
-  uint8_t *pValue = ICall_malloc(sizeof(uint8_t));
+  uint8_t *pValue = ICall_malloc(sizeof(uint16_t));
 
   if (pValue)
   {

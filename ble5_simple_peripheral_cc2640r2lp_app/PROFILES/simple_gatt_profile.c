@@ -135,7 +135,7 @@ static CONST gattAttrType_t simpleProfileService = { ATT_BT_UUID_SIZE, simplePro
 static uint8 simpleProfileChar1Props = GATT_PROP_READ | GATT_PROP_WRITE;
 
 // Characteristic 1 Value
-static uint8 simpleProfileChar1 = 0;
+static uint16 simpleProfileChar1 = 0;
 
 // Simple Profile Characteristic 1 User Description
 static uint8 simpleProfileChar1UserDesp[27] = "Temperature Characteristic";
@@ -670,21 +670,28 @@ static bStatus_t simpleProfile_WriteAttrCB(uint16_t connHandle,
         // Make sure it's not a blob oper
         if ( offset == 0 )
         {
-          if ( len != 1 )
-          {
-            status = ATT_ERR_INVALID_VALUE_SIZE;
-          }
+            if ( len != 1 )
+            {
+                 //status = ATT_ERR_INVALID_VALUE_SIZE;
+            }
         }
-        else
-        {
-          status = ATT_ERR_ATTR_NOT_LONG;
-        }
+//        else
+//        {
+//          status = ATT_ERR_ATTR_NOT_LONG;
+//        }
 
         //Write the value
         if ( status == SUCCESS )
         {
-          uint8 *pCurValue = (uint8 *)pAttr->pValue;
-          *pCurValue = pValue[0];
+//          for(int i=offset; i>0; i--) {
+//              uint8 *pCurValue = (uint8 *)pAttr->pValue[i];
+//              *pCurValue = pValue[i];
+//          }
+            uint8 *pCurValue = (uint8 *)pAttr->pValue;
+            *pCurValue = pValue[0];
+            pCurValue[1] = pValue[1];
+//          uint8 *pCurValue = (uint8 *)pAttr->pValue;
+//          *pCurValue = pValue[0];
 
           if( pAttr->pValue == &simpleProfileChar1 )
           {
