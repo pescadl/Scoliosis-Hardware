@@ -318,7 +318,7 @@ static List_List setPhyCommStatList;
 static List_List paramUpdateList;
 
 // GAP GATT Attributes
-static uint8_t attDeviceName[GAP_DEVICE_NAME_LEN] = "Simple Peripheral";
+static uint8_t attDeviceName[GAP_DEVICE_NAME_LEN] = "Stellar Spine";
 
 // Advertisement data
 static uint8_t advertData[] =
@@ -339,24 +339,22 @@ static uint8_t advertData[] =
 static uint8_t scanRspData[] =
 {
   // complete name
-  17,   // length of this data
+  14,   // length of this data
   GAP_ADTYPE_LOCAL_NAME_COMPLETE,
   'S',
-  'i',
-  'm',
-  'p',
+  't',
+  'e',
   'l',
-  'e',
-  'P',
-  'e',
-  'r',
-  'i',
-  'p',
-  'h',
-  'e',
-  'r',
+  'l',
   'a',
-  'l',
+  'r',
+  ' ',
+  'S',
+  'p',
+  'i',
+  'n',
+  'e',
+
 
   // connection interval range
   5,   // length of this data
