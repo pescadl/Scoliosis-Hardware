@@ -96,13 +96,13 @@ CONST uint8 simpleProfilechar3UUID[ATT_BT_UUID_SIZE] =
 {
   LO_UINT16(SIMPLEPROFILE_CHAR3_UUID), HI_UINT16(SIMPLEPROFILE_CHAR3_UUID)
 };
-*/
+
 // Characteristic 4 UUID: 0xFFF4
 CONST uint8 simpleProfilechar4UUID[ATT_BT_UUID_SIZE] =
 {
   LO_UINT16(SIMPLEPROFILE_CHAR4_UUID), HI_UINT16(SIMPLEPROFILE_CHAR4_UUID)
 };
-
+*/
 // Characteristic 5 UUID: 0xFFF5
 CONST uint8 simpleProfilechar5UUID[ATT_BT_UUID_SIZE] =
 {
@@ -160,6 +160,8 @@ static uint8 simpleProfileChar3 = 0;
 static uint8 simpleProfileChar3UserDesp[7] = "Char 3";
 
 */
+
+/*
 // Simple Profile Characteristic 4 Properties
 static uint8 simpleProfileChar4Props = GATT_PROP_NOTIFY;
 
@@ -174,7 +176,7 @@ static gattCharCfg_t *simpleProfileChar4Config;
 
 // Simple Profile Characteristic 4 User Description
 static uint8 simpleProfileChar4UserDesp[7] = "Notify";
-
+*/
 
 // Simple Profile Characteristic 5 Properties
 static uint8 simpleProfileChar5Props = GATT_PROP_READ;
@@ -271,6 +273,8 @@ static gattAttribute_t simpleProfileAttrTbl[SERVAPP_NUM_ATTR_SUPPORTED] =
         simpleProfileChar3UserDesp
       },
 */
+
+/*
     // Characteristic 4 Declaration
     {
       { ATT_BT_UUID_SIZE, characterUUID },
@@ -302,7 +306,7 @@ static gattAttribute_t simpleProfileAttrTbl[SERVAPP_NUM_ATTR_SUPPORTED] =
         0,
         simpleProfileChar4UserDesp
       },
-
+*/
     // Characteristic 5 Declaration
     {
       { ATT_BT_UUID_SIZE, characterUUID },
@@ -375,10 +379,13 @@ CONST gattServiceCBs_t simpleProfileCBs =
  *
  * @return  Success or Failure
  */
+
+
 bStatus_t SimpleProfile_AddService( uint32 services )
 {
   uint8 status;
 
+     /*
   // Allocate Client Characteristic Configuration table
   simpleProfileChar4Config = (gattCharCfg_t *)ICall_malloc( sizeof(gattCharCfg_t) *
                                                             MAX_NUM_BLE_CONNS );
@@ -387,9 +394,10 @@ bStatus_t SimpleProfile_AddService( uint32 services )
     return ( bleMemAllocError );
   }
 
+
   // Initialize Client Characteristic Configuration attributes
   GATTServApp_InitCharCfg( CONNHANDLE_INVALID, simpleProfileChar4Config );
-
+*/
   if ( services & SIMPLEPROFILE_SERVICE )
   {
     // Register GATT attribute list and CBs with GATT Server App
@@ -482,6 +490,8 @@ bStatus_t SimpleProfile_SetParameter( uint8 param, uint8 len, void *value )     
       }
       break;
 */
+
+/*
     case SIMPLEPROFILE_CHAR4:
       if ( len == sizeof ( uint8 ) )
       {
@@ -497,7 +507,7 @@ bStatus_t SimpleProfile_SetParameter( uint8 param, uint8 len, void *value )     
         ret = bleInvalidRange;
       }
       break;
-
+*/
     case SIMPLEPROFILE_CHAR5:
       if ( len == SIMPLEPROFILE_CHAR5_LEN )
       {
@@ -547,10 +557,11 @@ bStatus_t SimpleProfile_GetParameter( uint8 param, void *value )        //this c
       *((uint8*)value) = simpleProfileChar3;
       break;
 */
+/*
     case SIMPLEPROFILE_CHAR4:
       *((uint8*)value) = simpleProfileChar4;
       break;
-
+*/
     case SIMPLEPROFILE_CHAR5:
       VOID memcpy( value, simpleProfileChar5, SIMPLEPROFILE_CHAR5_LEN );
       break;

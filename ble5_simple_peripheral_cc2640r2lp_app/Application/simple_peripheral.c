@@ -631,7 +631,7 @@ static void SimplePeripheral_init(void)
     uint8_t charValue1[SIMPLEPROFILE_CHAR1_LEN] = { 1, 2, 3, 4, 5 };
     //uint8_t charValue2 = 2;
     //uint8_t charValue3 = 3;
-    uint8_t charValue4 = 4;
+    //uint8_t charValue4 = 4;
     uint8_t charValue5[SIMPLEPROFILE_CHAR5_LEN] = { 1, 2, 3, 4, 5 };
 
     SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR1, SIMPLEPROFILE_CHAR1_LEN,
@@ -640,9 +640,10 @@ static void SimplePeripheral_init(void)
                                &charValue2);
     SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR3, sizeof(uint8_t),
                                &charValue3);
- */   SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR4, sizeof(uint8_t),
+ */
+    /*SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR4, sizeof(uint8_t),
                                &charValue4);
-    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR5, SIMPLEPROFILE_CHAR5_LEN,
+*/    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR5, SIMPLEPROFILE_CHAR5_LEN,
                                charValue5);
   }
 
@@ -696,7 +697,7 @@ static void SimplePeripheral_init(void)
   dispHandle = Display_open(Display_Type_ANY, NULL);
 
   // Initialize Two-Button Menu module
-  TBM_SET_TITLE(&spMenuMain, "Simple Peripheral");
+  TBM_SET_TITLE(&spMenuMain, "Stellar Spines");
   tbm_setItemStatus(&spMenuMain, TBM_ITEM_NONE, TBM_ITEM_ALL);
 
   tbm_initTwoBtnMenu(dispHandle, &spMenuMain, 2, SimplePeripheral_menuSwitchCb);
