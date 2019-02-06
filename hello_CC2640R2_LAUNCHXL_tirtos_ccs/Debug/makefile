@@ -6,25 +6,22 @@ SHELL = cmd.exe
 
 CG_TOOL_ROOT := C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS
 
-GEN_OPTS += C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/Debug/configPkg/compiler.opt
-GEN_OPTS__FLAG := --cmd_file="C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/Debug/configPkg/compiler.opt"
-GEN_CMDS += C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/Debug/configPkg/linker.cmd
-GEN_CMDS__FLAG := -l"C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/Debug/configPkg/linker.cmd"
+GEN_OPTS__FLAG := --cmd_file="configPkg/compiler.opt"
+GEN_CMDS__FLAG := -l"configPkg/linker.cmd"
 
 ORDERED_OBJS += \
 "./CC2640R2_LAUNCHXL.obj" \
 "./CC2640R2_LAUNCHXL_fxns.obj" \
 "./ccfg.obj" \
-"./empty.obj" \
-"./main_tirtos.obj" \
+"./hello.obj" \
 "../CC2640R2_LAUNCHXL_TIRTOS.cmd" \
+$(GEN_CMDS__FLAG) \
 -l"ti/display/lib/display.aem3" \
 -l"ti/grlib/lib/ccs/m3/grlib.a" \
 -l"third_party/spiffs/lib/ccs/m3/spiffs_cc26xx.a" \
 -l"ti/drivers/rf/lib/rf_multiMode_cc26x0r2.aem3" \
 -l"ti/drivers/lib/drivers_cc26x0r2.aem3" \
 -l"ti/dpl/lib/dpl_cc26x0r2.aem3" \
-$(GEN_CMDS__FLAG) \
 -l"ti/devices/cc26x0r2/driverlib/bin/ccs/driverlib.lib" \
 -llibc.a \
 
@@ -133,51 +130,48 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-empty_CC2640R2_LAUNCHXL_tirtos_ccs.out \
+hello_CC2640R2_LAUNCHXL_tirtos_ccs.out \
 
 EXE_OUTPUTS__QUOTED += \
-"empty_CC2640R2_LAUNCHXL_tirtos_ccs.out" \
+"hello_CC2640R2_LAUNCHXL_tirtos_ccs.out" \
 
 BIN_OUTPUTS += \
-empty_CC2640R2_LAUNCHXL_tirtos_ccs.hex \
+hello_CC2640R2_LAUNCHXL_tirtos_ccs.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"empty_CC2640R2_LAUNCHXL_tirtos_ccs.hex" \
+"hello_CC2640R2_LAUNCHXL_tirtos_ccs.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "empty_CC2640R2_LAUNCHXL_tirtos_ccs.out"
-
-dependents:
-	-cd C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/Debug && $(MAKE) clean all
+	@$(MAKE) --no-print-directory -Onone "hello_CC2640R2_LAUNCHXL_tirtos_ccs.out"
 
 # Tool invocations
-empty_CC2640R2_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs.lib
+hello_CC2640R2_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib -me --define=DeviceFamily_CC26X0R2 -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"empty_CC2640R2_LAUNCHXL_tirtos_ccs.map" -i"C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source" -i"C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/kernel/tirtos/packages" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="empty_CC2640R2_LAUNCHXL_tirtos_ccs_linkInfo.xml" --rom_model -o "empty_CC2640R2_LAUNCHXL_tirtos_ccs.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib -me --define=DeviceFamily_CC26X0R2 -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"hello_CC2640R2_LAUNCHXL_tirtos_ccs.map" -i"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source" -i"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/kernel/tirtos/packages" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="hello_CC2640R2_LAUNCHXL_tirtos_ccs_linkInfo.xml" --rom_model -o "hello_CC2640R2_LAUNCHXL_tirtos_ccs.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-empty_CC2640R2_LAUNCHXL_tirtos_ccs.hex: $(EXE_OUTPUTS)
+hello_CC2640R2_LAUNCHXL_tirtos_ccs.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armhex"  -o "empty_CC2640R2_LAUNCHXL_tirtos_ccs.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armhex"  -o "hello_CC2640R2_LAUNCHXL_tirtos_ccs.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "CC2640R2_LAUNCHXL.obj" "CC2640R2_LAUNCHXL_fxns.obj" "ccfg.obj" "empty.obj" "main_tirtos.obj" 
-	-$(RM) "CC2640R2_LAUNCHXL.d" "CC2640R2_LAUNCHXL_fxns.d" "ccfg.d" "empty.d" "main_tirtos.d" 
+	-$(RM) $(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
+	-$(RM) "CC2640R2_LAUNCHXL.obj" "CC2640R2_LAUNCHXL_fxns.obj" "ccfg.obj" "hello.obj" 
+	-$(RM) "CC2640R2_LAUNCHXL.d" "CC2640R2_LAUNCHXL_fxns.d" "ccfg.d" "hello.d" 
+	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '
 
 .PHONY: all clean dependents
 .SECONDARY:
-C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/Debug/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs.lib:
 
 -include ../makefile.targets
 
