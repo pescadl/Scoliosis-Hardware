@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/release_pem3.c"/>
     </sources>
     <configscripts>
-        <srcFile name="C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/release.cfg"/>
+        <srcFile name="C:/Users/maris/Documents/GitHub/Scoliosis-Hardware/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/release.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -44,7 +44,7 @@
         isPartial="false"
         xCfgScript="package/cfg/release_pem3.cfg"
         xCfgPrefix="package/cfg/release_pem3"
-        cfgScript="C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/release.cfg"
+        cfgScript="C:/Users/maris/Documents/GitHub/Scoliosis-Hardware/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/release.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -56,7 +56,7 @@
         profile="release"
         xCfgScript="package/cfg/release_pem3.cfg"
         xCfgPrefix="package/cfg/release_pem3"
-        cfgScript="C:/Users/dayoung/school/ee364d/workspace_v8/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/release.cfg"
+        cfgScript="C:/Users/maris/Documents/GitHub/Scoliosis-Hardware/tirtos_builds_CC2640R2_LAUNCHXL_release_ccs/release.cfg"
         cfgArgs="null"
         />
     </executables>

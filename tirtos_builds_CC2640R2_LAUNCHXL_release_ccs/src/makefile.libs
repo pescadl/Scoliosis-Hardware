@@ -1,6 +1,6 @@
 #
 # This file was generated based on the configuration script:
-#     C:\Users\dayoung\school\ee364d\workspace_v8\tirtos_builds_CC2640R2_LAUNCHXL_release_ccs\release.cfg
+#     C:\Users\maris\Documents\GitHub\Scoliosis-Hardware\tirtos_builds_CC2640R2_LAUNCHXL_release_ccs\release.cfg
 #
 # This makefile may be included in other makefiles that need to build
 # the libraries containing the compiled source files generated as
@@ -14,7 +14,7 @@
 #
 # The absolute path to the generated source directory (at the time the
 # sources were generated) is:
-#    C:\Users\dayoung\school\ee364d\workspace_v8\tirtos_builds_CC2640R2_LAUNCHXL_release_ccs\src
+#    C:\Users\maris\Documents\GitHub\Scoliosis-Hardware\tirtos_builds_CC2640R2_LAUNCHXL_release_ccs\src
 #
 GEN_SRC_DIR ?= ../src
 

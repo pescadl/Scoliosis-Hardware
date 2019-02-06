@@ -131,7 +131,7 @@ all:
 main-build: tirtos_builds_CC2640R2_LAUNCHXL_release_ccs.lib
 
 # Tool invocations
-tirtos_builds_CC2640R2_LAUNCHXL_release_ccs.lib: $(OBJS) $(OBJ_SRCS)
+tirtos_builds_CC2640R2_LAUNCHXL_release_ccs.lib: $(OBJS)
 ifneq ($(strip $(ORDERED_OBJS)),)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Archiver'
