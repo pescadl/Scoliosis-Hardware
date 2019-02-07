@@ -158,6 +158,7 @@ hello.obj: C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/devices/cc26x0r2/d
 hello.obj: C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/devices/cc26x0r2/driverlib/../driverlib/rom.h
 hello.obj: C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/drivers/ADC.h
 hello.obj: C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/drivers/GPIO.h
+hello.obj: C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/display/Display.h
 hello.obj: ../Board.h
 hello.obj: ../CC2640R2_LAUNCHXL.h
 hello.obj: C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/drivers/PIN.h
@@ -329,6 +330,7 @@ C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/devices/cc26x0r2/driverlib/de
 C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/devices/cc26x0r2/driverlib/../driverlib/rom.h: 
 C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/drivers/ADC.h: 
 C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/drivers/GPIO.h: 
+C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/display/Display.h: 
 ../Board.h: 
 ../CC2640R2_LAUNCHXL.h: 
 C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/drivers/PIN.h: 
