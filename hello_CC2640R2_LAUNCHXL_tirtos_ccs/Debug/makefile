@@ -150,7 +150,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 hello_CC2640R2_LAUNCHXL_tirtos_ccs.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib -me --define=DeviceFamily_CC26X0R2 -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"hello_CC2640R2_LAUNCHXL_tirtos_ccs.map" -i"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source" -i"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/kernel/tirtos/packages" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="hello_CC2640R2_LAUNCHXL_tirtos_ccs_linkInfo.xml" --rom_model -o "hello_CC2640R2_LAUNCHXL_tirtos_ccs.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" -mv7M3 --code_state=16 --float_support=vfplib -me --define=DeviceFamily_CC26X0R2 -g --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on -z -m"hello_CC2640R2_LAUNCHXL_tirtos_ccs.map" -i"C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source" -i"C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/kernel/tirtos/packages" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" --diag_wrap=off --display_error_number --warn_sections --xml_link_info="hello_CC2640R2_LAUNCHXL_tirtos_ccs_linkInfo.xml" --rom_model -o "hello_CC2640R2_LAUNCHXL_tirtos_ccs.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 

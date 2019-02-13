@@ -10910,7 +10910,7 @@ __o = __obj[999]
     __o['cfgArgs'] = null
     __o['cfgArgsEncoded'] = true
     __o['cfgHome'] = String(java.net.URLDecoder.decode('configPkg', 'UTF-8'))
-    __o['cfgScript'] = String(java.net.URLDecoder.decode('C%3A%2FUsers%2Fdayoung%2Fschool%2Fee364d%2Fworkspace_v8%2Fhello_CC2640R2_LAUNCHXL_tirtos_ccs%2Fhello.cfg', 'UTF-8'))
+    __o['cfgScript'] = String(java.net.URLDecoder.decode('C%3A%2FUsers%2Fmaris%2FDocuments%2FGitHub%2FScoliosis-Hardware%2Fhello_CC2640R2_LAUNCHXL_tirtos_ccs%2Fhello.cfg', 'UTF-8'))
     __o['prelink'] = false
     __o['profile'] = String(java.net.URLDecoder.decode('release', 'UTF-8'))
     __o['releases'] = __obj[1000.0]
@@ -11021,7 +11021,7 @@ __o = __obj[1012]  // ti.targets.arm.elf.M3/ccConfigOpts
 __o = __obj[1013]  // ti.targets.arm.elf.M3/ccOpts
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
     __o['$name'] = String(java.net.URLDecoder.decode('ti.targets.arm.elf.M3%2FccOpts', 'UTF-8'))
-    __o['prefix'] = String(java.net.URLDecoder.decode('-mv7M3+--code_state%3D16+--float_support%3Dvfplib+-me+--include_path%3D%22C%3A%2FUsers%2Fdayoung%2Fschool%2Fee364d%2Fworkspace_v8%2Fhello_CC2640R2_LAUNCHXL_tirtos_ccs%22+--include_path%3D%22C%3A%2Fti%2Fsimplelink_cc2640r2_sdk_2_40_00_32%2Fsource%2Fti%2Fposix%2Fccs%22+--include_path%3D%22C%3A%2Fti%2Fccsv8%2Ftools%2Fcompiler%2Fti-cgt-arm_18.1.4.LTS%2Finclude%22+--define%3DDeviceFamily_CC26X0R2+-g+--diag_warning%3D225+--diag_warning%3D255+--diag_wrap%3Doff+--display_error_number+--gen_func_subsections%3Don+++-qq+-pdsw225', 'UTF-8'))
+    __o['prefix'] = String(java.net.URLDecoder.decode('-mv7M3+--code_state%3D16+--float_support%3Dvfplib+-me+--include_path%3D%22C%3A%2FUsers%2Fmaris%2FDocuments%2FGitHub%2FScoliosis-Hardware%2Fhello_CC2640R2_LAUNCHXL_tirtos_ccs%22+--include_path%3D%22C%3A%2Fti%2Fsimplelink_cc2640r2_sdk_2_30_00_28%2Fsource%2Fti%2Fposix%2Fccs%22+--include_path%3D%22C%3A%2Fti%2Fccsv8%2Ftools%2Fcompiler%2Fti-cgt-arm_18.1.4.LTS%2Finclude%22+--define%3DDeviceFamily_CC26X0R2+-g+--diag_warning%3D225+--diag_warning%3D255+--diag_wrap%3Doff+--display_error_number+--gen_func_subsections%3Don+++-qq+-pdsw225', 'UTF-8'))
     __o['suffix'] = String(java.net.URLDecoder.decode('', 'UTF-8'))
 
 __o = __obj[1014]  // ti.targets.arm.elf.M3/compatibleSuffixes

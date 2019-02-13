@@ -1,8 +1,8 @@
 #
 _XDCBUILDCOUNT = 
 ifneq (,$(findstring path,$(_USEXDCENV_)))
-override XDCPATH = C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source;C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/kernel/tirtos/packages
-override XDCROOT = C:/ti/xdctools_3_51_01_18_core
+override XDCPATH = C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source;C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/kernel/tirtos/packages
+override XDCROOT = C:/ti/xdctools_3_50_08_24_core
 override XDCBUILDCFG = ./config.bld
 endif
 ifneq (,$(findstring args,$(_USEXDCENV_)))
@@ -11,6 +11,6 @@ override XDCTARGETS =
 endif
 #
 ifeq (0,1)
-PKGPATH = C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source;C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/kernel/tirtos/packages;C:/ti/xdctools_3_51_01_18_core/packages;..
+PKGPATH = C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source;C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/kernel/tirtos/packages;C:/ti/xdctools_3_50_08_24_core/packages;..
 HOSTOS = Windows
 endif

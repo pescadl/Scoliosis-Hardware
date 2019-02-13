@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/hello_pem3.c"/>
     </sources>
     <configscripts>
-        <srcFile name="C:/Users/dayoung/school/ee364d/workspace_v8/hello_CC2640R2_LAUNCHXL_tirtos_ccs/hello.cfg"/>
+        <srcFile name="C:/Users/maris/Documents/GitHub/Scoliosis-Hardware/hello_CC2640R2_LAUNCHXL_tirtos_ccs/hello.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -44,7 +44,7 @@
         isPartial="false"
         xCfgScript="package/cfg/hello_pem3.cfg"
         xCfgPrefix="package/cfg/hello_pem3"
-        cfgScript="C:/Users/dayoung/school/ee364d/workspace_v8/hello_CC2640R2_LAUNCHXL_tirtos_ccs/hello.cfg"
+        cfgScript="C:/Users/maris/Documents/GitHub/Scoliosis-Hardware/hello_CC2640R2_LAUNCHXL_tirtos_ccs/hello.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -56,7 +56,7 @@
         profile="release"
         xCfgScript="package/cfg/hello_pem3.cfg"
         xCfgPrefix="package/cfg/hello_pem3"
-        cfgScript="C:/Users/dayoung/school/ee364d/workspace_v8/hello_CC2640R2_LAUNCHXL_tirtos_ccs/hello.cfg"
+        cfgScript="C:/Users/maris/Documents/GitHub/Scoliosis-Hardware/hello_CC2640R2_LAUNCHXL_tirtos_ccs/hello.cfg"
         cfgArgs="null"
         />
     </executables>
