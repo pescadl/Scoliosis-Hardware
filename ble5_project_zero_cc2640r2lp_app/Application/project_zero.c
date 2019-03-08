@@ -2427,25 +2427,19 @@ static void adcSwiFxn(UArg nothing)
 {
     Log_info0("ADC Software Interrupt Function occurred.");
 
-    //pzButtonState_t *pButtonState = ICall_malloc(sizeof(pzButtonState_t));
-    //if(pButtonState != NULL)
-    //{
-    //    *pButtonState = buttonMsg;
-    //    if(ProjectZero_enqueueMsg(PZ_BUTTON_DEBOUNCED_EVT, pButtonState) != SUCCESS)
-    //    {
-    //      ICall_free(pButtonState);
-    //    }
-    //}
-
     if(ProjectZero_enqueueMsg(PZ_ADC_START_EVT, NULL) != SUCCESS)
     {
         Log_error0("Error: Enqueue PZ_ADC_START_EVT failed!");
     }
 }
 
-static uint16_t adcValue = 0;
 static void ProjectZero_sampleADC(void)
 {
+    int i;
+    uint16_t adcValue = 0;
+    int avg = 0;
+    int times = 32;
+
     Log_info0("ADC Sample begins.");
     adcHandle = ADC_open(Board_ADC0, &adcParams);
     if(adcHandle == NULL)
@@ -2454,15 +2448,19 @@ static void ProjectZero_sampleADC(void)
         project_zero_spin();
     }
 
-    if(ADC_convert(adcHandle, &adcValue) == ADC_STATUS_SUCCESS)
+    for(i=0; i<times; i++)
     {
-        Log_info1("ADC raw value: %d", adcValue);
+        if(ADC_convert(adcHandle, &adcValue) != ADC_STATUS_SUCCESS)
+        {
+            Log_info0("Error: Failed to convert ADC channel.");
+            project_zero_spin();
+        }
+        avg += adcValue;
     }
-    else
-    {
-        Log_info0("Error: Failed to convert ADC channel.");
-        project_zero_spin();
-    }
+
+    avg /= times;
+
+    Log_info1("ADC raw value: %d", avg);
 
     ADC_close(adcHandle);
 }

@@ -100,7 +100,7 @@ const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC2640R2DK_4XS_ADCCOUNT] = {
     {
         .adcDIO              = IOID_8,
         .adcCompBInput       = ADC_COMPB_IN_AUXIO4,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
+        .refSource           = ADCCC26XX_VDDS_REFERENCE,
         .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
         .inputScalingEnabled = true,
         .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
