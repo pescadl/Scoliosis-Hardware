@@ -64,6 +64,7 @@
 #include <uartlog/UartLog.h>  // Comment out if using xdc Log
 
 #include <ti/display/AnsiColor.h>
+#include <ti/drivers/ADC.h>
 
 #include <ti/devices/DeviceFamily.h>
 #include DeviceFamily_constructPath(driverlib/sys_ctrl.h)
@@ -348,6 +349,9 @@ PIN_Config buttonPinTable[] = {
     PIN_TERMINATE
 };
 
+static ADC_Handle adcHandle;
+static ADC_Params adcParams;
+
 // Clock objects for debouncing the buttons
 static Clock_Struct button0DebounceClock;
 static Clock_Handle button0DebounceClockHandle;
@@ -438,9 +442,11 @@ static void ProjectZero_processConnEvt(Gap_ConnEventRpt_t *pReport);
 static void buttonDebounceSwiFxn(UArg buttonId);
 static void buttonCallbackFxn(PIN_Handle handle,
                               PIN_Id pinId);
-static void adcSwiFxn(UArg nothing);
-
 static void ProjectZero_handleButtonPress(pzButtonState_t *pState);
+
+/* ADC Handling functions */
+static void adcSwiFxn(UArg nothing);
+static void ProjectZero_sampleADC(void);
 
 /* Utility functions */
 static status_t ProjectZero_enqueueMsg(uint8_t event,
@@ -510,6 +516,7 @@ static void project_zero_spin(void)
 {
   volatile uint8_t x = 0;;
 
+  // TODO: LED to Fault Color
   while(1)
   {
     x++;
@@ -559,6 +566,10 @@ static void ProjectZero_init(void)
     // ******************************************************************
     // Hardware initialization
     // ******************************************************************
+
+    // Initialize ADC
+    ADC_init();
+    ADC_Params_init(&adcParams);
 
     // Open LED pins
     ledPinHandle = PIN_open(&ledPinState, ledPinTable);
@@ -965,6 +976,10 @@ static void ProjectZero_processApplicationMessage(pzMsg_t *pMsg)
       case PZ_CONN_EVT:
         ProjectZero_processConnEvt((Gap_ConnEventRpt_t *)(pMsg->pData));
         break;
+
+      case PZ_ADC_START_EVT:
+          ProjectZero_sampleADC();
+          break;
 
       default:
         break;
@@ -2424,8 +2439,32 @@ static void adcSwiFxn(UArg nothing)
 
     if(ProjectZero_enqueueMsg(PZ_ADC_START_EVT, NULL) != SUCCESS)
     {
-        Log_info0("Error: Enqueue PZ_ADC_START_EVT failed!");
+        Log_error0("Error: Enqueue PZ_ADC_START_EVT failed!");
     }
+}
+
+static uint16_t adcValue = 0;
+static void ProjectZero_sampleADC(void)
+{
+    Log_info0("ADC Sample begins.");
+    adcHandle = ADC_open(Board_ADC0, &adcParams);
+    if(adcHandle == NULL)
+    {
+        Log_info0("Error: Failed to open ADC channel.");
+        project_zero_spin();
+    }
+
+    if(ADC_convert(adcHandle, &adcValue) == ADC_STATUS_SUCCESS)
+    {
+        Log_info1("ADC raw value: %d", adcValue);
+    }
+    else
+    {
+        Log_info0("Error: Failed to convert ADC channel.");
+        project_zero_spin();
+    }
+
+    ADC_close(adcHandle);
 }
 
 /******************************************************************************

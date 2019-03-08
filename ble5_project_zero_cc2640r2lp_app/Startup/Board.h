@@ -82,6 +82,8 @@ extern "C" {
 #define Board_LCD_MODE          CC2640R2DK_4XS_LCD_MODE
 #define Board_LCD_RST           CC2640R2DK_4XS_LCD_RST
 
+#define Board_ADC0              CC2640R2DK_4XS_ADC0
+
 #define Board_PIN_BUTTON0       CC2640R2DK_4XS_KEY_UP
 #define Board_PIN_BUTTON1       CC2640R2DK_4XS_KEY_DOWN
 #define Board_PIN_LED0          CC2640R2DK_4XS_PIN_LED3

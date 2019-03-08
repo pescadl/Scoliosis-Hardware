@@ -89,6 +89,32 @@ const PowerCC26XX_Config PowerCC26XX_config = {
 };
 
 /*
+ *  =============================== ADC ===============================
+ */
+#include <ti/drivers/ADC.h>
+#include <ti/drivers/adc/ADCCC26XX.h>
+
+ADCCC26XX_Object adcCC26xxObjects[CC2640R2DK_4XS_ADCCOUNT];
+
+const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC2640R2DK_4XS_ADCCOUNT] = {
+    {
+        .adcDIO              = IOID_8,
+        .adcCompBInput       = ADC_COMPB_IN_AUXIO4,
+        .refSource           = ADCCC26XX_FIXED_REFERENCE,
+        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .inputScalingEnabled = true,
+        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
+        .returnAdjustedVal   = false
+    }
+};
+
+const ADC_Config ADC_config[CC2640R2DK_4XS_ADCCOUNT] = {
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC2640R2DK_4XS_ADC0], &adcCC26xxHWAttrs[CC2640R2DK_4XS_ADC0]}
+};
+
+const uint_least8_t ADC_count = CC2640R2DK_4XS_ADCCOUNT;
+
+/*
  *  =============================== Crypto ===============================
  */
 #include <ti/drivers/crypto/CryptoCC26XX.h>

@@ -171,6 +171,16 @@ extern const PIN_Config BoardGpioInitTable[];
 void CC2640R2DK_4XS_initGeneral(void);
 
 /*!
+ *  @def    CC2640R2_LAUNCHXL_ADCName
+ *  @brief  Enum of ADCs
+ */
+typedef enum CC2640R2DK_4XS_ADCName {
+    CC2640R2DK_4XS_ADC0 = 0,
+
+    CC2640R2DK_4XS_ADCCOUNT
+} CC2640R2DK_4XS_ADCName;
+
+/*!
  *  @def    CC2640R2DK_4XS_CryptoName
  *  @brief  Enum of Crypto names
  */
