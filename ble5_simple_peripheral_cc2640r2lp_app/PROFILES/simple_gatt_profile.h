@@ -1,16 +1,16 @@
 /******************************************************************************
 
- @file       simple_gatt_profile.h
+ @file  simple_gatt_profile.h
 
  @brief This file contains the Simple GATT profile definitions and prototypes
         prototypes.
 
- Group: CMCU, SCS
- Target Device: CC2640R2
+ Group: WCS, BTS
+ Target Device: cc2640r2
 
  ******************************************************************************
  
- Copyright (c) 2010-2018, Texas Instruments Incorporated
+ Copyright (c) 2010-2019, Texas Instruments Incorporated
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -41,8 +41,8 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ******************************************************************************
- Release Name: simplelink_cc2640r2_sdk_02_30_00_28
- Release Date: 2018-10-15 15:51:38
+ 
+ 
  *****************************************************************************/
 
 #ifndef SIMPLEGATTPROFILE_H
@@ -63,9 +63,9 @@ extern "C"
 
 // Profile Parameters
 #define SIMPLEPROFILE_CHAR1                   0  // RW uint8 - Profile Characteristic 1 value
-//#define SIMPLEPROFILE_CHAR2                   1  // RW uint8 - Profile Characteristic 2 value
-//#define SIMPLEPROFILE_CHAR3                   2  // RW uint8 - Profile Characteristic 3 value
-//#define SIMPLEPROFILE_CHAR4                   3  // RW uint8 - Profile Characteristic 4 value
+#define SIMPLEPROFILE_CHAR2                   1  // RW uint8 - Profile Characteristic 2 value
+#define SIMPLEPROFILE_CHAR3                   2  // RW uint8 - Profile Characteristic 3 value
+#define SIMPLEPROFILE_CHAR4                   3  // RW uint8 - Profile Characteristic 4 value
 #define SIMPLEPROFILE_CHAR5                   4  // RW uint8 - Profile Characteristic 4 value
 
 // Simple Profile Service UUID
@@ -73,19 +73,15 @@ extern "C"
 
 // Key Pressed UUID
 #define SIMPLEPROFILE_CHAR1_UUID            0xFFF1
-//#define SIMPLEPROFILE_CHAR2_UUID            0xFFF2
-//#define SIMPLEPROFILE_CHAR3_UUID            0xFFF3
-//#define SIMPLEPROFILE_CHAR4_UUID            0xFFF4
+#define SIMPLEPROFILE_CHAR2_UUID            0xFFF2
+#define SIMPLEPROFILE_CHAR3_UUID            0xFFF3
+#define SIMPLEPROFILE_CHAR4_UUID            0xFFF4
 #define SIMPLEPROFILE_CHAR5_UUID            0xFFF5
 
 // Simple Keys Profile Services bit fields
 #define SIMPLEPROFILE_SERVICE               0x00000001
 
 // Length of Characteristic 5 in bytes
-#define SIMPLEPROFILE_CHAR1_LEN           8
-//#define SIMPLEPROFILE_CHAR2_LEN           1
-//#define SIMPLEPROFILE_CHAR3_LEN           1
-//#define SIMPLEPROFILE_CHAR4_LEN           1
 #define SIMPLEPROFILE_CHAR5_LEN           5
 
 /*********************************************************************

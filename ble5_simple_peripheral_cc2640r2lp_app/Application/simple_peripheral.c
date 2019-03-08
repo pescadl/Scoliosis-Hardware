@@ -1,16 +1,16 @@
 /******************************************************************************
 
- @file       simple_peripheral.c
+ @file  simple_peripheral.c
 
  @brief This file contains the Simple Peripheral sample application for use
         with the CC2650 Bluetooth Low Energy Protocol Stack.
 
- Group: CMCU, SCS
- Target Device: CC2640R2
+ Group: WCS, BTS
+ Target Device: cc2640r2
 
  ******************************************************************************
  
- Copyright (c) 2013-2018, Texas Instruments Incorporated
+ Copyright (c) 2013-2019, Texas Instruments Incorporated
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -41,8 +41,8 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ******************************************************************************
- Release Name: simplelink_cc2640r2_sdk_02_30_00_28
- Release Date: 2018-10-15 15:51:38
+ 
+ 
  *****************************************************************************/
 
 /*********************************************************************
@@ -318,7 +318,7 @@ static List_List setPhyCommStatList;
 static List_List paramUpdateList;
 
 // GAP GATT Attributes
-static uint8_t attDeviceName[GAP_DEVICE_NAME_LEN] = "Stellar Spine";
+static uint8_t attDeviceName[GAP_DEVICE_NAME_LEN] = "Simple Peripheral";
 
 // Advertisement data
 static uint8_t advertData[] =
@@ -339,22 +339,24 @@ static uint8_t advertData[] =
 static uint8_t scanRspData[] =
 {
   // complete name
-  14,   // length of this data
+  17,   // length of this data
   GAP_ADTYPE_LOCAL_NAME_COMPLETE,
   'S',
-  't',
-  'e',
-  'l',
-  'l',
-  'a',
-  'r',
-  ' ',
-  'S',
-  'p',
   'i',
-  'n',
+  'm',
+  'p',
+  'l',
   'e',
-
+  'P',
+  'e',
+  'r',
+  'i',
+  'p',
+  'h',
+  'e',
+  'r',
+  'a',
+  'l',
 
   // connection interval range
   5,   // length of this data
@@ -396,7 +398,7 @@ static void SimplePeripheral_advCallback(uint32_t event, void *pBuf, uintptr_t a
 static void SimplePeripheral_processAdvEvent(spGapAdvEventData_t *pEventData);
 static void SimplePeripheral_processAppMsg(spEvt_t *pMsg);
 static void SimplePeripheral_processCharValueChangeEvt(uint8_t paramId);
-//static void SimplePeripheral_performPeriodicTask(void);
+static void SimplePeripheral_performPeriodicTask(void);
 #if defined(BLE_V42_FEATURES) && (BLE_V42_FEATURES & PRIVACY_1_2_CFG)
 static void SimplePeripheral_updateRPA(void);
 #endif // PRIVACY_1_2_CFG
@@ -628,22 +630,21 @@ static void SimplePeripheral_init(void)
   // For more information, see the GATT and GATTServApp sections in the User's Guide:
   // http://software-dl.ti.com/lprf/ble5stack-latest/
   {
-    uint8_t charValue1[SIMPLEPROFILE_CHAR1_LEN] = { 1, 2, 3, 4, 5 };
-    //uint8_t charValue2 = 2;
-    //uint8_t charValue3 = 3;
-    //uint8_t charValue4 = 4;
+    uint8_t charValue1 = 1;
+    uint8_t charValue2 = 2;
+    uint8_t charValue3 = 3;
+    uint8_t charValue4 = 4;
     uint8_t charValue5[SIMPLEPROFILE_CHAR5_LEN] = { 1, 2, 3, 4, 5 };
 
-    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR1, SIMPLEPROFILE_CHAR1_LEN,
-                               charValue1);
-/*    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR2, sizeof(uint8_t),
+    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR1, sizeof(uint8_t),
+                               &charValue1);
+    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR2, sizeof(uint8_t),
                                &charValue2);
     SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR3, sizeof(uint8_t),
                                &charValue3);
- */
-    /*SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR4, sizeof(uint8_t),
+    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR4, sizeof(uint8_t),
                                &charValue4);
-*/    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR5, SIMPLEPROFILE_CHAR5_LEN,
+    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR5, SIMPLEPROFILE_CHAR5_LEN,
                                charValue5);
   }
 
@@ -697,7 +698,7 @@ static void SimplePeripheral_init(void)
   dispHandle = Display_open(Display_Type_ANY, NULL);
 
   // Initialize Two-Button Menu module
-  TBM_SET_TITLE(&spMenuMain, "Stellar Spines");
+  TBM_SET_TITLE(&spMenuMain, "Simple Peripheral");
   tbm_setItemStatus(&spMenuMain, TBM_ITEM_NONE, TBM_ITEM_ALL);
 
   tbm_initTwoBtnMenu(dispHandle, &spMenuMain, 2, SimplePeripheral_menuSwitchCb);
@@ -1011,11 +1012,11 @@ static void SimplePeripheral_processAppMsg(spEvt_t *pMsg)
     case SP_PASSCODE_EVT:
       SimplePeripheral_processPasscode((spPasscodeData_t*)(pMsg->pData));
       break;
-/*
+
     case SP_PERIODIC_EVT:
       SimplePeripheral_performPeriodicTask();
       break;
-*/
+
 #if defined(BLE_V42_FEATURES) && (BLE_V42_FEATURES & PRIVACY_1_2_CFG)
     case SP_READ_RPA_EVT:
       SimplePeripheral_updateRPA();
@@ -1207,8 +1208,8 @@ static void SimplePeripheral_processGapMessage(gapEventHdr_t *pMsg)
       else
       {
         // Stop advertising since there is no room for more connections
-        GapAdv_disable(advHandleLongRange, GAP_ADV_ENABLE_OPTIONS_USE_MAX , 0);
-        GapAdv_disable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX , 0);
+        GapAdv_disable(advHandleLongRange);
+        GapAdv_disable(advHandleLegacy);
       }
 
       break;
@@ -1330,7 +1331,7 @@ static void SimplePeripheral_processGapMessage(gapEventHdr_t *pMsg)
  */
 static void SimplePeripheral_charValueChangeCB(uint8_t paramId)
 {
-  uint8_t *pValue = ICall_malloc(sizeof(uint16_t));
+  uint8_t *pValue = ICall_malloc(sizeof(uint8_t));
 
   if (pValue)
   {
@@ -1362,13 +1363,12 @@ static void SimplePeripheral_processCharValueChangeEvt(uint8_t paramId)
 
       Display_printf(dispHandle, SP_ROW_STATUS_1, 0, "Char 1: %d", (uint16_t)newValue);
       break;
-/*
+
     case SIMPLEPROFILE_CHAR3:
       SimpleProfile_GetParameter(SIMPLEPROFILE_CHAR3, &newValue);
 
       Display_printf(dispHandle, SP_ROW_STATUS_1, 0, "Char 3: %d", (uint16_t)newValue);
       break;
-      */
 
     default:
       // should not reach here!
@@ -1389,7 +1389,6 @@ static void SimplePeripheral_processCharValueChangeEvt(uint8_t paramId)
  *
  * @return  None.
  */
-/*
 static void SimplePeripheral_performPeriodicTask(void)
 {
   uint8_t valueToCopy;
@@ -1405,7 +1404,7 @@ static void SimplePeripheral_performPeriodicTask(void)
                                &valueToCopy);
   }
 }
-*/
+
 #if defined(BLE_V42_FEATURES) && (BLE_V42_FEATURES & PRIVACY_1_2_CFG)
 /*********************************************************************
  * @fn      SimplePeripheral_updateRPA
@@ -2009,6 +2008,28 @@ static uint8_t SimplePeripheral_clearConnListEntry(uint16_t connHandle)
 }
 
 /*********************************************************************
+ * @fn      SimplePeripheral_clearPendingParamUpdate
+ *
+ * @brief   clean pending param update request in the paramUpdateList list
+ *
+ * @param   connHandle - connection handle to clean
+ *
+ * @return  none
+ */
+void SimplePeripheral_clearPendingParamUpdate(uint16_t connHandle)
+{
+  List_Elem *curr;
+
+  for (curr = List_head(&paramUpdateList); curr != NULL; curr = List_next(curr)) 
+  {
+    if (((spConnHandleEntry_t *)curr)->connHandle == connHandle)
+    {
+      List_remove(&paramUpdateList, curr);
+    }
+  }
+}
+
+/*********************************************************************
  * @fn      SimplePeripheral_removeConn
  *
  * @brief   Remove a device from the connected device list
@@ -2040,6 +2061,8 @@ static uint8_t SimplePeripheral_removeConn(uint16_t connHandle)
       // Free ParamUpdateEventData
       ICall_free(connList[connIndex].pParamUpdateEventData);
     }
+    // Clear pending update requests from paramUpdateList
+    SimplePeripheral_clearPendingParamUpdate(connHandle);
     // Stop Auto PHY Change
     SimplePeripheral_stopAutoPhyChange(connHandle);
     // Clear Connection List Entry
@@ -2089,7 +2112,7 @@ static void SimplePeripheral_processParamUpdate(uint16_t connHandle)
     {
       connHandleEntry->connHandle = connHandle;
 
-      List_put(&paramUpdateList, (List_Elem *)&connHandleEntry);
+      List_put(&paramUpdateList, (List_Elem *)connHandleEntry);
     }
   }
 }

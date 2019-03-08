@@ -1,16 +1,16 @@
 /******************************************************************************
 
- @file       gatt_uuid.c
+ @file  gatt_uuid.c
 
  @brief This file contains Generic Attribute Profile (GATT)
         UUID types.
 
- Group: CMCU, SCS
- Target Device: CC2640R2
+ Group: WCS, BTS
+ Target Device: cc2640r2
 
  ******************************************************************************
  
- Copyright (c) 2011-2018, Texas Instruments Incorporated
+ Copyright (c) 2011-2019, Texas Instruments Incorporated
  All rights reserved.
 
  IMPORTANT: Your use of this Software is limited to those specific rights
@@ -27,7 +27,7 @@
  its documentation for any purpose.
 
  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
- PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+ PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
@@ -42,8 +42,8 @@
  contact Texas Instruments Incorporated at www.TI.com.
 
  ******************************************************************************
- Release Name: simplelink_cc2640r2_sdk_02_30_00_28
- Release Date: 2018-10-15 15:51:38
+ 
+ 
  *****************************************************************************/
 
 
@@ -166,12 +166,6 @@ CONST uint8 deviceNameUUID[ATT_BT_UUID_SIZE] =
 CONST uint8 appearanceUUID[ATT_BT_UUID_SIZE] =
 {
   LO_UINT16( APPEARANCE_UUID ), HI_UINT16( APPEARANCE_UUID )
-};
-
-// Peripheral Privacy Flag UUID
-CONST uint8 periPrivacyFlagUUID[ATT_BT_UUID_SIZE] =
-{
-  LO_UINT16( PERI_PRIVACY_FLAG_UUID ), HI_UINT16( PERI_PRIVACY_FLAG_UUID )
 };
 
 // Reconnection Address UUID
@@ -336,10 +330,6 @@ const uint8 *GATT_FindUUIDRec( const uint8 *pUUID, uint8 len )
 
       case RECONNECT_ADDR_UUID:
         pRec = reconnectAddrUUID;
-        break;
-
-      case PERI_PRIVACY_FLAG_UUID:
-        pRec = periPrivacyFlagUUID;
         break;
 
       case PERI_CONN_PARAM_UUID:

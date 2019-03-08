@@ -1,15 +1,15 @@
 /******************************************************************************
 
- @file       simple_peripheral_menu.h
+ @file  simple_peripheral_menu.h
 
  @brief This file contains menu objects for simple_peripheral.
 
  Group: WCS BTS
- Target Device: CC2640R2
+ Target Device: cc2640r2
 
  ******************************************************************************
  
- Copyright (c) 2016-2018, Texas Instruments Incorporated
+ Copyright (c) 2016-2019, Texas Instruments Incorporated
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -40,8 +40,8 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ******************************************************************************
- Release Name: simplelink_cc2640r2_sdk_02_30_00_28
- Release Date: 2018-10-15 15:51:38
+ 
+ 
  *****************************************************************************/
 
 #ifndef SIMPLE_PERIPHERAL_MENU_H

@@ -3,13 +3,13 @@
  *                step by the lib_search utility
  */
 
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\ctrl\hci_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\ctrl\ll_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\hci_tl\hci_tl_none.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\host\att_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\host\gap_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\host\gatt_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\host\l2cap_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\host\profiles_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\host\smp_pxxx.a"
-"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\source\ti\ble5stack\blelib\cc26x0r2\host\sm_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\ctrl\hci_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\ctrl\ll_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\hci_tl\hci_tl_none.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\host\att_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\host\gap_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\host\gatt_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\host\l2cap_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\host\profiles_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\host\smp_pxxx.a"
+"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\source\ti\ble5stack\blelib\cc26x0r2\host\sm_pxxx.a"

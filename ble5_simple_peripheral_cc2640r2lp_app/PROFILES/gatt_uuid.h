@@ -1,16 +1,16 @@
 /******************************************************************************
 
- @file       gatt_uuid.h
+ @file  gatt_uuid.h
 
  @brief This file contains Generic Attribute Profile (GATT)
         UUID types.
 
- Group: CMCU, SCS
- Target Device: CC2640R2
+ Group: WCS, BTS
+ Target Device: cc2640r2
 
  ******************************************************************************
  
- Copyright (c) 2010-2018, Texas Instruments Incorporated
+ Copyright (c) 2010-2019, Texas Instruments Incorporated
  All rights reserved.
 
  IMPORTANT: Your use of this Software is limited to those specific rights
@@ -27,7 +27,7 @@
  its documentation for any purpose.
 
  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
- PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+ PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
@@ -42,8 +42,8 @@
  contact Texas Instruments Incorporated at www.TI.com.
 
  ******************************************************************************
- Release Name: simplelink_cc2640r2_sdk_02_30_00_28
- Release Date: 2018-10-15 15:51:38
+ 
+ 
  *****************************************************************************/
 
 #ifndef GATT_UUID_H
@@ -100,7 +100,6 @@ extern "C"
  */
 #define DEVICE_NAME_UUID                           0x2A00 // Device Name
 #define APPEARANCE_UUID                            0x2A01 // Appearance
-#define PERI_PRIVACY_FLAG_UUID                     0x2A02 // Peripheral Privacy Flag
 #define RECONNECT_ADDR_UUID                        0x2A03 // Reconnection Address
 #define PERI_CONN_PARAM_UUID                       0x2A04 // Peripheral Preferred Connection Parameters
 #define SERVICE_CHANGED_UUID                       0x2A05 // Service Changed
@@ -151,7 +150,6 @@ extern CONST uint8 reportRefUUID[];
  */
 extern CONST uint8 deviceNameUUID[];
 extern CONST uint8 appearanceUUID[];
-extern CONST uint8 periPrivacyFlagUUID[];
 extern CONST uint8 reconnectAddrUUID[];
 extern CONST uint8 periConnParamUUID[];
 extern CONST uint8 centAddrResUUID[];
