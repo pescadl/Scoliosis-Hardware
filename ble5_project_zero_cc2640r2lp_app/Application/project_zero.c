@@ -125,6 +125,7 @@
 #define PZ_START_ADV_EVT         7  /* Request advertisement start from task ctx   */
 #define PZ_SEND_PARAM_UPD_EVT    8  /* Request parameter update req be sent        */
 #define PZ_CONN_EVT              9  /* Connection Event End notice                 */
+#define PZ_ADC_START_EVT         10 /* Start sampling the ADC                      */
 
 // General discoverable mode: advertise indefinitely
 #define DEFAULT_DISCOVERABLE_MODE             GAP_ADTYPE_FLAGS_GENERAL
@@ -343,13 +344,17 @@ PIN_Config ledPinTable[] = {
  *   - Buttons interrupts are configured to trigger on falling edge.
  */
 PIN_Config buttonPinTable[] = {
-    Board_PIN_BUTTON0 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
+    Board_KEY_SELECT | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
     PIN_TERMINATE
 };
 
 // Clock objects for debouncing the buttons
 static Clock_Struct button0DebounceClock;
 static Clock_Handle button0DebounceClockHandle;
+
+// Clock objects for period ADC
+static Clock_Struct adcClock;
+static Clock_Handle adcClockHandle;
 
 // State of the buttons
 static uint8_t button0State = 0;
@@ -433,6 +438,8 @@ static void ProjectZero_processConnEvt(Gap_ConnEventRpt_t *pReport);
 static void buttonDebounceSwiFxn(UArg buttonId);
 static void buttonCallbackFxn(PIN_Handle handle,
                               PIN_Id pinId);
+static void adcSwiFxn(UArg nothing);
+
 static void ProjectZero_handleButtonPress(pzButtonState_t *pState);
 
 /* Utility functions */
@@ -581,7 +588,10 @@ static void ProjectZero_init(void)
                                                      buttonDebounceSwiFxn, 50,
                                                      0,
                                                      0,
-                                                     Board_PIN_BUTTON0);
+                                                     Board_KEY_SELECT);
+
+    // Create the adc clock objects for adc channel 0
+    adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 1000, 1000, 1, 0);
 
     // Set the Device Name characteristic in the GAP GATT Service
     // For more information, see the section in the User's Guide:
@@ -1793,7 +1803,7 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
 {
     Log_info2("%s %s",
               (uintptr_t)(pState->pinId ==
-                          Board_PIN_BUTTON0 ? "Button 0" : "Button 1"),
+                          Board_KEY_SELECT ? "Button 0" : "Button 1"),
               (uintptr_t)(pState->state ?
                           ANSI_COLOR(FG_GREEN)"pressed"ANSI_COLOR(ATTR_RESET) :
                           ANSI_COLOR(FG_YELLOW)"released"ANSI_COLOR(ATTR_RESET)
@@ -1803,7 +1813,7 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
     // Will automatically send notification/indication if enabled.
     switch(pState->pinId)
     {
-    case Board_PIN_BUTTON0:
+    case Board_KEY_SELECT:
         ButtonService_SetParameter(BS_BUTTON0_ID,
                                    sizeof(pState->state),
                                    &pState->state);
@@ -2339,7 +2349,7 @@ static void buttonDebounceSwiFxn(UArg buttonId)
 
     switch(buttonId)
     {
-    case Board_PIN_BUTTON0:
+    case Board_KEY_SELECT:
         // If button is now released (buttonPinVal is active low, so release is 1)
         // and button state was pressed (buttonstate is active high so press is 1)
         if(buttonPinVal && button0State)
@@ -2384,7 +2394,7 @@ static void buttonDebounceSwiFxn(UArg buttonId)
 static void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId)
 {
     Log_info1("Button interrupt: %s",
-              (uintptr_t)((pinId == Board_PIN_BUTTON0) ? "Button 0" : "Button 1"));
+              (uintptr_t)((pinId == Board_KEY_SELECT) ? "Button 0" : "Button 1"));
 
     // Disable interrupt on that pin for now. Re-enabled after debounce.
     PIN_setConfig(handle, PIN_BM_IRQ, pinId | PIN_IRQ_DIS);
@@ -2392,9 +2402,29 @@ static void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId)
     // Start debounce timer
     switch(pinId)
     {
-    case Board_PIN_BUTTON0:
+    case Board_KEY_SELECT:
         Util_startClock((Clock_Struct *)button0DebounceClockHandle);
         break;
+    }
+}
+
+static void adcSwiFxn(UArg nothing)
+{
+    Log_info0("ADC Software Interrupt Function occurred.");
+
+    //pzButtonState_t *pButtonState = ICall_malloc(sizeof(pzButtonState_t));
+    //if(pButtonState != NULL)
+    //{
+    //    *pButtonState = buttonMsg;
+    //    if(ProjectZero_enqueueMsg(PZ_BUTTON_DEBOUNCED_EVT, pButtonState) != SUCCESS)
+    //    {
+    //      ICall_free(pButtonState);
+    //    }
+    //}
+
+    if(ProjectZero_enqueueMsg(PZ_ADC_START_EVT, NULL) != SUCCESS)
+    {
+        Log_info0("Error: Enqueue PZ_ADC_START_EVT failed!");
     }
 }
 
