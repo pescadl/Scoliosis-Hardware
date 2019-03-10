@@ -65,6 +65,7 @@
 
 #include <ti/display/AnsiColor.h>
 #include <ti/drivers/ADC.h>
+#include <ti/devices/cc26x0r2/driverlib/aon_batmon.h>
 
 #include <ti/devices/DeviceFamily.h>
 #include DeviceFamily_constructPath(driverlib/sys_ctrl.h)
@@ -2463,6 +2464,10 @@ static void ProjectZero_sampleADC(void)
     Log_info1("ADC raw value: %d", avg);
 
     ADC_close(adcHandle);
+
+    // TODO: BATTMON MOVE LATER
+    uint32_t BatValue = AONBatMonBatteryVoltageGet();
+    Log_info2("Battery Value: #%d.0x%x\n", (BatValue&(0x700))>>8, BatValue & 0x0FF);
 }
 
 /******************************************************************************
