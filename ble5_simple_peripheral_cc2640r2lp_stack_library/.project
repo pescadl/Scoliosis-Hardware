@@ -454,11 +454,11 @@
 	<variableList>
 		<variable>
 			<name>EXAMPLE_BLE_ROOT</name>
-			<value>file:/C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/examples/rtos/CC2640R2_LAUNCHXL/ble5stack/simple_peripheral</value>
+			<value>$%7BCOM_TI_SIMPLELINK_CC2640R2_SDK_INSTALL_DIR%7D/examples/rtos/CC2640R2_LAUNCHXL/ble5stack/simple_peripheral</value>
 		</variable>
 		<variable>
 			<name>SRC_BLE_DIR</name>
-			<value>file:/C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source/ti/ble5stack</value>
+			<value>$%7BCOM_TI_SIMPLELINK_CC2640R2_SDK_INSTALL_DIR%7D/source/ti/ble5stack</value>
 		</variable>
 		<variable>
 			<name>SRC_COMMON_DIR</name>

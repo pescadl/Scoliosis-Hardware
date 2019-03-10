@@ -200,7 +200,7 @@ clean:
 	-@echo ' '
 
 pre-build:
-	-C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source/ti/ble5stack/../../../tools/ble5stack/lib_search/lib_search    --opt C:/Users/dayoung/school/ee364d/workspace_v8/ble5_simple_peripheral_cc2640r2lp_stack_library/TOOLS/build_config.opt    --lib-dir C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source/ti/ble5stack/blelib/cc26x0r2    --cmd C:/Users/dayoung/school/ee364d/workspace_v8/ble5_simple_peripheral_cc2640r2lp_stack_library/FlashROM_Library/lib_linker.cmd    --xml C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source/ti/ble5stack/../../../tools/ble5stack/lib_search/lib_search.xml    --sym-dir C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/source/ti/ble5stack/symbols/cc26x0r2
+	-C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/../../../tools/ble5stack/lib_search/lib_search    --opt C:/Users/dayoung/school/ee364d/workspace_v8/ble5_simple_peripheral_cc2640r2lp_stack_library/TOOLS/build_config.opt    --lib-dir C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/blelib/cc26x0r2    --cmd C:/Users/dayoung/school/ee364d/workspace_v8/ble5_simple_peripheral_cc2640r2lp_stack_library/FlashROM_Library/lib_linker.cmd    --xml C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/../../../tools/ble5stack/lib_search/lib_search.xml    --sym-dir C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/symbols/cc26x0r2
 	-@echo ' '
 
 .PHONY: all clean dependents

@@ -1,16 +1,16 @@
 /******************************************************************************
 
- @file       util.c
+ @file  util.c
 
  @brief This file contains utility functions commonly used by
         BLE applications for CC26xx with TIRTOS.
 
- Group: CMCU, SCS
- Target Device: CC2640R2
+ Group: WCS, BTS
+ Target Device: cc2640r2
 
  ******************************************************************************
  
- Copyright (c) 2014-2018, Texas Instruments Incorporated
+ Copyright (c) 2014-2019, Texas Instruments Incorporated
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -41,8 +41,8 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ******************************************************************************
- Release Name: simplelink_cc2640r2_sdk_02_30_00_28
- Release Date: 2018-10-15 15:51:38
+ 
+ 
  *****************************************************************************/
 
 /*********************************************************************

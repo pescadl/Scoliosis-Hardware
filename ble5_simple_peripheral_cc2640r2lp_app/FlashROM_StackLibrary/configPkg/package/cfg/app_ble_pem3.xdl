@@ -9,10 +9,10 @@
  */
 
 
--l"C:\Users\maris\Documents\GitHub\Scoliosis-Hardware\ble5_simple_peripheral_cc2640r2lp_app\FlashROM_StackLibrary\configPkg\package\cfg\app_ble_pem3.oem3"
--l"C:\Users\maris\Documents\GitHub\Scoliosis-Hardware\ble5_simple_peripheral_cc2640r2lp_app\TOOLS\src\sysbios\rom_sysbios.aem3"
--l"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\boot.aem3"
--l"C:\ti\simplelink_cc2640r2_sdk_2_30_00_28\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\auto_init.aem3"
+-l"C:\Users\dayoung\school\ee364d\workspace_v8\ble5_simple_peripheral_cc2640r2lp_app\FlashROM_StackLibrary\configPkg\package\cfg\app_ble_pem3.oem3"
+-l"C:\Users\dayoung\school\ee364d\workspace_v8\ble5_simple_peripheral_cc2640r2lp_app\TOOLS\src\sysbios\rom_sysbios.aem3"
+-l"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\boot.aem3"
+-l"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\auto_init.aem3"
 
 --retain="*(xdc.meta)"
 
@@ -106,7 +106,7 @@ ti_sysbios_family_arm_m3_Hwi_nvic = 0xe000e000;
 
 /* Content from ti.sysbios.heaps (null): */
 
-/* Content from ti.sysbios.rom.cortexm.cc26xx.r2 (C:/ti/simplelink_cc2640r2_sdk_2_30_00_28/kernel/tirtos/packages/ti/sysbios/rom/cortexm/cc26xx/r2/golden/CC26xx/CC26xx_link_ti.xdt): */
+/* Content from ti.sysbios.rom.cortexm.cc26xx.r2 (C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/kernel/tirtos/packages/ti/sysbios/rom/cortexm/cc26xx/r2/golden/CC26xx/CC26xx_link_ti.xdt): */
 
 -u xdc_runtime_Error_policy__C
 -u xdc_runtime_IModule_Interface__BASE__C
