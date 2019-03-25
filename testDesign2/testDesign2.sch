@@ -633,7 +633,7 @@ U 1 1 5C9B4C12
 P 5300 2600
 F 0 "SW1" H 5300 2885 50  0000 C CNN
 F 1 "SW_Push" H 5300 2794 50  0000 C CNN
-F 2 "Button_Switch_SMD:SW_SPST_PTS810" H 5300 2800 50  0001 C CNN
+F 2 "testDesign:Switch_EVP-BB4A9B000" H 5300 2800 50  0001 C CNN
 F 3 "" H 5300 2800 50  0001 C CNN
 	1    5300 2600
 	1    0    0    -1  
@@ -675,7 +675,7 @@ Wire Wire Line
 	5500 2600 5600 2600
 Wire Wire Line
 	5600 2600 5600 2700
-Text GLabel 5450 4500 2    50   Input ~ 0
+Text GLabel 5450 4650 2    50   Input ~ 0
 Button
 Text GLabel 5000 2600 0    50   Input ~ 0
 Button
@@ -690,7 +690,7 @@ Wire Wire Line
 Connection ~ 6300 2900
 Wire Wire Line
 	6300 2900 6300 3000
-Text GLabel 5450 4650 2    50   Input ~ 0
+Text GLabel 5450 4500 2    50   Input ~ 0
 ADC0
 $Comp
 L testDesign2-rescue:GND-power #PWR012
@@ -732,4 +732,6 @@ NoConn ~ 5450 4800
 NoConn ~ 3800 5950
 NoConn ~ 3650 5950
 NoConn ~ 2950 5550
+Text GLabel 3500 4050 1    50   Input ~ 0
+GND
 $EndSCHEMATC
