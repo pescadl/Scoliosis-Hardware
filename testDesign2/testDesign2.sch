@@ -771,4 +771,15 @@ $EndComp
 Connection ~ 6500 1100
 Wire Wire Line
 	6500 1100 6350 1100
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5C9AE16C
+P 1000 2300
+F 0 "H1" H 1100 2346 50  0000 L CNN
+F 1 "MountingHole" H 1100 2255 50  0000 L CNN
+F 2 "testDesign:MountingHole_1.2mm_M1" H 1000 2300 50  0001 C CNN
+F 3 "~" H 1000 2300 50  0001 C CNN
+	1    1000 2300
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

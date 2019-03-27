@@ -630,7 +630,7 @@ U 1 1 5C9B4F2F
 P 6300 2600
 F 0 "TH1" H 6405 2646 50  0000 L CNN
 F 1 "Thermistor" H 6405 2555 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" H 6300 2600 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical" H 6300 2600 50  0001 C CNN
 F 3 "~" H 6300 2600 50  0001 C CNN
 	1    6300 2600
 	1    0    0    -1  
@@ -771,4 +771,15 @@ $EndComp
 Connection ~ 6500 1100
 Wire Wire Line
 	6500 1100 6350 1100
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5C9AE16C
+P 1000 2300
+F 0 "H1" H 1100 2346 50  0000 L CNN
+F 1 "MountingHole" H 1100 2255 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2" H 1000 2300 50  0001 C CNN
+F 3 "~" H 1000 2300 50  0001 C CNN
+	1    1000 2300
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
