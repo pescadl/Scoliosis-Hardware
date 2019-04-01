@@ -9,8 +9,8 @@
  */
 
 
--l"C:\Users\dayoung\school\ee364d\workspace_v8\ble5_project_zero_cc2640r2lp_app\FlashROM_StackLibrary\configPkg\package\cfg\app_ble_pem3.oem3"
--l"C:\Users\dayoung\school\ee364d\workspace_v8\ble5_project_zero_cc2640r2lp_app\TOOLS\src\sysbios\rom_sysbios.aem3"
+-l"C:\Users\Pooja Muddasani\Documents\GitHub\Scoliosis-Hardware\ble5_project_zero_cc2640r2lp_app\FlashROM_StackLibrary\configPkg\package\cfg\app_ble_pem3.oem3"
+-l"C:\Users\Pooja Muddasani\Documents\GitHub\Scoliosis-Hardware\ble5_project_zero_cc2640r2lp_app\TOOLS\src\sysbios\rom_sysbios.aem3"
 -l"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\boot.aem3"
 -l"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\auto_init.aem3"
 
@@ -72,6 +72,8 @@
 /* Content from ti.sysbios.rts (ti/sysbios/rts/linkcmd.xdt): */
 
 /* Content from xdc.runtime.knl (null): */
+
+/* Content from xdc.services.io (null): */
 
 /* Content from ti.catalog.arm.cortexm3 (null): */
 
@@ -678,8 +680,6 @@ SECTIONS
 /* Content from ti.sysbios.utils (null): */
 
 /* Content from configPkg (null): */
-
-/* Content from xdc.services.io (null): */
 
 
 

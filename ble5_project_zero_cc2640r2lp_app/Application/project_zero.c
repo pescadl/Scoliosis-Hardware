@@ -345,7 +345,7 @@ PIN_Config ledPinTable[] = {
  *   - Buttons interrupts are configured to trigger on falling edge.
  */
 PIN_Config buttonPinTable[] = {
-    Board_KEY_SELECT | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
+    Board_PIN_BUTTON0  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
     PIN_TERMINATE
 };
 
@@ -599,7 +599,7 @@ static void ProjectZero_init(void)
                                                      buttonDebounceSwiFxn, 50,
                                                      0,
                                                      0,
-                                                     Board_KEY_SELECT);
+                                                     Board_PIN_BUTTON0  );
 
     // Create the adc clock objects for adc channel 0
     adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 1000, 1000, 1, 0);
@@ -1818,7 +1818,7 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
 {
     Log_info2("%s %s",
               (uintptr_t)(pState->pinId ==
-                          Board_KEY_SELECT ? "Button 0" : "Button 1"),
+                          Board_PIN_BUTTON0   ? "Button 0" : "Button 1"),
               (uintptr_t)(pState->state ?
                           ANSI_COLOR(FG_GREEN)"pressed"ANSI_COLOR(ATTR_RESET) :
                           ANSI_COLOR(FG_YELLOW)"released"ANSI_COLOR(ATTR_RESET)
@@ -1828,7 +1828,7 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
     // Will automatically send notification/indication if enabled.
     switch(pState->pinId)
     {
-    case Board_KEY_SELECT:
+    case Board_PIN_BUTTON0  :
         ButtonService_SetParameter(BS_BUTTON0_ID,
                                    sizeof(pState->state),
                                    &pState->state);
@@ -2364,7 +2364,7 @@ static void buttonDebounceSwiFxn(UArg buttonId)
 
     switch(buttonId)
     {
-    case Board_KEY_SELECT:
+    case Board_PIN_BUTTON0  :
         // If button is now released (buttonPinVal is active low, so release is 1)
         // and button state was pressed (buttonstate is active high so press is 1)
         if(buttonPinVal && button0State)
@@ -2409,7 +2409,7 @@ static void buttonDebounceSwiFxn(UArg buttonId)
 static void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId)
 {
     Log_info1("Button interrupt: %s",
-              (uintptr_t)((pinId == Board_KEY_SELECT) ? "Button 0" : "Button 1"));
+              (uintptr_t)((pinId == Board_PIN_BUTTON0  ) ? "Button 0" : "Button 1"));
 
     // Disable interrupt on that pin for now. Re-enabled after debounce.
     PIN_setConfig(handle, PIN_BM_IRQ, pinId | PIN_IRQ_DIS);
@@ -2417,7 +2417,7 @@ static void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId)
     // Start debounce timer
     switch(pinId)
     {
-    case Board_KEY_SELECT:
+    case Board_PIN_BUTTON0  :
         Util_startClock((Clock_Struct *)button0DebounceClockHandle);
         break;
     }

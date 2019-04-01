@@ -25,7 +25,7 @@ ORDERED_OBJS += \
 "./PROFILES/devinfoservice.obj" \
 "./PROFILES/gatt_uuid.obj" \
 "./PROFILES/gattservapp_util.obj" \
-"./Startup/CC2640R2DK_4XS.obj" \
+"./Startup/CC2640R2_LAUNCHXL.obj" \
 "./Startup/CC2640R2_LAUNCHXL_fxns.obj" \
 "./Startup/UartLog.obj" \
 "./Startup/ccfg_app_ble.obj" \
@@ -37,9 +37,9 @@ $(GEN_CMDS__FLAG) \
 -l"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/drivers/rf/lib/rf_singleMode_cc26x0r2.aem3" \
 -l"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/display/lib/display.aem3" \
 -l"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/grlib/lib/ccs/m3/grlib.a" \
--l"C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble_r2.symbols" \
--l"C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/lib_linker.cmd" \
--l"C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble5_project_zero_cc2640r2lp_stack_library.lib" \
+-l"C:/Users/Pooja Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble_r2.symbols" \
+-l"C:/Users/Pooja Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/lib_linker.cmd" \
+-l"C:/Users/Pooja Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble5_project_zero_cc2640r2lp_stack_library.lib" \
 -l"C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/common/cc26xx/ccs/cc26xx_app.cmd" \
 -llibc.a \
 
@@ -183,13 +183,13 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@$(MAKE) --no-print-directory -Onone "ble5_project_zero_cc2640r2lp_app.out"
 
 dependents:
-	-cd C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library && $(MAKE) all
+	-cd C:/Users/Pooja\ Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library && $(MAKE) all
 
 # Tool invocations
-ble5_project_zero_cc2640r2lp_app.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble5_project_zero_cc2640r2lp_stack_library.lib
+ble5_project_zero_cc2640r2lp_app.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) C:/Users/Pooja\ Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble5_project_zero_cc2640r2lp_stack_library.lib
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" --cmd_file="C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_app/TOOLS/defines/ble5_project_zero_cc2640r2lp_app_FlashROM_StackLibrary.opt" --cmd_file="C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/config/build_components.opt" --cmd_file="C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/config/factory_config.opt" --cmd_file="C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_stack_library/TOOLS/build_config.opt"  -mv7M4 --code_state=16 -me -O2 --opt_for_speed=0 --define=DeviceFamily_CC26X0R2 --define=uartlog_FILE="\"\"" --define=UARTLOG_ENABLE -g --c99 --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"ble5_project_zero_cc2640r2lp_app.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/include" --reread_libs --define=CC26X0ROM=2 --diag_suppress=16002-D --diag_suppress=10247-D --diag_suppress=10325-D --diag_suppress=10229-D --diag_suppress=16032-D --diag_wrap=off --display_error_number --warn_sections --xml_link_info="ble5_project_zero_cc2640r2lp_app_linkInfo.xml" --rom_model -o "ble5_project_zero_cc2640r2lp_app.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/bin/armcl" --cmd_file="C:/Users/Pooja Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_app/TOOLS/defines/ble5_project_zero_cc2640r2lp_app_FlashROM_StackLibrary.opt" --cmd_file="C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/config/build_components.opt" --cmd_file="C:/ti/simplelink_cc2640r2_sdk_2_40_00_32/source/ti/ble5stack/config/factory_config.opt" --cmd_file="C:/Users/Pooja Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/TOOLS/build_config.opt"  -mv7M4 --code_state=16 -me -O2 --opt_for_speed=0 --define=DeviceFamily_CC26X0R2 --define=uartlog_FILE="\"\"" --define=UARTLOG_ENABLE -g --c99 --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi -z -m"ble5_project_zero_cc2640r2lp_app.map" --heap_size=0 --stack_size=256 -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.4.LTS/include" --reread_libs --define=CC26X0ROM=2 --diag_suppress=16002-D --diag_suppress=10247-D --diag_suppress=10325-D --diag_suppress=10229-D --diag_suppress=16032-D --diag_wrap=off --display_error_number --warn_sections --xml_link_info="ble5_project_zero_cc2640r2lp_app_linkInfo.xml" --rom_model -o "ble5_project_zero_cc2640r2lp_app.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -205,8 +205,8 @@ ble5_project_zero_cc2640r2lp_app.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Application\project_zero.obj" "Application\util.obj" "Application\services\button_service.obj" "Application\services\data_service.obj" "Application\services\led_service.obj" "Drivers\ECC\ECCROMCC26XX.obj" "Drivers\TRNG\TRNGCC26XX.obj" "ICall\icall.obj" "ICall\icall_cc2650.obj" "ICall\icall_user_config.obj" "ICallBLE\ble_user_config.obj" "ICallBLE\icall_api_lite.obj" "PROFILES\devinfoservice.obj" "PROFILES\gatt_uuid.obj" "PROFILES\gattservapp_util.obj" "Startup\CC2640R2DK_4XS.obj" "Startup\CC2640R2_LAUNCHXL_fxns.obj" "Startup\UartLog.obj" "Startup\ccfg_app_ble.obj" "Startup\main.obj" 
-	-$(RM) "Application\project_zero.d" "Application\util.d" "Application\services\button_service.d" "Application\services\data_service.d" "Application\services\led_service.d" "Drivers\ECC\ECCROMCC26XX.d" "Drivers\TRNG\TRNGCC26XX.d" "ICall\icall.d" "ICall\icall_cc2650.d" "ICall\icall_user_config.d" "ICallBLE\ble_user_config.d" "ICallBLE\icall_api_lite.d" "PROFILES\devinfoservice.d" "PROFILES\gatt_uuid.d" "PROFILES\gattservapp_util.d" "Startup\CC2640R2DK_4XS.d" "Startup\CC2640R2_LAUNCHXL_fxns.d" "Startup\UartLog.d" "Startup\ccfg_app_ble.d" "Startup\main.d" 
+	-$(RM) "Application\project_zero.obj" "Application\util.obj" "Application\services\button_service.obj" "Application\services\data_service.obj" "Application\services\led_service.obj" "Drivers\ECC\ECCROMCC26XX.obj" "Drivers\TRNG\TRNGCC26XX.obj" "ICall\icall.obj" "ICall\icall_cc2650.obj" "ICall\icall_user_config.obj" "ICallBLE\ble_user_config.obj" "ICallBLE\icall_api_lite.obj" "PROFILES\devinfoservice.obj" "PROFILES\gatt_uuid.obj" "PROFILES\gattservapp_util.obj" "Startup\CC2640R2_LAUNCHXL.obj" "Startup\CC2640R2_LAUNCHXL_fxns.obj" "Startup\UartLog.obj" "Startup\ccfg_app_ble.obj" "Startup\main.obj" 
+	-$(RM) "Application\project_zero.d" "Application\util.d" "Application\services\button_service.d" "Application\services\data_service.d" "Application\services\led_service.d" "Drivers\ECC\ECCROMCC26XX.d" "Drivers\TRNG\TRNGCC26XX.d" "ICall\icall.d" "ICall\icall_cc2650.d" "ICall\icall_user_config.d" "ICallBLE\ble_user_config.d" "ICallBLE\icall_api_lite.d" "PROFILES\devinfoservice.d" "PROFILES\gatt_uuid.d" "PROFILES\gattservapp_util.d" "Startup\CC2640R2_LAUNCHXL.d" "Startup\CC2640R2_LAUNCHXL_fxns.d" "Startup\UartLog.d" "Startup\ccfg_app_ble.d" "Startup\main.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '
@@ -217,7 +217,7 @@ post-build:
 
 .PHONY: all clean dependents
 .SECONDARY:
-C:/Users/dayoung/school/ee364d/workspace_v8/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble5_project_zero_cc2640r2lp_stack_library.lib:
+C:/Users/Pooja\ Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble5_project_zero_cc2640r2lp_stack_library.lib:
 
 -include ../makefile.targets
 
