@@ -257,6 +257,18 @@ Task_Struct pzTask;
 #endif
 uint8_t appTaskStack[PZ_TASK_STACK_SIZE];
 
+int8_t data_array[100];
+int8_t data_array_index;
+int8_t currTime;
+int8_t lastRead;
+int8_t batteryLevel;
+/*
+“{currtime: ##########,
+lastread: ##########,                 //last time sensor read from adc
+battery: #%};
+comply: [0/1,0/1,0/1,0/1,0/1,....]}”
+ */
+
 /*********************************************************************
  * LOCAL VARIABLES
  */
@@ -570,6 +582,9 @@ static void ProjectZero_init(void)
     // Initialize ADC
     ADC_init();
     ADC_Params_init(&adcParams);
+
+    data_array_index = 3; //starting data results
+    data_array[1] = 0;
 
     // Open LED pins
     ledPinHandle = PIN_open(&ledPinState, ledPinTable);
@@ -2447,6 +2462,22 @@ static void ProjectZero_sampleADC(void)
         Log_info0("Error: Failed to open ADC channel.");
         project_zero_spin();
     }
+
+    //added stuff
+    //need to add in the time
+        data_array[1] = data_array[1] + 1; //add on - another time sampled
+        if (avg >= 1300) {                      //cutoff point for now
+            data_array[data_array_index] = 1;
+        } else {
+            data_array[data_array_index] = 0;
+        }
+        data_array_index++;
+        /*
+        “{currtime: ##########,
+        lastread: ##########,                 //last time sensor read from adc
+        comply: [0/1,0/1,0/1,0/1,0/1,....],
+        battery : #%}”
+         */
 
     for(i=0; i<times; i++)
     {
