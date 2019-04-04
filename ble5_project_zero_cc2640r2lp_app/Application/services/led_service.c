@@ -59,6 +59,8 @@
 
 #include "led_service.h"
 
+//Marisa took out all of the LED1 stuff and just left LED0
+
 /*********************************************************************
  * MACROS
  */
@@ -86,13 +88,13 @@ CONST uint8_t ls_LED0UUID[ATT_UUID_SIZE] =
 {
     LS_LED0_UUID_BASE128(LS_LED0_UUID)
 };
-
+/*
 // LED1 UUID
 CONST uint8_t ls_LED1UUID[ATT_UUID_SIZE] =
 {
     LS_LED1_UUID_BASE128(LS_LED1_UUID)
 };
-
+*/
 /*********************************************************************
  * LOCAL VARIABLES
  */
@@ -111,11 +113,12 @@ static uint8_t ls_LED0Props = GATT_PROP_READ | GATT_PROP_WRITE |
                               GATT_PROP_WRITE_NO_RSP;
 
 // Characteristic "LED0" Value variable
-static uint8_t ls_LED0Val[LS_LED0_LEN] = {0};
+static uint8_t ls_LED0Val[LS_LED0_LEN] = {0,0,0,0,0};
 
 // Length of data in characteristic "LED0" Value variable, initialized to minimal size.
 static uint16_t ls_LED0ValLen = LS_LED0_LEN_MIN;
 
+/*
 // Characteristic "LED1" Properties (for declaration)
 static uint8_t ls_LED1Props = GATT_PROP_READ | GATT_PROP_WRITE |
                               GATT_PROP_WRITE_NO_RSP;
@@ -125,7 +128,7 @@ static uint8_t ls_LED1Val[LS_LED1_LEN] = {0};
 
 // Length of data in characteristic "LED1" Value variable, initialized to minimal size.
 static uint16_t ls_LED1ValLen = LS_LED1_LEN_MIN;
-
+*/
 /*********************************************************************
  * Profile Attributes - Table
  */
@@ -153,6 +156,7 @@ static gattAttribute_t LED_ServiceAttrTbl[] =
         0,
         ls_LED0Val
     },
+    /*
     // LED1 Characteristic Declaration
     {
         { ATT_BT_UUID_SIZE, characterUUID },
@@ -166,7 +170,7 @@ static gattAttribute_t LED_ServiceAttrTbl[] =
         GATT_PERMIT_READ | GATT_PERMIT_WRITE | GATT_PERMIT_WRITE,
         0,
         ls_LED1Val
-    },
+    },*/
 };
 
 /*********************************************************************
@@ -271,7 +275,7 @@ bStatus_t LedService_SetParameter(uint8_t param, uint16_t len, void *value)
         valMaxLen = LS_LED0_LEN;
         Log_info2("SetParameter : %s len: %d", (uintptr_t)"LED0", len);
         break;
-
+/*
     case LS_LED1_ID:
         pAttrVal = ls_LED1Val;
         pValLen = &ls_LED1ValLen;
@@ -279,7 +283,7 @@ bStatus_t LedService_SetParameter(uint8_t param, uint16_t len, void *value)
         valMaxLen = LS_LED1_LEN;
         Log_info2("SetParameter : %s len: %d", (uintptr_t)"LED1", len);
         break;
-
+*/
     default:
         Log_error1("SetParameter: Parameter #%d not valid.", param);
         return(INVALIDPARAMETER);
@@ -324,14 +328,14 @@ bStatus_t LedService_GetParameter(uint8_t param, uint16_t *len, void *value)
         Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"LED0",
                   *len);
         break;
-
+    /*
     case LS_LED1_ID:
         *len = MIN(*len, ls_LED1ValLen);
         memcpy(value, ls_LED1Val, *len);
         Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"LED1",
                   *len);
         break;
-
+    */
     default:
         Log_error1("GetParameter: Parameter #%d not valid.", param);
         ret = INVALIDPARAMETER;
@@ -367,12 +371,14 @@ static uint8_t LED_Service_findCharParamId(gattAttribute_t *pAttr)
     {
         return(LS_LED0_ID);
     }
+    /*
     // Is this attribute in "LED1"?
     else if(ATT_UUID_SIZE == pAttr->type.len &&
             !memcmp(pAttr->type.uuid, ls_LED1UUID, pAttr->type.len))
     {
         return(LS_LED1_ID);
     }
+    */
     else
     {
         return(0xFF); // Not found. Return invalid.
@@ -419,7 +425,7 @@ static bStatus_t LED_Service_ReadAttrCB(uint16_t connHandle,
                   method);
         /* Other considerations for LED0 can be inserted here */
         break;
-
+    /*
     case LS_LED1_ID:
         valueLen = ls_LED1ValLen;
 
@@ -428,9 +434,9 @@ static bStatus_t LED_Service_ReadAttrCB(uint16_t connHandle,
                   connHandle,
                   offset,
                   method);
-        /* Other considerations for LED1 can be inserted here */
+        // Other considerations for LED1 can be inserted here
         break;
-
+    */
     default:
         Log_error0("Attribute was not found.");
         return(ATT_ERR_ATTR_NOT_FOUND);
@@ -495,7 +501,7 @@ static bStatus_t LED_Service_WriteAttrCB(uint16_t connHandle,
             method);
         /* Other considerations for LED0 can be inserted here */
         break;
-
+        /*
     case LS_LED1_ID:
         writeLenMin = LS_LED1_LEN_MIN;
         writeLenMax = LS_LED1_LEN;
@@ -508,9 +514,9 @@ static bStatus_t LED_Service_WriteAttrCB(uint16_t connHandle,
             len,
             offset,
             method);
-        /* Other considerations for LED1 can be inserted here */
+        // Other considerations for LED1 can be inserted here
         break;
-
+*/
     default:
         Log_error0("Attribute was not found.");
         return(ATT_ERR_ATTR_NOT_FOUND);

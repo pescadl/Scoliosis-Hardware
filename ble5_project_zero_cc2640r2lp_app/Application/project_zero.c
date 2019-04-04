@@ -141,7 +141,7 @@
 #define DEFAULT_DESIRED_SLAVE_LATENCY         0
 
 // Supervision timeout value (units of 10ms, 1000=10s) for parameter update request
-#define DEFAULT_DESIRED_CONN_TIMEOUT          200
+#define DEFAULT_DESIRED_CONN_TIMEOUT          2000       //originally was 200
 
 // Supervision timeout conversion rate to miliseconds
 #define CONN_TIMEOUT_MS_CONVERSION            10
@@ -334,23 +334,24 @@ static List_List paramUpdateList;
 
 /* Pin driver handles */
 static PIN_Handle buttonPinHandle;
-static PIN_Handle ledPinHandle;
+//static PIN_Handle ledPinHandle;
 
 /* Global memory storage for a PIN_Config table */
 static PIN_State buttonPinState;
-static PIN_State ledPinState;
+//static PIN_State ledPinState;
 
 /*
  * Initial LED pin configuration table
  *   - LEDs Board_PIN_LED0 & Board_PIN_LED1 are off.
  */
-PIN_Config ledPinTable[] = {
-    /*Board_PIN_RLED | */PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL |
-    PIN_DRVSTR_MAX,
-    /*Board_PIN_GLED | */PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL |
-    PIN_DRVSTR_MAX,
-    PIN_TERMINATE
-};
+
+//PIN_Config ledPinTable[] = {
+//    /*Board_PIN_RLED | */PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL |
+//    PIN_DRVSTR_MAX,
+//    /*Board_PIN_GLED | */PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL |
+//    PIN_DRVSTR_MAX,
+//    PIN_TERMINATE
+//};
 
 /*
  * Application button pin configuration table:
@@ -506,6 +507,7 @@ static ButtonServiceCBs_t ProjectZero_Button_ServiceCBs =
     .pfnCfgChangeCb = ProjectZero_ButtonService_CfgChangeCB, // Noti/ind configuration callback handler
 };
 
+
 // Data Service callback handler.
 // The type Data_ServiceCBs_t is defined in data_service.h
 static DataServiceCBs_t ProjectZero_Data_ServiceCBs =
@@ -586,6 +588,7 @@ static void ProjectZero_init(void)
     data_array_index = 3; //starting data results
     data_array[1] = 0;
 
+    /*
     // Open LED pins
     ledPinHandle = PIN_open(&ledPinState, ledPinTable);
     if(!ledPinHandle)
@@ -593,6 +596,8 @@ static void ProjectZero_init(void)
         Log_error0("Error initializing board LED pins");
         Task_exit();
     }
+    */
+
 
     // Open button pins
     buttonPinHandle = PIN_open(&buttonPinState, buttonPinTable);
@@ -617,7 +622,7 @@ static void ProjectZero_init(void)
                                                      Board_PIN_BUTTON0  );
 
     // Create the adc clock objects for adc channel 0
-    adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 1000, 1000, 1, 0);
+    adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 2000, 2000, 1, 0);
 
     // Set the Device Name characteristic in the GAP GATT Service
     // For more information, see the section in the User's Guide:
@@ -678,11 +683,12 @@ static void ProjectZero_init(void)
 
     // Placeholder variable for characteristic intialization
     uint8_t initVal[40] = {0};
-    uint8_t initString[] = "This is a pretty long string, isn't it!";
+    uint8_t initString[] = "I'm changing things, Pooja!";
 
     // Initalization of characteristics in LED_Service that can provide data.
+    LedService_SetParameter(LS_LED0_ID, sizeof(initString), initString);
     LedService_SetParameter(LS_LED0_ID, LS_LED0_LEN, initVal);
-    LedService_SetParameter(LS_LED1_ID, LS_LED1_LEN, initVal);
+    //LedService_SetParameter(LS_LED1_ID, LS_LED1_LEN, initVal);
 
     // Initalization of characteristics in Button_Service that can provide data.
     ButtonService_SetParameter(BS_BUTTON0_ID, BS_BUTTON0_LEN, initVal);
@@ -973,7 +979,7 @@ static void ProjectZero_processApplicationMessage(pzMsg_t *pMsg)
           if(linkDB_NumActive() < MAX_NUM_BLE_CONNS)
           {
               // Enable advertising if there is room for more connections
-              GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);
+             // GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);                          //took out for testing!!
           }
           break;
 
@@ -1128,7 +1134,7 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
         {
             Log_info1("Continue to Advertise, %d possible connection remain", MAX_NUM_BLE_CONNS - linkDB_NumActive());
             // Start advertising since there is room for more connections
-            GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);
+            //GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);                                            //took out for testing
         }
         else
         {
@@ -1136,7 +1142,7 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
         }
     }
     break;
-
+/*                                                                                                                      //took out for testing
     case GAP_LINK_TERMINATED_EVENT:
     {
         gapTerminateLinkEvent_t *pPkt = (gapTerminateLinkEvent_t *)pMsg;
@@ -1160,7 +1166,7 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
         }
     }
     break;
-
+*/
     case GAP_UPDATE_LINK_PARAM_REQ_EVENT:
         ProjectZero_handleUpdateLinkParamReq(
             (gapUpdateLinkParamReqEvent_t *)pMsg);
@@ -1274,12 +1280,12 @@ static void ProjectZero_processAdvEvent(pzGapAdvEventData_t *pEventData)
     {
     /* Sent on the first advertisement after a GapAdv_enable */
     case GAP_EVT_ADV_START_AFTER_ENABLE:
-        Log_info1("Adv Set %d Enabled", *(uint8_t *)(pEventData->pBuf));
+        Log_info1("Adv Set %d Enabled due to GapAdv_enable", *(uint8_t *)(pEventData->pBuf));
         break;
 
     /* Sent after advertising stops due to a GapAdv_disable */
     case GAP_EVT_ADV_END_AFTER_DISABLE:
-        Log_info1("Adv Set %d Disabled", *(uint8_t *)(pEventData->pBuf));
+        Log_info1("Adv Set %d Disabled due to GapAdv_disable", *(uint8_t *)(pEventData->pBuf));
         break;
 
     /* Sent at the beginning of each advertisement. (Note that this event
@@ -1868,7 +1874,7 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
 void ProjectZero_LedService_ValueChangeHandler(
     pzCharacteristicData_t *pCharData)
 {
-    static uint8_t pretty_data_holder[16]; // 5 bytes as hex string "AA:BB:CC:DD:EE"
+    static uint8_t pretty_data_holder[16]; // 5 bytes as hex string "AA:BB:CC:DD:EE" puts info from pCharData into pretty data holder
     util_arrtohex(pCharData->data, pCharData->dataLen,
                   pretty_data_holder, sizeof(pretty_data_holder),
                   UTIL_ARRTOHEX_NO_REVERSE);
@@ -1878,18 +1884,37 @@ void ProjectZero_LedService_ValueChangeHandler(
     case LS_LED0_ID:
         Log_info3("Value Change msg: %s %s: %s",
                   (uintptr_t)"LED Service",
-                  (uintptr_t)"LED0",
+                  (uintptr_t)"done?",
                   (uintptr_t)pretty_data_holder);
 
         // Do something useful with pCharData->data here
         // -------------------------
         // Set the output value equal to the received value. 0 is off, not 0 is on
-        PIN_setOutputValue(ledPinHandle, 0/*Board_PIN_RLED*/, pCharData->data[0]);
-        Log_info2("Turning %s %s",
+        //PIN_setOutputValue(ledPinHandle, 0/*Board_PIN_RLED*/, pCharData->data[0]);
+        /*Log_info2("Turning %s %s",
                   (uintptr_t)ANSI_COLOR(FG_RED)"LED0"ANSI_COLOR(ATTR_RESET),
                   (uintptr_t)(pCharData->data[0] ? "on" : "off"));
-        break;
+        */
+        if (strcmp(pretty_data_holder, "64:6F:6E:65") == 0) {
 
+            Log_info0("Done. Can now exit.");                                                                                 //need to exit lol
+            bStatus_t status = GapAdv_disable(advHandleLegacy);
+
+            if(status==bleIncorrectMode)
+                    Log_info0("Disable status: bleIncorrectMode");
+                else if(status==bleGAPNotFound)
+                    Log_info0("Disable status: bleGAPNotFound");
+                else if(status==bleAlreadyInRequestedMode)
+                    Log_info0("Disable status: bleAlreadyInRequestedMode");
+                else if(status==SUCCESS)
+                    Log_info0("Disable status:SUCCESS ");
+                else
+                    Log_info0("Disable status:Failure ");
+
+
+        }
+        break;
+/*
     case LS_LED1_ID:
         Log_info3("Value Change msg: %s %s: %s",
                   (uintptr_t)"LED Service",
@@ -1899,11 +1924,12 @@ void ProjectZero_LedService_ValueChangeHandler(
         // Do something useful with pCharData->data here
         // -------------------------
         // Set the output value equal to the received value. 0 is off, not 0 is on
-        PIN_setOutputValue(ledPinHandle, 0/*Board_PIN_GLED*/, pCharData->data[0]);
-        Log_info2("Turning %s %s",
+       // PIN_setOutputValue(ledPinHandle, 0/*Board_PIN_GLED, pCharData->data[0]);
+       /* Log_info2("Turning %s %s",
                   (uintptr_t)ANSI_COLOR(FG_GREEN)"LED1"ANSI_COLOR(ATTR_RESET),
                   (uintptr_t)(pCharData->data[0] ? "on" : "off"));
         break;
+        */
 
     default:
         return;
