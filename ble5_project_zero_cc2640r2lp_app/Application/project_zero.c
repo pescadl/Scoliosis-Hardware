@@ -1139,6 +1139,8 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
         else
         {
             Log_info1("Max Number of Connection reach: %d, Adv. will not be enable again", linkDB_NumActive());
+            uint8_t initString[] = "testing new things";
+            DataService_SetParameter(DS_STRING_ID, sizeof(initString), initString);
         }
     }
     break;
