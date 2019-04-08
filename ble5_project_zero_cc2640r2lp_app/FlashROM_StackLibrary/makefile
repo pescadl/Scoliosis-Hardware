@@ -12,7 +12,6 @@ GEN_CMDS__FLAG := -l"configPkg/linker.cmd"
 ORDERED_OBJS += \
 "./Application/project_zero.obj" \
 "./Application/util.obj" \
-"./Application/services/button_service.obj" \
 "./Application/services/data_service.obj" \
 "./Application/services/led_service.obj" \
 "./Drivers/ECC/ECCROMCC26XX.obj" \
@@ -205,8 +204,8 @@ ble5_project_zero_cc2640r2lp_app.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Application\project_zero.obj" "Application\util.obj" "Application\services\button_service.obj" "Application\services\data_service.obj" "Application\services\led_service.obj" "Drivers\ECC\ECCROMCC26XX.obj" "Drivers\TRNG\TRNGCC26XX.obj" "ICall\icall.obj" "ICall\icall_cc2650.obj" "ICall\icall_user_config.obj" "ICallBLE\ble_user_config.obj" "ICallBLE\icall_api_lite.obj" "PROFILES\devinfoservice.obj" "PROFILES\gatt_uuid.obj" "PROFILES\gattservapp_util.obj" "Startup\CC2640R2_LAUNCHXL.obj" "Startup\CC2640R2_LAUNCHXL_fxns.obj" "Startup\UartLog.obj" "Startup\ccfg_app_ble.obj" "Startup\main.obj" 
-	-$(RM) "Application\project_zero.d" "Application\util.d" "Application\services\button_service.d" "Application\services\data_service.d" "Application\services\led_service.d" "Drivers\ECC\ECCROMCC26XX.d" "Drivers\TRNG\TRNGCC26XX.d" "ICall\icall.d" "ICall\icall_cc2650.d" "ICall\icall_user_config.d" "ICallBLE\ble_user_config.d" "ICallBLE\icall_api_lite.d" "PROFILES\devinfoservice.d" "PROFILES\gatt_uuid.d" "PROFILES\gattservapp_util.d" "Startup\CC2640R2_LAUNCHXL.d" "Startup\CC2640R2_LAUNCHXL_fxns.d" "Startup\UartLog.d" "Startup\ccfg_app_ble.d" "Startup\main.d" 
+	-$(RM) "Application\project_zero.obj" "Application\util.obj" "Application\services\data_service.obj" "Application\services\led_service.obj" "Drivers\ECC\ECCROMCC26XX.obj" "Drivers\TRNG\TRNGCC26XX.obj" "ICall\icall.obj" "ICall\icall_cc2650.obj" "ICall\icall_user_config.obj" "ICallBLE\ble_user_config.obj" "ICallBLE\icall_api_lite.obj" "PROFILES\devinfoservice.obj" "PROFILES\gatt_uuid.obj" "PROFILES\gattservapp_util.obj" "Startup\CC2640R2_LAUNCHXL.obj" "Startup\CC2640R2_LAUNCHXL_fxns.obj" "Startup\UartLog.obj" "Startup\ccfg_app_ble.obj" "Startup\main.obj" 
+	-$(RM) "Application\project_zero.d" "Application\util.d" "Application\services\data_service.d" "Application\services\led_service.d" "Drivers\ECC\ECCROMCC26XX.d" "Drivers\TRNG\TRNGCC26XX.d" "ICall\icall.d" "ICall\icall_cc2650.d" "ICall\icall_user_config.d" "ICallBLE\ble_user_config.d" "ICallBLE\icall_api_lite.d" "PROFILES\devinfoservice.d" "PROFILES\gatt_uuid.d" "PROFILES\gattservapp_util.d" "Startup\CC2640R2_LAUNCHXL.d" "Startup\CC2640R2_LAUNCHXL_fxns.d" "Startup\UartLog.d" "Startup\ccfg_app_ble.d" "Startup\main.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

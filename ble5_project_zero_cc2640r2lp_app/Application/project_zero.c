@@ -76,7 +76,6 @@
 
 /* Bluetooth Profiles */
 #include <devinfoservice.h>
-#include <services/button_service.h>
 #include <services/led_service.h>
 #include <services/data_service.h>
 
@@ -344,6 +343,9 @@ static PIN_Handle buttonPinHandle;
 static PIN_State buttonPinState;
 //static PIN_State ledPinState;
 
+
+#define BS_BUTTON0_ID                 0
+
 /*
  * Initial LED pin configuration table
  *   - LEDs Board_PIN_LED0 & Board_PIN_LED1 are off.
@@ -432,10 +434,6 @@ static void ProjectZero_DataService_ValueChangeCB(uint16_t connHandle,
                                                   uint8_t paramID,
                                                   uint16_t len,
                                                   uint8_t *pValue);
-static void ProjectZero_ButtonService_CfgChangeCB(uint16_t connHandle,
-                                                  uint8_t paramID,
-                                                  uint16_t len,
-                                                  uint8_t *pValue);
 static void ProjectZero_DataService_CfgChangeCB(uint16_t connHandle,
                                                 uint8_t paramID,
                                                 uint16_t len,
@@ -503,13 +501,7 @@ static LedServiceCBs_t ProjectZero_LED_ServiceCBs =
     .pfnCfgChangeCb = NULL, // No notification-/indication enabled chars in LED Service
 };
 
-// Button Service callback handler.
-// The type Button_ServiceCBs_t is defined in button_service.h
-static ButtonServiceCBs_t ProjectZero_Button_ServiceCBs =
-{
-    .pfnChangeCb = NULL,  // No writable chars in Button Service, so no change handler.
-    .pfnCfgChangeCb = ProjectZero_ButtonService_CfgChangeCB, // Noti/ind configuration callback handler
-};
+
 
 
 // Data Service callback handler.
@@ -677,13 +669,11 @@ static void ProjectZero_init(void)
 
     // Add services to GATT server and give ID of this task for Indication acks.
     LedService_AddService(selfEntity);
-    ButtonService_AddService(selfEntity);
     DataService_AddService(selfEntity);
 
     // Register callbacks with the generated services that
     // can generate events (writes received) to the application
     LedService_RegisterAppCBs(&ProjectZero_LED_ServiceCBs);
-    ButtonService_RegisterAppCBs(&ProjectZero_Button_ServiceCBs);
     DataService_RegisterAppCBs(&ProjectZero_Data_ServiceCBs);
 
     // Placeholder variable for characteristic intialization
@@ -694,9 +684,6 @@ static void ProjectZero_init(void)
     LedService_SetParameter(LS_LED0_ID, sizeof(initString), initString);
     LedService_SetParameter(LS_LED0_ID, LS_LED0_LEN, initVal);
     //LedService_SetParameter(LS_LED1_ID, LS_LED1_LEN, initVal);
-
-    // Initalization of characteristics in Button_Service that can provide data.
-    ButtonService_SetParameter(BS_BUTTON0_ID, BS_BUTTON0_LEN, initVal);
 
     // Initalization of characteristics in Data_Service that can provide data.
     DataService_SetParameter(DS_STRING_ID, sizeof(initString), initString);
@@ -946,9 +933,6 @@ static void ProjectZero_processApplicationMessage(pzMsg_t *pMsg)
           /* Call different handler per service */
           switch(pCharData->svcUUID)
           {
-            case BUTTON_SERVICE_SERV_UUID:
-                ProjectZero_ButtonService_CfgChangeHandler(pCharData);
-                break;
             case DATA_SERVICE_SERV_UUID:
                 ProjectZero_DataService_CfgChangeHandler(pCharData);
                 break;
@@ -1858,9 +1842,6 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
     switch(pState->pinId)
     {
     case Board_PIN_BUTTON0  :
-        ButtonService_SetParameter(BS_BUTTON0_ID,
-                                   sizeof(pState->state),
-                                   &pState->state);
         GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);
         break;
     }
@@ -1944,52 +1925,7 @@ void ProjectZero_LedService_ValueChangeHandler(
     }
 }
 
-/*
- * @brief   Handle a CCCD (configuration change) write received from a peer
- *          device. This tells us whether the peer device wants us to send
- *          Notifications or Indications.
- *
- * @param   pCharData  pointer to malloc'd char write data
- *
- * @return  None.
- */
-void ProjectZero_ButtonService_CfgChangeHandler(
-    pzCharacteristicData_t *pCharData)
-{
-    // Cast received data to uint16, as that's the format for CCCD writes.
-    uint16_t configValue = *(uint16_t *)pCharData->data;
-    char *configValString;
 
-    // Determine what to tell the user
-    switch(configValue)
-    {
-    case GATT_CFG_NO_OPERATION:
-        configValString = "Noti/Ind disabled";
-        break;
-    case GATT_CLIENT_CFG_NOTIFY:
-        configValString = "Notifications enabled";
-        break;
-    case GATT_CLIENT_CFG_INDICATE:
-        configValString = "Indications enabled";
-        break;
-    default:
-        configValString = "Unsupported operation";
-    }
-
-    switch(pCharData->paramID)
-    {
-    case BS_BUTTON0_ID:
-        Log_info3("CCCD Change msg: %s %s: %s",
-                  (uintptr_t)"Button Service",
-                  (uintptr_t)"BUTTON0",
-                  (uintptr_t)configValString);
-        // -------------------------
-        // Do something useful with configValue here. It tells you whether someone
-        // wants to know the state of this characteristic.
-        // ...
-        break;
-    }
-}
 
 /*
  * @brief   Handle a write request sent from a peer device.
@@ -2094,11 +2030,6 @@ static void ProjectZero_updateCharVal(pzCharacteristicData_t *pCharData)
     case LED_SERVICE_SERV_UUID:
         LedService_SetParameter(pCharData->paramID, pCharData->dataLen,
                                 pCharData->data);
-        break;
-
-    case BUTTON_SERVICE_SERV_UUID:
-        ButtonService_SetParameter(pCharData->paramID, pCharData->dataLen,
-                                   pCharData->data);
         break;
     }
 }
@@ -2276,40 +2207,7 @@ static void ProjectZero_DataService_ValueChangeCB(uint16_t connHandle,
     }
 }
 
-/*********************************************************************
- * @fn      ProjectZero_ButtonService_CfgChangeCB
- *
- * @brief   Callback for when a peer enables or disables the CCCD attribute,
- *          indicating they are interested in notifications or indications.
- *
- * @param   connHandle - connection handle
- *          paramID - the parameter ID maps to the characteristic written to
- *          len - length of the data written
- *          pValue - pointer to the data written
- */
-static void ProjectZero_ButtonService_CfgChangeCB(uint16_t connHandle,
-                                                  uint8_t paramID, uint16_t len,
-                                                  uint8_t *pValue)
-{
-    Log_info1("(CB) Button Svc Char config change paramID(%d). "
-              "Sending msg to app.", paramID);
 
-    pzCharacteristicData_t *pValChange =
-        ICall_malloc(sizeof(pzCharacteristicData_t) + len);
-
-    if(pValChange != NULL)
-    {
-        pValChange->svcUUID = BUTTON_SERVICE_SERV_UUID;
-        pValChange->paramID = paramID;
-        memcpy(pValChange->data, pValue, len);
-        pValChange->dataLen = len;
-
-        if(ProjectZero_enqueueMsg(PZ_SERVICE_CFG_EVT, pValChange) != SUCCESS)
-        {
-          ICall_free(pValChange);
-        }
-    }
-}
 
 /*********************************************************************
  * @fn      ProjectZero_DataService_CfgChangeCB
