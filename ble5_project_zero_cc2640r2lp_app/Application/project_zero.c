@@ -581,8 +581,7 @@ static void ProjectZero_init(void)
     ADC_init();
     ADC_Params_init(&adcParams);
 
-    data_array_index = 3; //starting data results
-    data_array[1] = 0;
+    data_array_index = 0; //starting data results
     currTime = 0;
 
     /*
