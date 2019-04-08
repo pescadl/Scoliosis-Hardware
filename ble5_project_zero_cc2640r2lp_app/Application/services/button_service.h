@@ -76,13 +76,6 @@ extern "C"
 #define BS_BUTTON0_LEN                1
 #define BS_BUTTON0_LEN_MIN            1
 
-// BUTTON1 Characteristic defines
-#define BS_BUTTON1_ID                 1
-#define BS_BUTTON1_UUID               0x1122
-#define BS_BUTTON1_UUID_BASE128(uuid) 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
-    0xB0, 0x00, 0x40, 0x51, 0x04, LO_UINT16(uuid), HI_UINT16(uuid), 0x00, 0xF0
-#define BS_BUTTON1_LEN                1
-#define BS_BUTTON1_LEN_MIN            1
 
 /*********************************************************************
  * TYPEDEFS

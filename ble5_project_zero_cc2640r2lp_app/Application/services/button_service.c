@@ -87,11 +87,6 @@ CONST uint8_t bs_BUTTON0UUID[ATT_UUID_SIZE] =
     BS_BUTTON0_UUID_BASE128(BS_BUTTON0_UUID)
 };
 
-// BUTTON1 UUID
-CONST uint8_t bs_BUTTON1UUID[ATT_UUID_SIZE] =
-{
-    BS_BUTTON1_UUID_BASE128(BS_BUTTON1_UUID)
-};
 
 /*********************************************************************
  * LOCAL VARIABLES
@@ -119,18 +114,6 @@ static uint16_t bs_BUTTON0ValLen = BS_BUTTON0_LEN_MIN;
 
 // Characteristic "BUTTON0" Client Characteristic Configuration Descriptor
 static gattCharCfg_t *bs_BUTTON0Config;
-
-// Characteristic "BUTTON1" Properties (for declaration)
-static uint8_t bs_BUTTON1Props = GATT_PROP_NOTIFY | GATT_PROP_READ;
-
-// Characteristic "BUTTON1" Value variable
-static uint8_t bs_BUTTON1Val[BS_BUTTON1_LEN] = {0};
-
-// Length of data in characteristic "BUTTON1" Value variable, initialized to minimal size.
-static uint16_t bs_BUTTON1ValLen = BS_BUTTON1_LEN_MIN;
-
-// Characteristic "BUTTON1" Client Characteristic Configuration Descriptor
-static gattCharCfg_t *bs_BUTTON1Config;
 
 /*********************************************************************
  * Profile Attributes - Table
@@ -165,27 +148,6 @@ static gattAttribute_t Button_ServiceAttrTbl[] =
         GATT_PERMIT_READ | GATT_PERMIT_WRITE,
         0,
         (uint8_t *)&bs_BUTTON0Config
-    },
-    // BUTTON1 Characteristic Declaration
-    {
-        { ATT_BT_UUID_SIZE, characterUUID },
-        GATT_PERMIT_READ,
-        0,
-        &bs_BUTTON1Props
-    },
-    // BUTTON1 Characteristic Value
-    {
-        { ATT_UUID_SIZE, bs_BUTTON1UUID },
-        GATT_PERMIT_READ,
-        0,
-        bs_BUTTON1Val
-    },
-    // BUTTON1 CCCD
-    {
-        { ATT_BT_UUID_SIZE, clientCharCfgUUID },
-        GATT_PERMIT_READ | GATT_PERMIT_WRITE,
-        0,
-        (uint8_t *)&bs_BUTTON1Config
     },
 };
 
@@ -241,16 +203,7 @@ extern bStatus_t ButtonService_AddService(uint8_t rspTaskId)
 
     // Initialize Client Characteristic Configuration attributes
     GATTServApp_InitCharCfg(CONNHANDLE_INVALID, bs_BUTTON0Config);
-    // Allocate Client Characteristic Configuration table
-    bs_BUTTON1Config = (gattCharCfg_t *)ICall_malloc(
-        sizeof(gattCharCfg_t) * linkDBNumConns);
-    if(bs_BUTTON1Config == NULL)
-    {
-        return(bleMemAllocError);
-    }
 
-    // Initialize Client Characteristic Configuration attributes
-    GATTServApp_InitCharCfg(CONNHANDLE_INVALID, bs_BUTTON1Config);
     // Register GATT attribute list and CBs with GATT Server App
     status = GATTServApp_RegisterService(Button_ServiceAttrTbl,
                                          GATT_NUM_ATTRS(Button_ServiceAttrTbl),
@@ -317,17 +270,6 @@ bStatus_t ButtonService_SetParameter(uint8_t param, uint16_t len, void *value)
         attrConfig = bs_BUTTON0Config;
         needAuth = FALSE;  // Change if authenticated link is required for sending.
         Log_info2("SetParameter : %s len: %d", (uintptr_t)"BUTTON0", len);
-        break;
-
-    case BS_BUTTON1_ID:
-        pAttrVal = bs_BUTTON1Val;
-        pValLen = &bs_BUTTON1ValLen;
-        valMinLen = BS_BUTTON1_LEN_MIN;
-        valMaxLen = BS_BUTTON1_LEN;
-        sendNotiInd = TRUE;
-        attrConfig = bs_BUTTON1Config;
-        needAuth = FALSE;  // Change if authenticated link is required for sending.
-        Log_info2("SetParameter : %s len: %d", (uintptr_t)"BUTTON1", len);
         break;
 
     default:
@@ -421,12 +363,6 @@ static uint8_t Button_Service_findCharParamId(gattAttribute_t *pAttr)
     {
         return(BS_BUTTON0_ID);
     }
-    // Is this attribute in "BUTTON1"?
-    else if(ATT_UUID_SIZE == pAttr->type.len &&
-            !memcmp(pAttr->type.uuid, bs_BUTTON1UUID, pAttr->type.len))
-    {
-        return(BS_BUTTON1_ID);
-    }
     else
     {
         return(0xFF); // Not found. Return invalid.
@@ -472,17 +408,6 @@ static bStatus_t Button_Service_ReadAttrCB(uint16_t connHandle,
                   offset,
                   method);
         /* Other considerations for BUTTON0 can be inserted here */
-        break;
-
-    case BS_BUTTON1_ID:
-        valueLen = bs_BUTTON1ValLen;
-
-        Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
-                  (uintptr_t)"BUTTON1",
-                  connHandle,
-                  offset,
-                  method);
-        /* Other considerations for BUTTON1 can be inserted here */
         break;
 
     default:
