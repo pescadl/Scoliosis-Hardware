@@ -183,7 +183,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@$(MAKE) --no-print-directory -Onone "ble5_project_zero_cc2640r2lp_app.out"
 
 dependents:
-	-cd C:/Users/Pooja\ Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library && $(MAKE) clean all
+	-cd C:/Users/Pooja\ Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library && $(MAKE) all
 
 # Tool invocations
 ble5_project_zero_cc2640r2lp_app.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS) C:/Users/Pooja\ Muddasani/Documents/GitHub/Scoliosis-Hardware/ble5_project_zero_cc2640r2lp_stack_library/FlashROM_Library/ble5_project_zero_cc2640r2lp_stack_library.lib

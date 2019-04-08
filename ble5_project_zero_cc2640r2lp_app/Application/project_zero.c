@@ -260,9 +260,12 @@ uint8_t appTaskStack[PZ_TASK_STACK_SIZE];
 #define DATA_ARRAY_SIZE 100
 int8_t data_array[DATA_ARRAY_SIZE];
 int8_t data_array_index;
-int8_t currTime;
+//int8_t currTime;
 int8_t lastRead;
 int8_t batteryLevel;
+
+int32_t currTime;
+
 /*
 “{currtime: ##########,
 lastread: ##########,                 //last time sensor read from adc
@@ -588,6 +591,7 @@ static void ProjectZero_init(void)
 
     data_array_index = 3; //starting data results
     data_array[1] = 0;
+    currTime = 0;
 
     /*
     // Open LED pins
@@ -1138,8 +1142,7 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
         else
         {
             Log_info1("Max Number of Connection reach: %d, Adv. will not be enable again", linkDB_NumActive());
-            uint8_t initString[] = "testing new things";
-            DataService_SetParameter(DS_STRING_ID, sizeof(initString), initString);
+
             uint8_t timeInit[] = "000";
             DataService_SetParameter(DS_TIME_ID, sizeof(timeInit), timeInit);
             uint8_t battPower = 100;
@@ -2494,6 +2497,11 @@ static void ProjectZero_sampleADC(void)
             data_array[data_array_index] = '0';
         }
         data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
+        data_array[data_array_index] = 0;
+        currTime++;
+        DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
+        DataService_SetParameter(DS_TIME_ID, 4, &currTime);
+
 
     for(i=0; i<times; i++)
     {
