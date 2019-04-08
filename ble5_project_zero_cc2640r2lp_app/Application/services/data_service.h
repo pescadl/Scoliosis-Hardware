@@ -73,7 +73,7 @@ extern "C"
 #define DS_STRING_UUID               0x1131
 #define DS_STRING_UUID_BASE128(uuid) 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
     0xB0, 0x00, 0x40, 0x51, 0x04, LO_UINT16(uuid), HI_UINT16(uuid), 0x00, 0xF0
-#define DS_STRING_LEN                40
+#define DS_STRING_LEN                20
 #define DS_STRING_LEN_MIN            0
 
 // Stream Characteristic defines
@@ -83,6 +83,14 @@ extern "C"
     0xB0, 0x00, 0x40, 0x51, 0x04, LO_UINT16(uuid), HI_UINT16(uuid), 0x00, 0xF0
 #define DS_STREAM_LEN                20
 #define DS_STREAM_LEN_MIN            0
+
+// Time Characteristic defines
+#define DS_TIME_ID                 2
+#define DS_TIME_UUID               0x1133
+#define DS_TIME_UUID_BASE128(uuid) 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+    0xB0, 0x00, 0x40, 0x51, 0x04, LO_UINT16(uuid), HI_UINT16(uuid), 0x00, 0xF0
+#define DS_TIME_LEN                10
+#define DS_TIME_LEN_MIN            0
 
 /*********************************************************************
  * TYPEDEFS

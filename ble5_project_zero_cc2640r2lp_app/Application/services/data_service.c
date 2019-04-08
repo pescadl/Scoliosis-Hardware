@@ -93,6 +93,12 @@ CONST uint8_t ds_StreamUUID[ATT_UUID_SIZE] =
     DS_STREAM_UUID_BASE128(DS_STREAM_UUID)
 };
 
+// Time UUID
+CONST uint8_t ds_TimeUUID[ATT_UUID_SIZE] =
+{
+    DS_TIME_UUID_BASE128(DS_TIME_UUID)
+};
+
 /*********************************************************************
  * LOCAL VARIABLES
  */
@@ -127,6 +133,15 @@ static uint16_t ds_StreamValLen = DS_STREAM_LEN_MIN;
 
 // Characteristic "Stream" Client Characteristic Configuration Descriptor
 static gattCharCfg_t *ds_StreamConfig;
+
+// Characteristic "Time" Properties (for declaration)
+static uint8_t ds_TimeProps = GATT_PROP_READ | GATT_PROP_WRITE;
+
+// Characteristic "Time" Value variable
+static uint8_t ds_TimeVal[DS_TIME_LEN] = {0};
+
+// Length of data in characteristic "Time" Value variable, initialized to minimal size.
+static uint16_t ds_TimeValLen = DS_TIME_LEN_MIN;
 
 /*********************************************************************
  * Profile Attributes - Table
@@ -176,6 +191,20 @@ static gattAttribute_t Data_ServiceAttrTbl[] =
         0,
         (uint8_t *)&ds_StreamConfig
     },
+    // Time Characteristic Declaration
+       {
+           { ATT_BT_UUID_SIZE, characterUUID },
+           GATT_PERMIT_READ,
+           0,
+           &ds_TimeProps
+       },
+       // Time Characteristic Value
+       {
+           { ATT_UUID_SIZE, ds_TimeUUID },
+           GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+           0,
+           ds_TimeVal
+       },
 };
 
 /*********************************************************************
@@ -306,6 +335,14 @@ bStatus_t DataService_SetParameter(uint8_t param, uint16_t len, void *value)
         Log_info2("SetParameter : %s len: %d", (uintptr_t)"Stream", len);
         break;
 
+    case DS_TIME_ID:
+            pAttrVal = ds_TimeVal;
+            pValLen = &ds_TimeValLen;
+            valMinLen = DS_TIME_LEN_MIN;
+            valMaxLen = DS_TIME_LEN;
+            Log_info2("SetParameter : %s len: %d", (uintptr_t)"Time", len);
+            break;
+
     default:
         Log_error1("SetParameter: Parameter #%d not valid.", param);
         return(INVALIDPARAMETER);
@@ -376,6 +413,13 @@ bStatus_t DataService_GetParameter(uint8_t param, uint16_t *len, void *value)
                   *len);
         break;
 
+    case DS_TIME_ID:
+            *len = MIN(*len, ds_TimeValLen);
+            memcpy(value, ds_TimeVal, *len);
+            Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"Time",
+                      *len);
+            break;
+
     default:
         Log_error1("GetParameter: Parameter #%d not valid.", param);
         ret = INVALIDPARAMETER;
@@ -416,6 +460,12 @@ static uint8_t Data_Service_findCharParamId(gattAttribute_t *pAttr)
             !memcmp(pAttr->type.uuid, ds_StreamUUID, pAttr->type.len))
     {
         return(DS_STREAM_ID);
+    }
+    // Is this attribute in "Time"?
+    else if(ATT_UUID_SIZE == pAttr->type.len &&
+            !memcmp(pAttr->type.uuid, ds_TimeUUID, pAttr->type.len))
+    {
+        return(DS_TIME_ID);
     }
     else
     {
@@ -474,6 +524,16 @@ static bStatus_t Data_Service_ReadAttrCB(uint16_t connHandle,
                   method);
         /* Other considerations for Stream can be inserted here */
         break;
+    case DS_TIME_ID:
+            valueLen = ds_TimeValLen;
+
+            Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
+                      (uintptr_t)"Time",
+                      connHandle,
+                      offset,
+                      method);
+            /* Other considerations for Time can be inserted here */
+            break;
 
     default:
         Log_error0("Attribute was not found.");
@@ -580,6 +640,20 @@ static bStatus_t Data_Service_WriteAttrCB(uint16_t connHandle,
             offset,
             method);
         /* Other considerations for Stream can be inserted here */
+        break;
+    case DS_TIME_ID:
+        writeLenMin = DS_TIME_LEN_MIN;
+        writeLenMax = DS_TIME_LEN;
+        pValueLenVar = &ds_TimeValLen;
+
+        Log_info5(
+            "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
+            (uintptr_t)"String",
+            connHandle,
+            len,
+            offset,
+            method);
+        /* Other considerations for String can be inserted here */
         break;
 
     default:
