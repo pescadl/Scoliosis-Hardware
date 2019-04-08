@@ -85,6 +85,8 @@
 #include <project_zero.h>
 #include <util.h>
 
+//#include <aon_batmon.h>
+
 /*********************************************************************
  * MACROS
  */
@@ -379,6 +381,10 @@ static Clock_Handle button0DebounceClockHandle;
 static Clock_Struct adcClock;
 static Clock_Handle adcClockHandle;
 
+//timer
+static Clock_Struct timerClock;
+static Clock_Handle timerClockHandle;
+
 // State of the buttons
 static uint8_t button0State = 0;
 
@@ -462,6 +468,10 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState);
 /* ADC Handling functions */
 static void adcSwiFxn(UArg nothing);
 static void ProjectZero_sampleADC(void);
+
+/* Timer Handling functions */
+static void timerSwiFxn(UArg nothing);
+static void ProjectZero_sampleTime(void);
 
 /* Utility functions */
 static status_t ProjectZero_enqueueMsg(uint8_t event,
@@ -619,6 +629,8 @@ static void ProjectZero_init(void)
 
     // Create the adc clock objects for adc channel 0
     adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 2000, 2000, 1, 0);
+    timerClockHandle = Util_constructClock(&timerClock, timerSwiFxn, 1000, 1000, 1, 0);
+
 
     // Set the Device Name characteristic in the GAP GATT Service
     // For more information, see the section in the User's Guide:
@@ -2370,6 +2382,12 @@ static void adcSwiFxn(UArg nothing)
     }
 }
 
+static void timerSwiFxn(UArg nothing){
+    Log_info0("Timer Software Interrupt Function");
+    currTime++;
+    Log_info1("Seconds Elapsed: %d", currTime);
+}
+
 static void ProjectZero_sampleADC(void)
 {
     int i;
@@ -2406,10 +2424,14 @@ static void ProjectZero_sampleADC(void)
     }
     data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
     data_array[data_array_index] = 0;
-    currTime++;
+    //currTime++;
+
+/*
+    uint32_t BatValue = AONBatMonBatteryVoltageGet();
+    Log_info2("Battery Value: #%d.0x%x\n", (BatValue&(0x700))>>8, BatValue & 0x0FF);
+*/
     DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
     DataService_SetParameter(DS_TIME_ID, 4, &currTime);
-
 
     ADC_close(adcHandle);
 }
