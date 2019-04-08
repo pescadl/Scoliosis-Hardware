@@ -364,7 +364,7 @@ static PIN_State buttonPinState;
  *   - Buttons interrupts are configured to trigger on falling edge.
  */
 PIN_Config buttonPinTable[] = {
-    Board_PIN_BUTTON0  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
+    Board_KEY_SELECT  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
     PIN_TERMINATE
 };
 
@@ -615,7 +615,7 @@ static void ProjectZero_init(void)
                                                      buttonDebounceSwiFxn, 50,
                                                      0,
                                                      0,
-                                                     Board_PIN_BUTTON0  );
+                                                     Board_KEY_SELECT  );
 
     // Create the adc clock objects for adc channel 0
     adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 2000, 2000, 1, 0);
@@ -1830,7 +1830,7 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
 {
     Log_info2("%s %s",
               (uintptr_t)(pState->pinId ==
-                          Board_PIN_BUTTON0   ? "Button 0" : "Button 1"),
+                          Board_KEY_SELECT   ? "Button 0" : "Button 1"),
               (uintptr_t)(pState->state ?
                           ANSI_COLOR(FG_GREEN)"pressed"ANSI_COLOR(ATTR_RESET) :
                           ANSI_COLOR(FG_YELLOW)"released"ANSI_COLOR(ATTR_RESET)
@@ -1840,7 +1840,7 @@ static void ProjectZero_handleButtonPress(pzButtonState_t *pState)
     // Will automatically send notification/indication if enabled.
     switch(pState->pinId)
     {
-    case Board_PIN_BUTTON0  :
+    case Board_KEY_SELECT  :
         GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);
         break;
     }
@@ -2301,7 +2301,7 @@ static void buttonDebounceSwiFxn(UArg buttonId)
 
     switch(buttonId)
     {
-    case Board_PIN_BUTTON0  :
+    case Board_KEY_SELECT  :
         // If button is now released (buttonPinVal is active low, so release is 1)
         // and button state was pressed (buttonstate is active high so press is 1)
         if(buttonPinVal && button0State)
@@ -2346,7 +2346,7 @@ static void buttonDebounceSwiFxn(UArg buttonId)
 static void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId)
 {
     Log_info1("Button interrupt: %s",
-              (uintptr_t)((pinId == Board_PIN_BUTTON0  ) ? "Button 0" : "Button 1"));
+              (uintptr_t)((pinId == Board_KEY_SELECT  ) ? "Button 0" : "Button 1"));
 
     // Disable interrupt on that pin for now. Re-enabled after debounce.
     PIN_setConfig(handle, PIN_BM_IRQ, pinId | PIN_IRQ_DIS);
@@ -2354,7 +2354,7 @@ static void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId)
     // Start debounce timer
     switch(pinId)
     {
-    case Board_PIN_BUTTON0  :
+    case Board_KEY_SELECT  :
         Util_startClock((Clock_Struct *)button0DebounceClockHandle);
         break;
     }
@@ -2385,20 +2385,6 @@ static void ProjectZero_sampleADC(void)
         project_zero_spin();
     }
 
-    //added stuff
-    //need to add in the time
-        //data_array[1] = data_array[1] + 1; //add on - another time sampled
-        if (avg >= 1300) {                      //cutoff point for now
-            data_array[data_array_index] = '1';
-        } else {
-            data_array[data_array_index] = '0';
-        }
-        data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
-        data_array[data_array_index] = 0;
-        currTime++;
-        DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
-        DataService_SetParameter(DS_TIME_ID, 4, &currTime);
-
 
     for(i=0; i<times; i++)
     {
@@ -2413,6 +2399,17 @@ static void ProjectZero_sampleADC(void)
     avg /= times;
 
     Log_info1("ADC raw value: %d", avg);
+    if (avg >= 1300) {                      //cutoff point for now
+        data_array[data_array_index] = '1';
+    } else {
+        data_array[data_array_index] = '0';
+    }
+    data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
+    data_array[data_array_index] = 0;
+    currTime++;
+    DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
+    DataService_SetParameter(DS_TIME_ID, 4, &currTime);
+
 
     ADC_close(adcHandle);
 }
