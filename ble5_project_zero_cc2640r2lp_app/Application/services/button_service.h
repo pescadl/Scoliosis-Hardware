@@ -10,7 +10,7 @@
    Target Device: cc2640r2
 
  ******************************************************************************
-   
+
  Copyright (c) 2015-2019, Texas Instruments Incorporated
  All rights reserved.
 
@@ -42,8 +42,8 @@
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  ******************************************************************************
-   
-   
+
+
  *****************************************************************************/
 
 #ifndef _BUTTON_SERVICE_H_

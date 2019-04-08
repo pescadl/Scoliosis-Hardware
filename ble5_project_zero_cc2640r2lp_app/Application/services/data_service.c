@@ -87,16 +87,16 @@ CONST uint8_t ds_StringUUID[ATT_UUID_SIZE] =
     DS_STRING_UUID_BASE128(DS_STRING_UUID)
 };
 
-// Stream UUID
-CONST uint8_t ds_StreamUUID[ATT_UUID_SIZE] =
-{
-    DS_STREAM_UUID_BASE128(DS_STREAM_UUID)
-};
-
 // Time UUID
 CONST uint8_t ds_TimeUUID[ATT_UUID_SIZE] =
 {
     DS_TIME_UUID_BASE128(DS_TIME_UUID)
+};
+
+// Batt UUID
+CONST uint8_t ds_BattUUID[ATT_UUID_SIZE] =
+{
+    DS_TIME_UUID_BASE128(DS_BATT_UUID)
 };
 
 /*********************************************************************
@@ -122,18 +122,6 @@ static uint8_t ds_StringVal[DS_STRING_LEN] = {0};
 // Length of data in characteristic "String" Value variable, initialized to minimal size.
 static uint16_t ds_StringValLen = DS_STRING_LEN_MIN;
 
-// Characteristic "Stream" Properties (for declaration)
-static uint8_t ds_StreamProps = GATT_PROP_NOTIFY | GATT_PROP_WRITE_NO_RSP;
-
-// Characteristic "Stream" Value variable
-static uint8_t ds_StreamVal[DS_STREAM_LEN] = {0};
-
-// Length of data in characteristic "Stream" Value variable, initialized to minimal size.
-static uint16_t ds_StreamValLen = DS_STREAM_LEN_MIN;
-
-// Characteristic "Stream" Client Characteristic Configuration Descriptor
-static gattCharCfg_t *ds_StreamConfig;
-
 // Characteristic "Time" Properties (for declaration)
 static uint8_t ds_TimeProps = GATT_PROP_READ | GATT_PROP_WRITE;
 
@@ -142,6 +130,15 @@ static uint8_t ds_TimeVal[DS_TIME_LEN] = {0};
 
 // Length of data in characteristic "Time" Value variable, initialized to minimal size.
 static uint16_t ds_TimeValLen = DS_TIME_LEN_MIN;
+
+// Characteristic "Batt" Properties (for declaration)
+static uint8_t ds_BattProps = GATT_PROP_READ | GATT_PROP_WRITE;
+
+// Characteristic "Batt" Value variable
+static uint8_t ds_BattVal[DS_BATT_LEN] = {0};
+
+// Length of data in characteristic "Batt" Value variable, initialized to minimal size.
+static uint16_t ds_BattValLen = DS_BATT_LEN_MIN;
 
 /*********************************************************************
  * Profile Attributes - Table
@@ -170,27 +167,6 @@ static gattAttribute_t Data_ServiceAttrTbl[] =
         0,
         ds_StringVal
     },
-    // Stream Characteristic Declaration
-    {
-        { ATT_BT_UUID_SIZE, characterUUID },
-        GATT_PERMIT_READ,
-        0,
-        &ds_StreamProps
-    },
-    // Stream Characteristic Value
-    {
-        { ATT_UUID_SIZE, ds_StreamUUID },
-        GATT_PERMIT_WRITE,
-        0,
-        ds_StreamVal
-    },
-    // Stream CCCD
-    {
-        { ATT_BT_UUID_SIZE, clientCharCfgUUID },
-        GATT_PERMIT_READ | GATT_PERMIT_WRITE,
-        0,
-        (uint8_t *)&ds_StreamConfig
-    },
     // Time Characteristic Declaration
        {
            { ATT_BT_UUID_SIZE, characterUUID },
@@ -204,6 +180,20 @@ static gattAttribute_t Data_ServiceAttrTbl[] =
            GATT_PERMIT_READ | GATT_PERMIT_WRITE,
            0,
            ds_TimeVal
+       },
+       // Batt Characteristic Declaration
+       {
+          { ATT_BT_UUID_SIZE, characterUUID },
+            GATT_PERMIT_READ,
+            0,
+            &ds_BattProps
+       },
+              // Time Characteristic Value
+       {
+          { ATT_UUID_SIZE, ds_BattUUID },
+            GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+            0,
+            ds_BattVal
        },
 };
 
@@ -249,16 +239,6 @@ extern bStatus_t DataService_AddService(uint8_t rspTaskId)
 {
     uint8_t status;
 
-    // Allocate Client Characteristic Configuration table
-    ds_StreamConfig = (gattCharCfg_t *)ICall_malloc(
-        sizeof(gattCharCfg_t) * linkDBNumConns);
-    if(ds_StreamConfig == NULL)
-    {
-        return(bleMemAllocError);
-    }
-
-    // Initialize Client Characteristic Configuration attributes
-    GATTServApp_InitCharCfg(CONNHANDLE_INVALID, ds_StreamConfig);
     // Register GATT attribute list and CBs with GATT Server App
     status = GATTServApp_RegisterService(Data_ServiceAttrTbl,
                                          GATT_NUM_ATTRS(Data_ServiceAttrTbl),
@@ -324,23 +304,20 @@ bStatus_t DataService_SetParameter(uint8_t param, uint16_t len, void *value)
         Log_info2("SetParameter : %s len: %d", (uintptr_t)"String", len);
         break;
 
-    case DS_STREAM_ID:
-        pAttrVal = ds_StreamVal;
-        pValLen = &ds_StreamValLen;
-        valMinLen = DS_STREAM_LEN_MIN;
-        valMaxLen = DS_STREAM_LEN;
-        sendNotiInd = TRUE;
-        attrConfig = ds_StreamConfig;
-        needAuth = FALSE;  // Change if authenticated link is required for sending.
-        Log_info2("SetParameter : %s len: %d", (uintptr_t)"Stream", len);
-        break;
-
     case DS_TIME_ID:
             pAttrVal = ds_TimeVal;
             pValLen = &ds_TimeValLen;
             valMinLen = DS_TIME_LEN_MIN;
             valMaxLen = DS_TIME_LEN;
             Log_info2("SetParameter : %s len: %d", (uintptr_t)"Time", len);
+            break;
+
+    case DS_BATT_ID:
+            pAttrVal = ds_BattVal;
+            pValLen = &ds_BattValLen;
+            valMinLen = DS_BATT_LEN_MIN;
+            valMaxLen = DS_BATT_LEN;
+            Log_info2("SetParameter : %s len: %d", (uintptr_t)"Batt", len);
             break;
 
     default:
@@ -406,16 +383,15 @@ bStatus_t DataService_GetParameter(uint8_t param, uint16_t *len, void *value)
                   *len);
         break;
 
-    case DS_STREAM_ID:
-        *len = MIN(*len, ds_StreamValLen);
-        memcpy(value, ds_StreamVal, *len);
-        Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"Stream",
-                  *len);
-        break;
-
     case DS_TIME_ID:
             *len = MIN(*len, ds_TimeValLen);
             memcpy(value, ds_TimeVal, *len);
+            Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"Time",
+                      *len);
+            break;
+    case DS_BATT_ID:
+            *len = MIN(*len, ds_BattValLen);
+            memcpy(value, ds_BattVal, *len);
             Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"Time",
                       *len);
             break;
@@ -455,17 +431,17 @@ static uint8_t Data_Service_findCharParamId(gattAttribute_t *pAttr)
     {
         return(DS_STRING_ID);
     }
-    // Is this attribute in "Stream"?
-    else if(ATT_UUID_SIZE == pAttr->type.len &&
-            !memcmp(pAttr->type.uuid, ds_StreamUUID, pAttr->type.len))
-    {
-        return(DS_STREAM_ID);
-    }
     // Is this attribute in "Time"?
     else if(ATT_UUID_SIZE == pAttr->type.len &&
             !memcmp(pAttr->type.uuid, ds_TimeUUID, pAttr->type.len))
     {
         return(DS_TIME_ID);
+    }
+    // Is this attribute in "Batt"?
+    else if(ATT_UUID_SIZE == pAttr->type.len &&
+            !memcmp(pAttr->type.uuid, ds_BattUUID, pAttr->type.len))
+    {
+        return(DS_BATT_ID);
     }
     else
     {
@@ -514,21 +490,22 @@ static bStatus_t Data_Service_ReadAttrCB(uint16_t connHandle,
         /* Other considerations for String can be inserted here */
         break;
 
-    case DS_STREAM_ID:
-        valueLen = ds_StreamValLen;
-
-        Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
-                  (uintptr_t)"Stream",
-                  connHandle,
-                  offset,
-                  method);
-        /* Other considerations for Stream can be inserted here */
-        break;
     case DS_TIME_ID:
             valueLen = ds_TimeValLen;
 
             Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
                       (uintptr_t)"Time",
+                      connHandle,
+                      offset,
+                      method);
+            /* Other considerations for Time can be inserted here */
+            break;
+
+    case DS_BATT_ID:
+            valueLen = ds_BattValLen;
+
+            Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
+                      (uintptr_t)"Batt",
                       connHandle,
                       offset,
                       method);
@@ -627,20 +604,6 @@ static bStatus_t Data_Service_WriteAttrCB(uint16_t connHandle,
         /* Other considerations for String can be inserted here */
         break;
 
-    case DS_STREAM_ID:
-        writeLenMin = DS_STREAM_LEN_MIN;
-        writeLenMax = DS_STREAM_LEN;
-        pValueLenVar = &ds_StreamValLen;
-
-        Log_info5(
-            "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
-            (uintptr_t)"Stream",
-            connHandle,
-            len,
-            offset,
-            method);
-        /* Other considerations for Stream can be inserted here */
-        break;
     case DS_TIME_ID:
         writeLenMin = DS_TIME_LEN_MIN;
         writeLenMax = DS_TIME_LEN;
@@ -648,7 +611,22 @@ static bStatus_t Data_Service_WriteAttrCB(uint16_t connHandle,
 
         Log_info5(
             "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
-            (uintptr_t)"String",
+            (uintptr_t)"Batt",
+            connHandle,
+            len,
+            offset,
+            method);
+        /* Other considerations for String can be inserted here */
+        break;
+
+    case DS_BATT_ID:
+        writeLenMin = DS_BATT_LEN_MIN;
+        writeLenMax = DS_BATT_LEN;
+        pValueLenVar = &ds_BattValLen;
+
+        Log_info5(
+            "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
+            (uintptr_t)"Batt",
             connHandle,
             len,
             offset,

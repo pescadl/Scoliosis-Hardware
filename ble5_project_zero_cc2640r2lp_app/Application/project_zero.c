@@ -257,7 +257,8 @@ Task_Struct pzTask;
 #endif
 uint8_t appTaskStack[PZ_TASK_STACK_SIZE];
 
-int8_t data_array[100];
+#define DATA_ARRAY_SIZE 100
+int8_t data_array[DATA_ARRAY_SIZE];
 int8_t data_array_index;
 int8_t currTime;
 int8_t lastRead;
@@ -695,7 +696,6 @@ static void ProjectZero_init(void)
 
     // Initalization of characteristics in Data_Service that can provide data.
     DataService_SetParameter(DS_STRING_ID, sizeof(initString), initString);
-    DataService_SetParameter(DS_STREAM_ID, DS_STREAM_LEN, initVal);
 
     // Start Bond Manager and register callback
     VOID GAPBondMgr_Register(&ProjectZero_BondMgrCBs);
@@ -802,7 +802,6 @@ static void ProjectZero_taskFxn(UArg a0, UArg a1)
                             ProjectZero_processL2CAPMsg(
                                 (l2capSignalEvent_t *)pMsg);
                             break;
-
                         default:
                             // do nothing
                             break;
@@ -1141,6 +1140,10 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
             Log_info1("Max Number of Connection reach: %d, Adv. will not be enable again", linkDB_NumActive());
             uint8_t initString[] = "testing new things";
             DataService_SetParameter(DS_STRING_ID, sizeof(initString), initString);
+            uint8_t timeInit[] = "000";
+            DataService_SetParameter(DS_TIME_ID, sizeof(timeInit), timeInit);
+            uint8_t battPower = 100;
+            DataService_SetParameter(DS_BATT_ID, 1, &battPower);
         }
     }
     break;
@@ -2022,15 +2025,6 @@ void ProjectZero_DataService_ValueChangeHandler(
                   (uintptr_t)received_string);
         break;
 
-    case DS_STREAM_ID:
-        Log_info3("Value Change msg: Data Service Stream: %02x:%02x:%02x...",
-                  pCharData->data[0],
-                  pCharData->data[1],
-                  pCharData->data[2]);
-        // -------------------------
-        // Do something useful with pCharData->data here
-        break;
-
     default:
         return;
     }
@@ -2069,16 +2063,16 @@ void ProjectZero_DataService_CfgChangeHandler(pzCharacteristicData_t *pCharData)
 
     switch(pCharData->paramID)
     {
-    case DS_STREAM_ID:
-        Log_info3("CCCD Change msg: %s %s: %s",
-                  (uintptr_t)"Data Service",
-                  (uintptr_t)"Stream",
-                  (uintptr_t)configValString);
-        // -------------------------
-        // Do something useful with configValue here. It tells you whether someone
-        // wants to know the state of this characteristic.
-        // ...
-        break;
+//    case DS_STREAM_ID:
+//        Log_info3("CCCD Change msg: %s %s: %s",
+//                  (uintptr_t)"Data Service",
+//                  (uintptr_t)"Stream",
+//                  (uintptr_t)configValString);
+//        // -------------------------
+//        // Do something useful with configValue here. It tells you whether someone
+//        // wants to know the state of this characteristic.
+//        // ...
+//        break;
     }
 }
 
@@ -2493,19 +2487,13 @@ static void ProjectZero_sampleADC(void)
 
     //added stuff
     //need to add in the time
-        data_array[1] = data_array[1] + 1; //add on - another time sampled
+        //data_array[1] = data_array[1] + 1; //add on - another time sampled
         if (avg >= 1300) {                      //cutoff point for now
-            data_array[data_array_index] = 1;
+            data_array[data_array_index] = '1';
         } else {
-            data_array[data_array_index] = 0;
+            data_array[data_array_index] = '0';
         }
-        data_array_index++;
-        /*
-        “{currtime: ##########,
-        lastread: ##########,                 //last time sensor read from adc
-        comply: [0/1,0/1,0/1,0/1,0/1,....],
-        battery : #%}”
-         */
+        data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
 
     for(i=0; i<times; i++)
     {
