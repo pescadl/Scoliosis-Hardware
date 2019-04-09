@@ -85,7 +85,7 @@
 #include <project_zero.h>
 #include <util.h>
 
-//#include <aon_batmon.h>
+#include <ti/devices/cc26x0r2/driverlib/aon_batmon.h>
 
 /*********************************************************************
  * MACROS
@@ -628,7 +628,7 @@ static void ProjectZero_init(void)
                                                      Board_KEY_SELECT  );
 
     // Create the adc clock objects for adc channel 0
-    adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 2000, 2000, 1, 0);
+    adcClockHandle = Util_constructClock(&adcClock, adcSwiFxn, 5000, 5000, 1, 0);
     timerClockHandle = Util_constructClock(&timerClock, timerSwiFxn, 1000, 1000, 1, 0);
 
 
@@ -1132,7 +1132,7 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
         {
             Log_info1("Continue to Advertise, %d possible connection remain", MAX_NUM_BLE_CONNS - linkDB_NumActive());
             // Start advertising since there is room for more connections
-            //GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);                                            //took out for testing
+            //GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);
         }
         else
         {
@@ -1140,12 +1140,22 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
 
             uint8_t timeInit[] = "000";
             DataService_SetParameter(DS_TIME_ID, sizeof(timeInit), timeInit);
-            uint8_t battPower = 100;
-            DataService_SetParameter(DS_BATT_ID, 1, &battPower);
+
+            // Read the battery voltage (V), only the first 12 bits
+            uint32_t percent = AONBatMonBatteryVoltageGet();
+            // Convert to from V to mV to avoid fractions.
+            // Fractional part is in the lower 8 bits thus converting is done as follows:
+            // (1/256)/(1/1000) = 1000/256 = 125/32
+            // This is done most effectively by multiplying by 125 and then shifting
+            // 5 bits to the right.
+            percent = (percent * 125) >> 5;
+            percent = ((percent* 100) / 3300);
+            Log_info1("percentage: %d", percent);
+            DataService_SetParameter(DS_BATT_ID, 1, &percent);
         }
     }
     break;
-/*                                                                                                                      //took out for testing
+/*
     case GAP_LINK_TERMINATED_EVENT:
     {
         gapTerminateLinkEvent_t *pPkt = (gapTerminateLinkEvent_t *)pMsg;
@@ -2383,9 +2393,10 @@ static void adcSwiFxn(UArg nothing)
 }
 
 static void timerSwiFxn(UArg nothing){
-    Log_info0("Timer Software Interrupt Function");
+    //Log_info0("Timer Software Interrupt Function");
     currTime++;
-    Log_info1("Seconds Elapsed: %d", currTime);
+    DataService_SetParameter(DS_TIME_ID, 4, &currTime);
+    //Log_info1("Seconds Elapsed: %d", currTime);
 }
 
 static void ProjectZero_sampleADC(void)
@@ -2416,7 +2427,7 @@ static void ProjectZero_sampleADC(void)
 
     avg /= times;
 
-    Log_info1("ADC raw value: %d", avg);
+    Log_info2("ADC raw value: %d at time %d", avg, currTime);
     if (avg >= 1300) {                      //cutoff point for now
         data_array[data_array_index] = '1';
     } else {
@@ -2426,12 +2437,25 @@ static void ProjectZero_sampleADC(void)
     data_array[data_array_index] = 0;
     //currTime++;
 
-/*
-    uint32_t BatValue = AONBatMonBatteryVoltageGet();
-    Log_info2("Battery Value: #%d.0x%x\n", (BatValue&(0x700))>>8, BatValue & 0x0FF);
-*/
+
+    //uint32_t BatValue = AONBatMonBatteryVoltageGet();
+    //Log_info2("Battery Value: #%d.0x%x\n", (BatValue&(0x700))>>8, BatValue & 0x0FF); //3.3, 2.97, 2.64, 2.31, 1.98, 1.65, 1.32, .99, .66, .33, .02
+
+
+    // Read the battery voltage (V), only the first 12 bits
+    uint32_t percent = AONBatMonBatteryVoltageGet();
+    // Convert to from V to mV to avoid fractions.
+    // Fractional part is in the lower 8 bits thus converting is done as follows:
+    // (1/256)/(1/1000) = 1000/256 = 125/32
+    // This is done most effectively by multiplying by 125 and then shifting
+    // 5 bits to the right.
+    percent = (percent * 125) >> 5;
+    percent = ((percent* 100) / 3300);
+    Log_info1("percentage: %d", percent);
+
+
     DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
-    DataService_SetParameter(DS_TIME_ID, 4, &currTime);
+    //DataService_SetParameter(DS_TIME_ID, 4, &currTime);
 
     ADC_close(adcHandle);
 }
