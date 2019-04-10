@@ -99,10 +99,15 @@ CONST uint8_t ds_BattUUID[ATT_UUID_SIZE] =
     DS_BATT_UUID_BASE128(DS_BATT_UUID)
 };
 
-// Batt UUID
+// lREAD UUID
 CONST uint8_t ds_LReadUUID[ATT_UUID_SIZE] =
 {
     DS_LREAD_UUID_BASE128(DS_LREAD_UUID)
+};
+
+CONST uint8_t ds_CountUUID[ATT_UUID_SIZE] =
+{
+    DS_COUNT_UUID_BASE128(DS_LREAD_UUID)
 };
 /*********************************************************************
  * LOCAL VARIABLES
@@ -153,6 +158,15 @@ static uint8_t ds_LReadVal[DS_LREAD_LEN] = {0};
 
 // Length of data in characteristic "Batt" Value variable, initialized to minimal size.
 static uint16_t ds_LReadValLen = DS_LREAD_LEN_MIN;
+
+// Characteristic "Count" Properties (for declaration)
+static uint8_t ds_CountProps = GATT_PROP_READ | GATT_PROP_WRITE;
+
+// Characteristic "Count" Value variable
+static uint8_t ds_CountVal[DS_COUNT_LEN] = {0};
+
+// Length of data in characteristic "count" Value variable, initialized to minimal size.
+static uint16_t ds_CountValLen = DS_COUNT_LEN_MIN;
 
 /*********************************************************************
  * Profile Attributes - Table
@@ -223,6 +237,20 @@ static gattAttribute_t Data_ServiceAttrTbl[] =
             0,
             ds_LReadVal
        },
+       // Read Characteristic Declaration
+      {
+         { ATT_BT_UUID_SIZE, characterUUID },
+           GATT_PERMIT_READ,
+           0,
+           &ds_CountProps
+      },
+      // Read Characteristic Value
+      {
+         { ATT_UUID_SIZE, ds_CountUUID },
+           GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+           0,
+           ds_CountVal
+      },
 };
 
 /*********************************************************************
@@ -329,7 +357,7 @@ bStatus_t DataService_SetParameter(uint8_t param, uint16_t len, void *value)
         pValLen = &ds_StringValLen;
         valMinLen = DS_STRING_LEN_MIN;
         valMaxLen = DS_STRING_LEN;
-        Log_info2("SetParameter : %s len: %d", (uintptr_t)"String", len);
+        //Log_info2("SetParameter : %s len: %d", (uintptr_t)"String", len);
         break;
 
     case DS_TIME_ID:
@@ -345,7 +373,7 @@ bStatus_t DataService_SetParameter(uint8_t param, uint16_t len, void *value)
             pValLen = &ds_BattValLen;
             valMinLen = DS_BATT_LEN_MIN;
             valMaxLen = DS_BATT_LEN;
-            Log_info2("SetParameter : %s len: %d", (uintptr_t)"Batt", len);
+            //Log_info2("SetParameter : %s len: %d", (uintptr_t)"Batt", len);
             break;
 
     case DS_LREAD_ID:
@@ -353,7 +381,15 @@ bStatus_t DataService_SetParameter(uint8_t param, uint16_t len, void *value)
             pValLen = &ds_LReadValLen;
             valMinLen = DS_LREAD_LEN_MIN;
             valMaxLen = DS_LREAD_LEN;
-            Log_info2("SetParameter : %s len: %d", (uintptr_t)"LRead", len);
+            //Log_info2("SetParameter : %s len: %d", (uintptr_t)"LRead", len);
+            break;
+
+    case DS_COUNT_ID:
+            pAttrVal = ds_CountVal;
+            pValLen = &ds_CountValLen;
+            valMinLen = DS_COUNT_LEN_MIN;
+            valMaxLen = DS_COUNT_LEN;
+            //Log_info2("SetParameter : %s len: %d", (uintptr_t)"Count", len);
             break;
 
     default:
@@ -438,6 +474,13 @@ bStatus_t DataService_GetParameter(uint8_t param, uint16_t *len, void *value)
                       *len);
             break;
 
+    case DS_COUNT_ID:
+            *len = MIN(*len, ds_CountValLen);
+            memcpy(value, ds_CountVal, *len);
+            Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"Count",
+                      *len);
+            break;
+
     default:
         Log_error1("GetParameter: Parameter #%d not valid.", param);
         ret = INVALIDPARAMETER;
@@ -487,10 +530,17 @@ static uint8_t Data_Service_findCharParamId(gattAttribute_t *pAttr)
     }
     //is "Read"?
     else if(ATT_UUID_SIZE == pAttr->type.len &&
-                !memcmp(pAttr->type.uuid, ds_LReadUUID, pAttr->type.len))
-        {
-            return(DS_LREAD_ID);
-        }
+            !memcmp(pAttr->type.uuid, ds_LReadUUID, pAttr->type.len))
+    {
+        return(DS_LREAD_ID);
+    }
+    //is "Read"?
+    else if(ATT_UUID_SIZE == pAttr->type.len &&
+            !memcmp(pAttr->type.uuid, ds_CountUUID, pAttr->type.len))
+    {
+        return(DS_LREAD_ID);
+    }
+
     else
     {
         return(0xFF); // Not found. Return invalid.
@@ -564,6 +614,17 @@ static bStatus_t Data_Service_ReadAttrCB(uint16_t connHandle,
 
             Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
                       (uintptr_t)"LRead",
+                      connHandle,
+                      offset,
+                      method);
+            /* Other considerations for Time can be inserted here */
+            break;
+
+    case DS_COUNT_ID:
+            valueLen = ds_CountValLen;
+
+            Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
+                      (uintptr_t)"Count",
                       connHandle,
                       offset,
                       method);
@@ -700,6 +761,21 @@ static bStatus_t Data_Service_WriteAttrCB(uint16_t connHandle,
         Log_info5(
             "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
             (uintptr_t)"LRead",
+            connHandle,
+            len,
+            offset,
+            method);
+        /* Other considerations for String can be inserted here */
+        break;
+
+    case DS_COUNT_ID:
+        writeLenMin = DS_COUNT_LEN_MIN;
+        writeLenMax = DS_COUNT_LEN;
+        pValueLenVar = &ds_CountValLen;
+
+        Log_info5(
+            "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
+            (uintptr_t)"Count",
             connHandle,
             len,
             offset,

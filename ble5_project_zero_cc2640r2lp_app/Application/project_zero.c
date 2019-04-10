@@ -259,13 +259,14 @@ Task_Struct pzTask;
 uint8_t appTaskStack[PZ_TASK_STACK_SIZE];
 
 #define DATA_ARRAY_SIZE 100
-int8_t data_array[DATA_ARRAY_SIZE];
-int8_t data_array_index;
+uint8_t data_array[DATA_ARRAY_SIZE];
+uint8_t data_array_index;
 //int8_t currTime;
 int8_t lastRead;
 int8_t batteryLevel;
 
 int32_t currTime;
+uint32_t countofdata;
 
 /*
 “{currtime: ##########,
@@ -591,7 +592,8 @@ static void ProjectZero_init(void)
     ADC_init();
     ADC_Params_init(&adcParams);
 
-    data_array_index = 0; //starting data results
+    data_array_index = 0;
+    countofdata = 0;//starting data results
     currTime = 0;
 
     /*
@@ -2385,7 +2387,7 @@ static void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId)
 
 static void adcSwiFxn(UArg nothing)
 {
-    Log_info0("ADC Software Interrupt Function occurred.");
+    //Log_info0("ADC Software Interrupt Function occurred.");
 
     if(ProjectZero_enqueueMsg(PZ_ADC_START_EVT, NULL) != SUCCESS)
     {
@@ -2407,7 +2409,7 @@ static void ProjectZero_sampleADC(void)
     int avg = 0;
     int times = 32;
 
-    Log_info0("ADC Sample begins.");
+    //Log_info0("ADC Sample begins.");
     adcHandle = ADC_open(Board_ADC0, &adcParams);
     if(adcHandle == NULL)
     {
@@ -2428,7 +2430,19 @@ static void ProjectZero_sampleADC(void)
 
     avg /= times;
 
-    Log_info2("ADC raw value: %d at time %d", avg, currTime);
+    Log_info2("ADC raw value: %d at time %d \n", avg, currTime);
+    //maintain above
+    uint8_t tempValue;
+    uint32_t index = countofdata/8;
+    if (avg >= 1300) {                      //cutoff point for now
+        data_array[index] = (data_array[index] >> 1) | 0x80;
+    } else {
+        data_array[index] = (data_array[index] >> 1) & 0x7F;
+    }
+    DataService_SetParameter(DS_COUNT_ID, 2, &countofdata);
+    countofdata = (countofdata + 1)%(DATA_ARRAY_SIZE*8);
+
+    /* old stuff
     if (avg >= 1300) {                      //cutoff point for now
         data_array[data_array_index] = '1';
     } else {
@@ -2436,9 +2450,12 @@ static void ProjectZero_sampleADC(void)
     }
     data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
     data_array[data_array_index] = 0;
+    */
 
+    data_array[index + 1] = 0;
     DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
-    //DataService_SetParameter(DS_TIME_ID, 4, &currTime);
+
+    //maintain below
     uint8_t timeRead = currTime;
     DataService_SetParameter(DS_LREAD_ID, 4, &timeRead);
 

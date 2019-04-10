@@ -99,6 +99,13 @@ extern "C"
 #define DS_LREAD_LEN                4
 #define DS_LREAD_LEN_MIN            0
 
+#define DS_COUNT_ID                 4
+#define DS_COUNT_UUID               0x1135
+#define DS_COUNT_UUID_BASE128(uuid) 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+    0xB0, 0x00, 0x40, 0x51, 0x04, LO_UINT16(uuid), HI_UINT16(uuid), 0x00, 0xF0
+#define DS_COUNT_LEN                2
+#define DS_COUNT_LEN_MIN            0
+
 /*********************************************************************
  * TYPEDEFS
  */
