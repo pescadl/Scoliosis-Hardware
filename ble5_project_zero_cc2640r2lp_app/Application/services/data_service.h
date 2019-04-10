@@ -92,6 +92,13 @@ extern "C"
 #define DS_BATT_LEN                1
 #define DS_BATT_LEN_MIN            0
 
+#define DS_LREAD_ID                 3
+#define DS_LREAD_UUID               0x1134
+#define DS_LREAD_UUID_BASE128(uuid) 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+    0xB0, 0x00, 0x40, 0x51, 0x04, LO_UINT16(uuid), HI_UINT16(uuid), 0x00, 0xF0
+#define DS_LREAD_LEN                4
+#define DS_LREAD_LEN_MIN            0
+
 /*********************************************************************
  * TYPEDEFS
  */

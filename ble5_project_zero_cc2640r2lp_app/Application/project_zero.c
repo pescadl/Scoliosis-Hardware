@@ -1140,6 +1140,7 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
 
             uint8_t timeInit[] = "000";
             DataService_SetParameter(DS_TIME_ID, sizeof(timeInit), timeInit);
+            DataService_SetParameter(DS_LREAD_ID, sizeof(timeInit), timeInit);
 
             // Read the battery voltage (V), only the first 12 bits
             uint32_t percent = AONBatMonBatteryVoltageGet();
@@ -2435,27 +2436,11 @@ static void ProjectZero_sampleADC(void)
     }
     data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
     data_array[data_array_index] = 0;
-    //currTime++;
-
-
-    //uint32_t BatValue = AONBatMonBatteryVoltageGet();
-    //Log_info2("Battery Value: #%d.0x%x\n", (BatValue&(0x700))>>8, BatValue & 0x0FF); //3.3, 2.97, 2.64, 2.31, 1.98, 1.65, 1.32, .99, .66, .33, .02
-
-
-    // Read the battery voltage (V), only the first 12 bits
-    uint32_t percent = AONBatMonBatteryVoltageGet();
-    // Convert to from V to mV to avoid fractions.
-    // Fractional part is in the lower 8 bits thus converting is done as follows:
-    // (1/256)/(1/1000) = 1000/256 = 125/32
-    // This is done most effectively by multiplying by 125 and then shifting
-    // 5 bits to the right.
-    percent = (percent * 125) >> 5;
-    percent = ((percent* 100) / 3300);
-    Log_info1("percentage: %d", percent);
-
 
     DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
     //DataService_SetParameter(DS_TIME_ID, 4, &currTime);
+    uint8_t timeRead = currTime;
+    DataService_SetParameter(DS_LREAD_ID, 4, &timeRead);
 
     ADC_close(adcHandle);
 }

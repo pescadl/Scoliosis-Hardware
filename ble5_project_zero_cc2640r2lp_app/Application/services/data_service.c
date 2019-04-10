@@ -96,9 +96,14 @@ CONST uint8_t ds_TimeUUID[ATT_UUID_SIZE] =
 // Batt UUID
 CONST uint8_t ds_BattUUID[ATT_UUID_SIZE] =
 {
-    DS_TIME_UUID_BASE128(DS_BATT_UUID)
+    DS_BATT_UUID_BASE128(DS_BATT_UUID)
 };
 
+// Batt UUID
+CONST uint8_t ds_LReadUUID[ATT_UUID_SIZE] =
+{
+    DS_LREAD_UUID_BASE128(DS_LREAD_UUID)
+};
 /*********************************************************************
  * LOCAL VARIABLES
  */
@@ -139,6 +144,15 @@ static uint8_t ds_BattVal[DS_BATT_LEN] = {0};
 
 // Length of data in characteristic "Batt" Value variable, initialized to minimal size.
 static uint16_t ds_BattValLen = DS_BATT_LEN_MIN;
+
+// Characteristic "Read" Properties (for declaration)
+static uint8_t ds_LReadProps = GATT_PROP_READ | GATT_PROP_WRITE;
+
+// Characteristic "Read" Value variable
+static uint8_t ds_LReadVal[DS_LREAD_LEN] = {0};
+
+// Length of data in characteristic "Batt" Value variable, initialized to minimal size.
+static uint16_t ds_LReadValLen = DS_LREAD_LEN_MIN;
 
 /*********************************************************************
  * Profile Attributes - Table
@@ -188,12 +202,26 @@ static gattAttribute_t Data_ServiceAttrTbl[] =
             0,
             &ds_BattProps
        },
-              // Time Characteristic Value
+              // Batt Characteristic Value
        {
           { ATT_UUID_SIZE, ds_BattUUID },
             GATT_PERMIT_READ | GATT_PERMIT_WRITE,
             0,
             ds_BattVal
+       },
+       // Read Characteristic Declaration
+       {
+          { ATT_BT_UUID_SIZE, characterUUID },
+            GATT_PERMIT_READ,
+            0,
+            &ds_LReadProps
+       },
+       // Read Characteristic Value
+       {
+          { ATT_UUID_SIZE, ds_LReadUUID },
+            GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+            0,
+            ds_LReadVal
        },
 };
 
@@ -309,7 +337,7 @@ bStatus_t DataService_SetParameter(uint8_t param, uint16_t len, void *value)
             pValLen = &ds_TimeValLen;
             valMinLen = DS_TIME_LEN_MIN;
             valMaxLen = DS_TIME_LEN;
-            Log_info2("SetParameter : %s len: %d", (uintptr_t)"Time", len);
+            //Log_info2("SetParameter : %s len: %d", (uintptr_t)"Time", len);
             break;
 
     case DS_BATT_ID:
@@ -318,6 +346,14 @@ bStatus_t DataService_SetParameter(uint8_t param, uint16_t len, void *value)
             valMinLen = DS_BATT_LEN_MIN;
             valMaxLen = DS_BATT_LEN;
             Log_info2("SetParameter : %s len: %d", (uintptr_t)"Batt", len);
+            break;
+
+    case DS_LREAD_ID:
+            pAttrVal = ds_LReadVal;
+            pValLen = &ds_LReadValLen;
+            valMinLen = DS_LREAD_LEN_MIN;
+            valMaxLen = DS_LREAD_LEN;
+            Log_info2("SetParameter : %s len: %d", (uintptr_t)"LRead", len);
             break;
 
     default:
@@ -392,7 +428,13 @@ bStatus_t DataService_GetParameter(uint8_t param, uint16_t *len, void *value)
     case DS_BATT_ID:
             *len = MIN(*len, ds_BattValLen);
             memcpy(value, ds_BattVal, *len);
-            Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"Time",
+            Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"Batt",
+                      *len);
+            break;
+    case DS_LREAD_ID:
+            *len = MIN(*len, ds_LReadValLen);
+            memcpy(value, ds_LReadVal, *len);
+            Log_info2("GetParameter : %s returning %d bytes", (uintptr_t)"LRead",
                       *len);
             break;
 
@@ -443,6 +485,12 @@ static uint8_t Data_Service_findCharParamId(gattAttribute_t *pAttr)
     {
         return(DS_BATT_ID);
     }
+    //is "Read"?
+    else if(ATT_UUID_SIZE == pAttr->type.len &&
+                !memcmp(pAttr->type.uuid, ds_LReadUUID, pAttr->type.len))
+        {
+            return(DS_LREAD_ID);
+        }
     else
     {
         return(0xFF); // Not found. Return invalid.
@@ -506,6 +554,16 @@ static bStatus_t Data_Service_ReadAttrCB(uint16_t connHandle,
 
             Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
                       (uintptr_t)"Batt",
+                      connHandle,
+                      offset,
+                      method);
+            /* Other considerations for Time can be inserted here */
+            break;
+    case DS_LREAD_ID:
+            valueLen = ds_LReadValLen;
+
+            Log_info4("ReadAttrCB : %s connHandle: %d offset: %d method: 0x%02x",
+                      (uintptr_t)"LRead",
                       connHandle,
                       offset,
                       method);
@@ -627,6 +685,21 @@ static bStatus_t Data_Service_WriteAttrCB(uint16_t connHandle,
         Log_info5(
             "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
             (uintptr_t)"Batt",
+            connHandle,
+            len,
+            offset,
+            method);
+        /* Other considerations for String can be inserted here */
+        break;
+
+    case DS_LREAD_ID:
+        writeLenMin = DS_LREAD_LEN_MIN;
+        writeLenMax = DS_LREAD_LEN;
+        pValueLenVar = &ds_LReadValLen;
+
+        Log_info5(
+            "WriteAttrCB : %s connHandle(%d) len(%d) offset(%d) method(0x%02x)",
+            (uintptr_t)"LRead",
             connHandle,
             len,
             offset,
