@@ -107,7 +107,7 @@ CONST uint8_t ds_LReadUUID[ATT_UUID_SIZE] =
 
 CONST uint8_t ds_CountUUID[ATT_UUID_SIZE] =
 {
-    DS_COUNT_UUID_BASE128(DS_LREAD_UUID)
+    DS_COUNT_UUID_BASE128(DS_COUNT_UUID)
 };
 /*********************************************************************
  * LOCAL VARIABLES
