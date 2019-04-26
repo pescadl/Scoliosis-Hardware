@@ -596,17 +596,6 @@ static void ProjectZero_init(void)
     countofdata = 0;//starting data results
     currTime = 0;
 
-    /*
-    // Open LED pins
-    ledPinHandle = PIN_open(&ledPinState, ledPinTable);
-    if(!ledPinHandle)
-    {
-        Log_error0("Error initializing board LED pins");
-        Task_exit();
-    }
-    */
-
-
     // Open button pins
     buttonPinHandle = PIN_open(&buttonPinState, buttonPinTable);
     if(!buttonPinHandle)
@@ -653,9 +642,9 @@ static void ProjectZero_init(void)
     {
         // Don't send a pairing request after connecting (the peer device must
         // initiate pairing)
-        uint8_t pairMode = GAPBOND_PAIRING_MODE_WAIT_FOR_REQ;
+        uint8_t pairMode =  GAPBOND_PAIRING_MODE_INITIATE;                                      //was GAPBOND_PAIRING_MODE_WAIT_FOR_REQ; -> Marisa changed
         // Use authenticated pairing: require passcode.
-        uint8_t mitm = TRUE;
+        uint8_t mitm = FALSE;                                                                   //was TRUE -> marisa made false. No passcode required
         // This device only has display capabilities. Therefore, it will display the
         // passcode during pairing. However, since the default passcode is being
         // used, there is no need to display anything.
@@ -1134,7 +1123,7 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
         {
             Log_info1("Continue to Advertise, %d possible connection remain", MAX_NUM_BLE_CONNS - linkDB_NumActive());
             // Start advertising since there is room for more connections
-            //GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);
+            GapAdv_enable(advHandleLegacy, GAP_ADV_ENABLE_OPTIONS_USE_MAX, 0);                                              //marisa put this back in for pairing? unsure
         }
         else
         {
@@ -1147,10 +1136,6 @@ static void ProjectZero_processGapMessage(gapEventHdr_t *pMsg)
             // Read the battery voltage (V), only the first 12 bits
             uint32_t percent = AONBatMonBatteryVoltageGet();
             // Convert to from V to mV to avoid fractions.
-            // Fractional part is in the lower 8 bits thus converting is done as follows:
-            // (1/256)/(1/1000) = 1000/256 = 125/32
-            // This is done most effectively by multiplying by 125 and then shifting
-            // 5 bits to the right.
             percent = (percent * 125) >> 5;
             percent = ((percent* 100) / 3300);
             Log_info1("percentage: %d", percent);
