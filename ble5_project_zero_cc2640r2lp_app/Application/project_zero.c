@@ -258,7 +258,7 @@ Task_Struct pzTask;
 #endif
 uint8_t appTaskStack[PZ_TASK_STACK_SIZE];
 
-#define DATA_ARRAY_SIZE 100
+#define DATA_ARRAY_SIZE 120
 uint8_t data_array[DATA_ARRAY_SIZE];
 uint8_t data_array_index;
 //int8_t currTime;
@@ -642,9 +642,9 @@ static void ProjectZero_init(void)
     {
         // Don't send a pairing request after connecting (the peer device must
         // initiate pairing)
-        uint8_t pairMode =  GAPBOND_PAIRING_MODE_INITIATE;                                      //was GAPBOND_PAIRING_MODE_WAIT_FOR_REQ; -> Marisa changed
+        uint8_t pairMode = GAPBOND_PAIRING_MODE_WAIT_FOR_REQ; //GAPBOND_PAIRING_MODE_INITIATE;                                      //was GAPBOND_PAIRING_MODE_WAIT_FOR_REQ; -> Marisa changed
         // Use authenticated pairing: require passcode.
-        uint8_t mitm = FALSE;                                                                   //was TRUE -> marisa made false. No passcode required
+        uint8_t mitm = TRUE;//FALSE;                                                                   //was TRUE -> marisa made false. No passcode required
         // This device only has display capabilities. Therefore, it will display the
         // passcode during pairing. However, since the default passcode is being
         // used, there is no need to display anything.
@@ -1895,7 +1895,14 @@ void ProjectZero_LedService_ValueChangeHandler(
         */
         if (strcmp(pretty_data_holder, "64:6F:6E:65") == 0) {
 
-            Log_info0("Done. Can now exit.");                                                                                 //need to exit lol
+            Log_info0("Done. Can now exit.");
+
+            //reset pointer
+            data_array_index = 0;
+
+            //reset count
+            countofdata = 0;
+            Log_info1("count: %d", countofdata);
             bStatus_t status = GapAdv_disable(advHandleLegacy);
 
             if(status==bleIncorrectMode)
@@ -2416,10 +2423,10 @@ static void ProjectZero_sampleADC(void)
     avg /= times;
 
     Log_info2("ADC raw value: %d at time %d \n", avg, currTime);
-    //maintain above
+
     uint8_t tempValue;
     uint32_t index = countofdata/8;
-    if (avg >= 1300) {                      //cutoff point for now
+    if (avg >= 1400) {                      //cutoff point for now
         data_array[index] = (data_array[index] >> 1) | 0x80;
     } else {
         data_array[index] = (data_array[index] >> 1) & 0x7F;
@@ -2427,20 +2434,11 @@ static void ProjectZero_sampleADC(void)
     DataService_SetParameter(DS_COUNT_ID, 2, &countofdata);
     countofdata = (countofdata + 1)%(DATA_ARRAY_SIZE*8);
 
-    /* old stuff
-    if (avg >= 1300) {                      //cutoff point for now
-        data_array[data_array_index] = '1';
-    } else {
-        data_array[data_array_index] = '0';
-    }
-    data_array_index = (data_array_index + 1)%DATA_ARRAY_SIZE;
-    data_array[data_array_index] = 0;
-    */
 
     data_array[index + 1] = 0;
     DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
 
-    //maintain below
+
     uint8_t timeRead = currTime;
     DataService_SetParameter(DS_LREAD_ID, 4, &timeRead);
 
