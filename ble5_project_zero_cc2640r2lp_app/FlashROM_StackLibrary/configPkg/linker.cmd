@@ -9,8 +9,8 @@
  */
 
 
--l"C:\Users\maris\Documents\GitHub\Scoliosis-Hardware\ble5_project_zero_cc2640r2lp_app\FlashROM_StackLibrary\configPkg\package\cfg\app_ble_pem3.oem3"
--l"C:\Users\maris\Documents\GitHub\Scoliosis-Hardware\ble5_project_zero_cc2640r2lp_app\TOOLS\src\sysbios\rom_sysbios.aem3"
+-l"C:\Users\dayoung\school\ee364d\workspace_v8\ble5_project_zero_cc2640r2lp_app\FlashROM_StackLibrary\configPkg\package\cfg\app_ble_pem3.oem3"
+-l"C:\Users\dayoung\school\ee364d\workspace_v8\ble5_project_zero_cc2640r2lp_app\TOOLS\src\sysbios\rom_sysbios.aem3"
 -l"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\boot.aem3"
 -l"C:\ti\simplelink_cc2640r2_sdk_2_40_00_32\kernel\tirtos\packages\ti\targets\arm\rtsarm\lib\auto_init.aem3"
 

@@ -98,8 +98,8 @@ ADCCC26XX_Object adcCC26xxObjects[CC2640R2DK_4XS_ADCCOUNT];
 
 const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC2640R2DK_4XS_ADCCOUNT] = {
     {
-        .adcDIO              = IOID_8,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO4,
+        .adcDIO              = IOID_7,
+        .adcCompBInput       = ADC_COMPB_IN_AUXIO5,
         .refSource           = ADCCC26XX_VDDS_REFERENCE,
         .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
         .inputScalingEnabled = true,
@@ -282,7 +282,7 @@ const GPTimerCC26XX_Config GPTimerCC26XX_config[CC2640R2DK_4XS_GPTIMERPARTSCOUNT
 const PIN_Config BoardGpioInitTable[] = {
 
     CC2640R2DK_4XS_PIN_LED3 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,  /* LED initially off */
-    CC2640R2DK_4XS_PIN_LED4 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,  /* LED initially off */
+    //CC2640R2DK_4XS_PIN_LED4 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,  /* LED initially off */
     CC2640R2DK_4XS_KEY_SELECT | PIN_INPUT_EN | PIN_PULLUP | PIN_HYSTERESIS,                   /* Button is active low */
     CC2640R2DK_4XS_KEY_UP | PIN_INPUT_EN | PIN_PULLUP | PIN_HYSTERESIS,                       /* Button is active low */
     CC2640R2DK_4XS_KEY_DOWN | PIN_INPUT_EN | PIN_PULLUP | PIN_HYSTERESIS,                     /* Button is active low */

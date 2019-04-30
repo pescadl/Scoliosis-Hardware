@@ -115,7 +115,7 @@ extern const PIN_Config BoardGpioInitTable[];
  */
 
 /* Button Board */
-#define CC2640R2DK_4XS_KEY_SELECT                    IOID_7         /* P1.14 */
+#define CC2640R2DK_4XS_KEY_SELECT                    IOID_6         /* P1.14 */
 #define CC2640R2DK_4XS_KEY_UP                        IOID_4         /* P1.10 */
 #define CC2640R2DK_4XS_KEY_DOWN                      IOID_3         /* P1.12 */
 #define CC2640R2DK_4XS_KEY_LEFT                      PIN_UNASSIGNED
