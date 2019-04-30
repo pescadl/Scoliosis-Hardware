@@ -2436,7 +2436,7 @@ static void ProjectZero_sampleADC(void)
 
 
     data_array[index + 1] = 0;
-    DataService_SetParameter(DS_STRING_ID, data_array_index, data_array);
+    DataService_SetParameter(DS_STRING_ID, index+1, data_array);
 
 
     uint8_t timeRead = currTime;
