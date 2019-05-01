@@ -715,8 +715,6 @@ $EndComp
 NoConn ~ 4550 4050
 NoConn ~ 4700 4050
 NoConn ~ 5450 4800
-NoConn ~ 3800 5950
-NoConn ~ 3650 5950
 NoConn ~ 2950 5550
 Text GLabel 3500 4050 1    50   Input ~ 0
 GND
@@ -782,4 +780,50 @@ F 3 "~" H 1000 2300 50  0001 C CNN
 	1    1000 2300
 	1    0    0    -1  
 $EndComp
+$Comp
+L testDesign2-rescue:TestPoint-Connector TP1
+U 1 1 5CB567D6
+P 3650 5950
+F 0 "TP1" H 3700 6200 50  0000 R CNN
+F 1 "TP" H 3700 6300 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 3850 5950 50  0001 C CNN
+F 3 "~" H 3850 5950 50  0001 C CNN
+	1    3650 5950
+	-1   0    0    1   
+$EndComp
+$Comp
+L testDesign2-rescue:TestPoint-Connector TP2
+U 1 1 5CB56840
+P 3800 5950
+F 0 "TP2" H 3850 6200 50  0000 R CNN
+F 1 "TP" H 3850 6300 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 4000 5950 50  0001 C CNN
+F 3 "~" H 4000 5950 50  0001 C CNN
+	1    3800 5950
+	-1   0    0    1   
+$EndComp
+$Comp
+L testDesign2-rescue:TestPoint-Connector TP3
+U 1 1 5CB56C13
+P 1750 2650
+F 0 "TP3" H 1800 2900 50  0000 R CNN
+F 1 "TP" H 1800 3000 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1950 2650 50  0001 C CNN
+F 3 "~" H 1950 2650 50  0001 C CNN
+	1    1750 2650
+	-1   0    0    1   
+$EndComp
+$Comp
+L testDesign2-rescue:GND-power #PWR0102
+U 1 1 5CB56D92
+P 1600 2650
+F 0 "#PWR0102" H 1600 2400 50  0001 C CNN
+F 1 "GND" H 1605 2477 50  0000 C CNN
+F 2 "" H 1600 2650 50  0001 C CNN
+F 3 "" H 1600 2650 50  0001 C CNN
+	1    1600 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1600 2650 1750 2650
 $EndSCHEMATC

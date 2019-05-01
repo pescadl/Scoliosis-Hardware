@@ -1,4 +1,4 @@
-(module BatteryHolder_Keystone_120_112_CR2016 (layer F.Cu) (tedit 5C9801CF)
+(module BatteryHolder_Keystone_120_112_CR2016 (layer F.Cu) (tedit 5CBDF540)
   (fp_text reference REF** (at 0 -11.43) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -8,4 +8,14 @@
   (fp_circle (center 0 0) (end 10 0) (layer F.SilkS) (width 0.15))
   (pad 1 smd rect (at 0 0) (size 3.56 3.96) (layers F.Cu F.Paste F.Mask))
   (pad 2 smd rect (at -10.955 0) (size 1.35 4) (layers F.Cu F.Paste F.Mask))
+  (model C:/Users/dayoung/Downloads/keystone-PN112TR.STEP
+    (at (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
+  (model C:/Users/dayoung/Downloads/keystone-PN120TR.STEP
+    (offset (xyz -10 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
 )
