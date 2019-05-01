@@ -262,7 +262,7 @@ uint8_t appTaskStack[PZ_TASK_STACK_SIZE];
 uint8_t data_array[DATA_ARRAY_SIZE];
 uint8_t data_array_index;
 //int8_t currTime;
-int8_t lastRead;
+//int8_t lastRead;
 int8_t batteryLevel;
 
 int32_t currTime;
@@ -2426,7 +2426,7 @@ static void ProjectZero_sampleADC(void)
 
     uint8_t tempValue;
     uint32_t index = countofdata/8;
-    if (avg >= 1400) {                      //cutoff point for now
+    if (avg >= 1500) {                      //cutoff point for now
         data_array[index] = (data_array[index] >> 1) | 0x80;
     } else {
         data_array[index] = (data_array[index] >> 1) & 0x7F;
@@ -2439,7 +2439,7 @@ static void ProjectZero_sampleADC(void)
     DataService_SetParameter(DS_STRING_ID, index+1, data_array);
 
 
-    uint8_t timeRead = currTime;
+    uint32_t timeRead = currTime;
     DataService_SetParameter(DS_LREAD_ID, 4, &timeRead);
 
     ADC_close(adcHandle);
