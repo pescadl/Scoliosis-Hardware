@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name testDesign2)(type Legacy)(uri C:/Users/dayoung/school/ee364d/workspace_v8/testDesign2/testDesign2.lib)(options "")(descr ""))
+  (lib (name testDesign2-rescue)(type Legacy)(uri ${KIPRJMOD}/testDesign2-rescue.lib)(options "")(descr ""))
+)
